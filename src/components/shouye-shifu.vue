@@ -22,12 +22,6 @@
 					<swiper-slide>
 						<img src="../../static/153465.jpg" />
 					</swiper-slide>
-					<swiper-slide>
-						<img src="../../static/153465.jpg" />
-					</swiper-slide>
-					<swiper-slide>
-						<img src="../../static/153465.jpg" />
-					</swiper-slide>
 					<!-- 这是轮播的小圆点 -->
 					<div class="swiper-pagination" slot="pagination"></div>
 				</swiper>
