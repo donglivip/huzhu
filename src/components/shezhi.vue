@@ -1,51 +1,32 @@
 <template>
 	<div class="wrapper">
-		<div class="wrapper">
-			<div class="header">
-				<div class="header-cebian" @click="back()">
-					<img src="../../static/youjian.png" />
-				</div>
-				<div class="header-text">认证中心</div>
-				<div class="header-cebian"></div>
+		<div class="header">
+			<div class="header-cebian" @click="back()">
+				<img src="../../static/youjian.png" />
 			</div>
-			<div class="main">
-				<div class="main-one">
-					<input type="text" placeholder="真实姓名" v-model="msdName"/>
-				</div>
-				<div class="main-one">
-					<input type="text" placeholder="身份证号码" v-model="msdCardId"/>
-				</div>
-				<div class="main-two">
-					<div class="two-text">身份证正面</div>
-					<div class="two-box">
-						<img src="../../static/shenfen.png" />
-						<img src="../../static/zhaopian.png" @click="upload('sz')" id="sz" />
-					</div>
+			<div class="header-text">设置</div>
+			<div class="header-cebian" style="white-space: nowrap;" @click="myajax()">
+				保存
+			</div>
+		</div>
+		<div class="main">
+			<div class="main-box">
+				<div class="main-one" @click="upload()">
+					<div class="one-text">头像</div>
+					<img src="../../static/234564.jpg" v-if="msdHeadImg=='null'"/>
+					<img :src="msdHeadImg"  v-if="msdHeadImg!='null'"/>
 				</div>
 				<div class="main-two">
-					<div class="two-text">身份证反面</div>
-					<div class="two-box">
-						<img src="../../static/shenfen.png" />
-						<img src="../../static/zhaopian.png" @click="upload('sf')" id="sf" />
-					</div>
+					<div class="two-text">昵称</div>
+					<input class="two-news" type="text" v-model="msdNickname" placeholder="请输入用户名"/>
 				</div>
-				<!--<div class="main-two">
-					<div class="two-text">营业执照</div>
-					<div class="two-box">
-						<img src="../../static/yyzz.png" />
-						<img src="../../static/zhaopian.png" />
-					</div>
-				</div>
-				<div class="main-two">
-					<div class="two-text">特种营业执照</div>
-					<div class="two-box">
-						<img src="../../static/yyzz.png" />
-						<img src="../../static/zhaopian.png" />
-					</div>
+				<!--<div class="main-three">
+					<div class="three-text">登录密码</div>
+					<img src="../../static/you.png" />
 				</div>-->
-				<div class="bottom" @click="myajax()">
-					<div class="bottom-text">确认提交</div>
-				</div>
+			</div>
+			<div class="main-bottom" @click="exit()">
+				<div class="bottom-text">退出账号</div>
 			</div>
 		</div>
 	</div>
@@ -53,53 +34,22 @@
 
 <script>
 	export default {
-		name: 'renzhengzhongxin',
+		name: 'shezhi',
 		data() {
 			return {
-				files: [],
-				uploadtarget: '',
-				msdName:'',
-				msdCardId:''
+				msdHeadImg:localStorage.getItem('msdHeadImg'),
+				msdNickname:localStorage.getItem('msdNickname'),
+				tabdata: [],
+				msdHeadImgurl:''
 			}
 		},
 		methods: {
-			back: function() {
-				this.$router.back()
+			exit:function(){
+				localStorage.clear()
+				this.opennew('denglu')
 			},
-			myajax: function() {
+			upload: function() {
 				var that = this
-				//				提交认证
-				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
-					alert('资料填写不完整')
-					return false;
-				}
-				$.ajax({
-					type: 'post',
-					url: that.myurl + '/user/updateUserAuthentication',
-					data: {
-						msdUserId: localStorage.getItem('userid'),
-						msdName:that.msdName,
-						msdCardId:that.msdCardId,
-						msdCardFrontImg:$('#sz').attr('imgsrc'),
-						msdCardBackImg:$('#sf').attr('imgsrc')
-					},
-					success: function(res) {
-						if(res.data == 1) {
-							localStorage.setItem('msdIsIdentity',1)
-							that.back()
-						} else {
-							alert(res.msg)
-						}
-					},
-					error: function(res) {
-						alert('网络连接失败，请检查网络后再试！')
-					}
-				})
-			},
-			upload: function(target) {
-				var that = this
-				that.files = []
-				that.uploadtarget = target
 				var btnArray = [{
 					title: "照相机"
 				}, {
@@ -178,7 +128,7 @@
 						height: h
 					});
 					ctx.drawImage(that, 0, 0, w, h);
-					$('#' + thats.uploadtarget + '').attr('src', canvas.toDataURL('image/jpeg', 1 || 0.8))
+					thats.msdHeadImg=canvas.toDataURL('image/jpeg', 1 || 0.8)
 					$.ajax({
 						type: 'post',
 						url: thats.myurl + '/user/inserUserImg',
@@ -187,7 +137,7 @@
 						},
 						success: function(res) {
 							if(res.status == 200) {
-								$('#' + thats.uploadtarget + '').attr('imgsrc',res.data)
+								thats.msdHeadImgurl=res.data
 							} else {
 								alert(res.msg)
 							}
@@ -197,6 +147,40 @@
 						}
 					})
 				}
+			},
+			myajax: function() {
+				var that = this
+				//				提交修改
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/user/updateUserAuthentication',
+					data: {
+						msdUserId: localStorage.getItem('userid'),
+						msdHeadImg:that.msdHeadImgurl,
+						msdNickname:that.msdNickname
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							localStorage.setItem('msdNickname',that.msdNickname)
+							localStorage.setItem('msdHeadImg',that.msdHeadImg)
+							that.back()
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
+			back: function() {
+				this.$router.back()
+			},
+			opennew: function(target, id) {
+				this.$store.state.msdNewsId = id
+				this.$router.push({
+					name: target
+				})
 			}
 		},
 		mounted() {
@@ -223,7 +207,7 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	
+	input{flex: 1;border: 0;height: 100%;text-align: right;}
 	.wrapper {
 		background: #F7F7F9;
 	}
@@ -233,9 +217,9 @@
 		align-items: center;
 		justify-content: space-between;
 		height: .96rem;
-		padding: 0 .3rem;
 		background: #FFFFFF;
 		margin-bottom: .2rem;
+		padding: 0 .3rem;
 	}
 	
 	.header-cebian {
@@ -251,67 +235,82 @@
 	
 	.header-text {
 		font-size: .32rem;
-		color: #26261E;
-		margin-left: .3rem;
+		color: #272727;
 	}
 	
-	.main {
-		height: calc(100% - .96rem);
-		overflow-x: hidden;
-		overflow-y: scroll;
+	.main-box {
 		background: #FFFFFF;
 	}
 	
 	.main-one {
-		height: .9rem;
-		border-bottom: 1px solid #E4E4E6;
+		height: 1.8rem;
 		display: flex;
 		align-items: center;
-		justify-content: flex-start;
+		justify-content: space-between;
+		border-bottom: 1px solid #E4E4E6;
 		padding: 0 .3rem;
 	}
 	
-	input {
-		border: 0;
-		height: .9rem;
-		width: 100%;
+	.main-one img {
+		height: 1.2rem;
+		border-radius: 2rem;
+	}
+	
+	.one-text {
 		font-size: .28rem;
-		color: #CACACA;
+		color: #26261E;
 	}
 	
 	.main-two {
-		height: 3.4rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1px solid #E4E4E6;
 		padding: 0 .3rem;
+		height: 1rem;
 	}
 	
 	.two-text {
 		font-size: .28rem;
-		color: #272727;
-		padding: .3rem 0;
+		color: #26261E;
 	}
 	
-	.two-box {
+	.two-news {
+		font-size: .28rem;
+		color: #CCCCCC;
+	}
+	
+	.main-three {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+		border-bottom: 1px solid #E4E4E6;
+		padding: 0 .3rem;
+		height: 1rem;
 	}
 	
-	.two-box img {
-		height: 2.2rem;
-		border-radius: .12rem;
+	.three-text {
+		font-size: .28rem;
+		color: #26261E;
 	}
 	
-	.bottom {
-		height: .96rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.main-three img {
+		height: .4rem;
+	}
+	
+	.main-bottom {
+		height: .9rem;
 		background: #0DA5FE;
+		margin: 0 .72rem;
 		border-radius: .6rem;
-		margin: .6rem .7rem;
+		position: fixed;
+		bottom: .8rem;
+		width: 6rem;
 	}
 	
 	.bottom-text {
+		text-align: center;
+		line-height: .9rem;
 		font-size: .32rem;
 		color: #FFFFFF;
 	}

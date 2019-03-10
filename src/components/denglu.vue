@@ -9,10 +9,10 @@
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="text" placeholder="请输入手机号" class="phone" v-model="phone"/>
+				<input type="number" placeholder="请输入账号" class="phone" v-model="phone" />
 			</div>
 			<div class="main-one">
-				<input type="password" placeholder="密码" class="phone" v-model="password"/>
+				<input type="password" placeholder="密码" class="phone" v-model="password" />
 			</div>
 			<div class="main-two" @click="myajax()">
 				<div class="two-text">登录</div>
@@ -30,26 +30,57 @@
 		name: 'denglu',
 		data() {
 			return {
-				phone:'',
-				password:''
+				phone: '',
+				password: ''
 			}
 		},
 		methods: {
 			myajax: function() {
 				var that = this
 				//				获取店铺列表
+				if(that.phone == '') {
+					plus.nativeUI.toast('请输入手机号')
+					return false;
+				}
+				if(that.password == '') {
+					plus.nativeUI.toast('请输入手密码')
+					return false;
+				}
+				if(!(/^1[3|4|5|8|9|7][0-9]\d{4,8}$/.test(that.phone))) {
+					plus.nativeUI.toast("不是完整的11位手机号或者正确的手机号前七位");
+					return false;
+				}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/userLogin',
 					data: {
 						phone: that.phone,
-						password:that.password
+						password: that.password
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							if(res.data.length==0){
+							if(res.data.length == 0) {
 								alert('该用户未注册！')
-							}else{
+							} else { 
+								if (res.data[0].msdCompanyId==undefined) {
+//									是用户
+									localStorage.setItem('userid',res.data[0].msdUserId)
+									localStorage.setItem('userphone',res.data[0].msdPhone)
+									localStorage.setItem('msdIsMember',res.data[0].msdIsMember)
+									localStorage.setItem('msdHeadImg',res.data[0].msdHeadImg)
+									localStorage.setItem('msdIsIdentity',res.data[0].msdIsIdentity)
+									localStorage.setItem('msdNickname',res.data[0].msdNickname)
+									that.opennew('shouye-yonghu')
+								} else{
+//									是师傅
+									localStorage.setItem('userid',res.data[0].msdCompanyId)
+									localStorage.setItem('userphone',res.data[0].msdCoPhone)
+									localStorage.setItem('msdIsMember',res.data[0].msdCoIsMemeber)
+									localStorage.setItem('msdHeadImg',res.data[0].msdHeadImg)
+									localStorage.setItem('msdIsIdentity',res.data[0].msdIsIdentity)
+									localStorage.setItem('msdNickname',res.data[0].msdNickname)
+									that.opennew('shouye-shifu')
+								}
 								
 							}
 						} else {
@@ -64,9 +95,8 @@
 			back: function() {
 				this.$router.back()
 			},
-			opennew: function(target, id) {
-				this.$store.state.msdNewsId = id
-				this.$router.push({
+			opennew: function(target) {
+				this.$router.replace({
 					name: target
 				})
 			}

@@ -11,7 +11,7 @@
 			<div class="main-one">
 				<div class="one-text" v-for='(val,index) in tabdata' @click="change(val.msdFootStatusId,index)" :class="navindex==index?'one-news':''">{{val.msdFsName}}</div>
 			</div>
-			<div class="main-two" v-for="val in shopdata">
+			<div class="main-two" v-for="val in shopdata" @click="opennew('canyinxiangqing',val.msdFoodResultId)">
 				<div class="two-lift">
 					<img :src="val.msdFrHeadImg" />
 				</div>
@@ -59,7 +59,7 @@
 				this.$router.back()
 			},
 			opennew: function(target, id) {
-				this.$store.state.msdNewsId = id
+				this.$store.state.msdInsuranceResultId = id
 				this.$router.push({
 					name: target
 				})
@@ -92,6 +92,9 @@
 		computed: {
 			myurl() {
 				return this.$store.state.myurl
+			},
+			msdInsuranceResultId() {
+				return this.$store.state.msdInsuranceResultId
 			}
 		}
 	}

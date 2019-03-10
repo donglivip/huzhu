@@ -2,12 +2,12 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-cebian">
-				<div class="cebian-text">徐州</div>
+				<div class="cebian-text">{{city}}</div>
 				<img src="../../static/xia.png" />
 			</div>
 			<div class="header-content">
 				<img src="../../static/dingwei1.png" />
-				<div class="header-text">徐州市云龙区</div>
+				<div class="header-text">{{city + district}}</div>
 			</div>
 			<div class="header-cebian">
 				<div class="cebian-news">切换身份</div>
@@ -25,11 +25,11 @@
 				</swiper>
 			</div>
 			<div class="main-two">
-				<div class="two-box" v-for="(val,index) in tabdata" v-if="index<3" @click="opennew('gongsiliebiao',val.msdServiceStyleId)">
-					<img src="../../static/weixiu.png" />
-					<div class="two-text">上门维修</div>
+				<div class="two-box" v-for="(val,index) in tabdata" v-if="index<3" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
+					<img :src="val.msdSsImg" />
+					<div class="two-text">{{val.msdSsName}}</div>
 				</div>
-				<div class="two-box">
+				<div class="two-box" @click="opennew('fenlei','','')">
 					<img src="../../static/gengduo.png" />
 					<div class="two-text">更多分类</div>
 				</div>
@@ -77,11 +77,11 @@
 				<img src="../../static/dating.png" />
 				<div class="bottom-text">大厅</div>
 			</div>
-			<div class="bottom-box">
+			<div class="bottom-box" @click="opennew('wodedingdan')">
 				<img src="../../static/ding_dan.png" />
 				<div class="bottom-news">订单</div>
 			</div>
-			<div class="bottom-box">
+			<div class="bottom-box" @click="opennew('wode-yonghu')">
 				<img src="../../static/wode.png" />
 				<div class="bottom-news">我的</div>
 			</div>
@@ -104,65 +104,108 @@
 						el: '.swiper-pagination'
 					}
 				},
-				newdata:[],
-				tabdata:[],
-				imgdata:[]
+				newdata: [],
+				tabdata: [],
+				imgdata: [],
+				district: '',
+				city: '获取中'
 			}
 		},
 		methods: {
 			myajax: function() {
+				function plusReady() {
+					plus.geolocation.getCurrentPosition(function(p) {
+						that.city = p.address.city
+						that.district = p.address.district
+					}, function(e) {
+						plus.nativeUI.confirm("请检查手机网络或者位置服务开关是否打开后", function(e) {
+							if(e.index == 0) {
+								if(mui.os.ios) {
+									plus.runtime.launchApplication({
+										action: 'app-settings:'
+									}, function(e) {}); //WIFI
+								} else {
+									var main = plus.android.runtimeMainActivity(); //获取activity
+									var Intent = plus.android.importClass('android.content.Intent');
+									var Settings = plus.android.importClass('android.provider.Settings');
+									var intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS); //可设置表中所有Action字段
+									main.startActivity(intent);
+									plusReady()
+								}
+							} else {
+								plusReady()
+							}
+						}, {
+							"title": "定位失败",
+							"buttons": ["点我设置", "点击重试"],
+							"verticalAlign": "bottom"
+						});
+					});
+				}
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener("plusready", plusReady, false);
+				}
 				var that = this
-//				获取轮播图
+				//				获取轮播图
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/selectMsdBanner',
-					success:function(res){
-						if(res.status==200){
-							that.imgdata=res.data
-						}else{
+					success: function(res) {
+						if(res.status == 200) {
+							that.imgdata = res.data
+						} else {
 							alert(res.msg)
 						}
 					},
-					error:function(res){
+					error: function(res) {
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
-//				获取推荐新闻
+				//				获取推荐新闻
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/selectNews',
-					success:function(res){
-						if(res.status==200){
-							that.newdata=res.data
-						}else{
+					success: function(res) {
+						if(res.status == 200) {
+							that.newdata = res.data
+						} else {
 							alert(res.msg)
 						}
 					},
-					error:function(res){
+					error: function(res) {
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
-//				获取服务类型分类
+				//				获取服务类型分类
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/selectMsdServiceStyle',
-					success:function(res){
-						if(res.status==200){
-							that.tabdata=res.data
-						}else{
+					success: function(res) {
+						if(res.status == 200) {
+							that.tabdata = res.data
+						} else {
 							alert(res.msg)
 						}
 					},
-					error:function(res){
+					error: function(res) {
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
 			},
-			opennew:function(target,id){
-				this.$store.state.MsdServiceStyleId=id
-				this.$router.push({
-					name: target
-				})
+			opennew: function(target, id,name) {
+				if(localStorage.getItem('userid')=='null'||localStorage.getItem('userid')==undefined){
+					this.$router.replace({
+						name: 'denglu'
+					})
+				}else{
+					this.$store.state.MsdServiceStylename=name
+					this.$store.state.MsdServiceStyleId = id
+					this.$router.push({
+						name: target
+					})
+				}
 			}
 		},
 		mounted() {
@@ -178,6 +221,9 @@
 			},
 			myurl() {
 				return this.$store.state.myurl
+			},
+			MsdServiceStylename() {
+				return this.$store.state.MsdServiceStylename
 			}
 		}
 	}
@@ -196,7 +242,11 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	.three-content{flex: 1;}
+	
+	.three-content {
+		flex: 1;
+	}
+	
 	.wrapper {
 		background: #FFFFFF;
 	}
@@ -225,6 +275,7 @@
 	.cebian-text {
 		font-size: .28rem;
 		color: #26261E;
+		white-space: nowrap;
 	}
 	
 	.header-content {

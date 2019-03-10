@@ -2,28 +2,26 @@
 	<div class="wrapper">
 		<!--头-->
 		<div class="header">
-			<div class="header-cebian"></div>
+			<div class="header-cebian" @click="opennew('denglu')">
+				<img src="../../static/youjian.png"/>
+			</div>
 			<div class="header-text">注册</div>
 			<div class="header-cebian"></div>
 		</div>
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="text" placeholder="请输入手机号" class="shouji" />
-				<div class="one-text">获取验证码</div>
+				<input type="text" placeholder="请输入账号" class="shouji" v-model="msdPhone"/>
 			</div>
 			<div class="main-one">
-				<input type="password" placeholder="输入验证码" class="phone" />
+				<input type="password" placeholder="密码" class="phone" v-model="msdPassword"/>
 			</div>
-			<div class="main-one">
-				<input type="password" placeholder="密码" class="phone" />
-			</div>
-			<div class="main-two">
+			<div class="main-two" @click="myajax()">
 				<div class="two-text">注册</div>
 			</div>
-			<div class="main-three ">
+			<!--<div class="main-three ">
 				<div class="three-text">注册协议 </div>
-			</div>
+			</div>-->
 		</div>
 	</div>
 </template>
@@ -33,24 +31,37 @@
 		name: 'zhuce',
 		data() {
 			return {
-
+				msdPhone:'',
+				msdPassword:''
 			}
 		},
 		methods: {
 			myajax: function() {
 				var that = this
-				//				获取店铺列表
+				//				注册
+				if(that.msdPhone==''){
+					alert('请输入手机号')
+					return false;
+				}
+				if(that.msdPassword==''){
+					alert('请输入密码')
+					return false;
+				}
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/selectNewsId',
+					url: that.myurl + '/user/userRegister',
 					data: {
-						msdNewsId: that.msdNewsId
+						msdPhone: that.msdPhone,
+						msdPassword:that.msdPassword,
+						state:1
 					},
 					success: function(res) {
-						if(res.status == 200) {
-							that.tabdata = res.data
-						} else {
-							alert(res.msg)
+						if(res.data == 1) {
+							that.opennew('denglu')
+						} else if(res.data==-1){
+							alert('请勿重复注册')
+						}else{
+							alert('注册失败，请联系客服！')
 						}
 					},
 					error: function(res) {
@@ -61,9 +72,8 @@
 			back: function() {
 				this.$router.back()
 			},
-			opennew: function(target, id) {
-				this.$store.state.msdNewsId = id
-				this.$router.push({
+			opennew: function(target) {
+				this.$router.replace({
 					name: target
 				})
 			}
@@ -84,7 +94,7 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+	.header-text{flex: 1;text-align: center;}
 	html,
 	body,
 	.wrapper {
@@ -95,7 +105,7 @@
 	.wrapper {
 		background: #F7F7F9;
 	}
-	
+	.header-cebian img{height: .4rem;margin-left: .2rem;}
 	.header {
 		display: flex;
 		align-items: center;

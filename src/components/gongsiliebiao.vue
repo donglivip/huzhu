@@ -8,7 +8,7 @@
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
-			<div class="main-box" v-for="val in tabdata">
+			<div class="main-box" v-for="val in tabdata" @click="opennew('querendingdan',val.msdCompanyId,val.msdCoName)">
 				<div class="main-lift">
 					<img :src="val.madCoHeadImg" />
 				</div>
@@ -59,7 +59,9 @@
 			back: function() {
 				this.$router.back()
 			},
-			opennew: function(target) {
+			opennew: function(target,id,name) {
+				this.$store.state.msdCompanyname=name
+				this.$store.state.msdCompanyId=id
 				this.$router.push({
 					name: target
 				})
@@ -74,6 +76,9 @@
 			},
 			MsdServiceStyleId() {
 				return this.$store.state.MsdServiceStyleId
+			},
+			msdCompanyId() {
+				return this.$store.state.msdCompanyId
 			}
 		}
 	}

@@ -4,7 +4,7 @@
 		<div class="header">
 			<div class="header-cebian">
 				<div class="cebian-text">徐州</div>
-				<img src="../../static/xia.png" />
+				<img src="../../../static/xia.png" />
 			</div>
 			<div class="header-text">接单大厅</div>
 			<div class="header-cebian">
@@ -17,10 +17,10 @@
 				<swiper :options="swiperOption" ref="mySwiper">
 					<!-- 这部分放你要渲染的那些内容 -->
 					<swiper-slide>
-						<img src="../../static/153465.jpg" />
+						<img src="../../../static/153465.jpg" />
 					</swiper-slide>
 					<swiper-slide>
-						<img src="../../static/153465.jpg" />
+						<img src="../../../static/153465.jpg" />
 					</swiper-slide>
 					<!-- 这是轮播的小圆点 -->
 					<div class="swiper-pagination" slot="pagination"></div>
@@ -29,7 +29,7 @@
 			<div class="main-two">
 				<div class="two-box">
 					<div class="two-left">
-						<img src="../../static/352435.jpg" />
+						<img src="../../../static/352435.jpg" />
 					</div>
 					<div class="two-right">
 						<div class="two-text">类型：上门维修</div>
@@ -49,7 +49,7 @@
 			<div class="main-two">
 				<div class="two-box">
 					<div class="two-left">
-						<img src="../../static/352435.jpg" />
+						<img src="../../../static/352435.jpg" />
 					</div>
 					<div class="two-right">
 						<div class="two-text">类型：上门维修</div>
@@ -71,15 +71,15 @@
 		<!--下面-->
 		<div class="bottom">
 			<div class="bottom-box">
-				<img src="../../static/dating.png" />
+				<img src="../../../static/dating.png" />
 				<div class="bottom-text">大厅</div>
 			</div>
 			<div class="bottom-box">
-				<img src="../../static/ding_dan.png" />
+				<img src="../../../static/ding_dan.png" />
 				<div class="bottom-news">订单</div>
 			</div>
 			<div class="bottom-box">
-				<img src="../../static/wode.png" />
+				<img src="../../../static/wode.png" />
 				<div class="bottom-news">我的</div>
 			</div>
 		</div>

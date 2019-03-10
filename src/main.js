@@ -8,8 +8,10 @@ import store from './vuex/store'
 import 'swiper/dist/css/swiper.css'
 import FastClick from 'fastclick'
 import axios from 'axios'
+import dateTime from 'vue-date-time-m'
 
-FastClick.attach(document.body);
+Vue.component('data-time', dateTime)
+FastClick.attach(document.body)
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$ajax = axios

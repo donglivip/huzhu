@@ -10,10 +10,10 @@
 		<div class="main">
 			<div class="main-box">
 				<div class="main-one">
-					<div class="one-text" v-for="(val,index) in navdata" :class="navindex==index?'one-news':''" @click="havedetail(val.maInsuranceTypeId,index)">{{val.msdItName}}</div>
+					<div class="one-text" v-for="(val,index) in navdata" :class="navindex==index?'one-news':''" @click="havedetail(val.msdInsuranceStatusId,index)">{{val.msdItName}}</div>
 				</div>
 				<div class="main-inner">
-					<div class="main-two" v-for="(val,index) in detaildata" @click="opennew('chanpinxiangqing',val.maInsuranceListId)">
+					<div class="main-two" v-for="(val,index) in detaildata" @click="opennew('baoxianxiangqing',val.msdInsuranceResultId)">
 						<div class="two-left">
 							<img :src="val.msdIrImg | myimg" />
 						</div>
@@ -82,7 +82,7 @@
 				this.$router.back()
 			},
 			opennew: function(target, id) {
-				this.$store.state.msdNewsId = id
+				this.$store.state.msdInsuranceResultId = id
 				this.$router.push({
 					name: target
 				})
@@ -94,6 +94,9 @@
 		computed: {
 			myurl() {
 				return this.$store.state.myurl
+			},
+			msdInsuranceResultId() {
+				return this.$store.state.msdInsuranceResultId
 			}
 		}
 	}
