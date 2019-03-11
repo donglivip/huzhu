@@ -8,6 +8,41 @@ export default new Router({
 		path: '',
 		redirect: 'shouye-yonghu'
 	}, {
+		path: '/renzheng-shifu',
+		name: 'renzheng-shifu',
+		component: resolve => require(['@/components/shifu/renzheng-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/mingxi-shifu',
+		name: 'mingxi-shifu',
+		component: resolve => require(['@/components/shifu/mingxi-shifu'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	}, {
+		path: '/qianbao-shifu',
+		name: 'qianbao-shifu',
+		component: resolve => require(['@/components/shifu/qianbao-shifu'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	}, {
+		path: '/shezhi-shifu',
+		name: 'shezhi-shifu',
+		component: resolve => require(['@/components/shifu/shezhi-shifu'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	}, {
+		path: '/denglu-shifu',
+		name: 'denglu-shifu',
+		component: resolve => require(['@/components/shifu/denglu-shifu'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	}, {
 		path: '/shouye-shifu',
 		name: 'shouye-shifu',
 		component: resolve => require(['@/components/shifu/shouye-shifu'], resolve),
@@ -82,7 +117,7 @@ export default new Router({
 		name: 'wode-shifu',
 		component: resolve => require(['@/components/shifu/wode-shifu'], resolve),
 		meta: {
-			keepAlive: true
+			keepAlive: false
 		}
 	}, {
 		path: '/bangzhu',

@@ -3,11 +3,11 @@
 		<!--头-->
 		<div class="header">
 			<div class="header-cebian">
-				<div class="cebian-text">徐州</div>
+				<div class="cebian-text">{{city}}</div>
 				<img src="../../../static/xia.png" />
 			</div>
 			<div class="header-text">接单大厅</div>
-			<div class="header-cebian">
+			<div class="header-cebian" @click="opennew('shouye-yonghu')">
 				<div class="cebian-news">切换身份</div>
 			</div>
 		</div>
@@ -16,28 +16,25 @@
 			<div class="main-one">
 				<swiper :options="swiperOption" ref="mySwiper">
 					<!-- 这部分放你要渲染的那些内容 -->
-					<swiper-slide>
-						<img src="../../../static/153465.jpg" />
-					</swiper-slide>
-					<swiper-slide>
-						<img src="../../../static/153465.jpg" />
+					<swiper-slide v-for='val in navdata'>
+						<img :src="val.msdBaImg" />
 					</swiper-slide>
 					<!-- 这是轮播的小圆点 -->
 					<div class="swiper-pagination" slot="pagination"></div>
 				</swiper>
 			</div>
-			<div class="main-two">
+			<div class="main-two" v-for="val in orderdata">
 				<div class="two-box">
 					<div class="two-left">
-						<img src="../../../static/352435.jpg" />
+						<img :src="val.msdSsImg" />
 					</div>
 					<div class="two-right">
-						<div class="two-text">类型：上门维修</div>
-						<div class="two-text">上门时间：2018-7-4 13：20</div>
-						<div class="two-text">订单地址：云龙区绿地世纪城</div>
+						<div class="two-text">类型：{{val.msdSsName}}</div>
+						<div class="two-text">上门时间：{{val.msdOrCreateTimeString}}</div>
+						<div class="two-text">订单地址：{{val.msdAdProvince+val.msdAdCity+val.msdAdArea}}</div>
 						<div class="two-zi">
 							<div class="two-text">价格：</div>
-							<div class="two-news">￥50</div>
+							<div class="two-news">￥{{val.msdOrPrice}}</div>
 						</div>
 					</div>
 				</div>
@@ -46,27 +43,6 @@
 					<div class="two-word">接受订单</div>
 				</div>
 			</div>
-			<div class="main-two">
-				<div class="two-box">
-					<div class="two-left">
-						<img src="../../../static/352435.jpg" />
-					</div>
-					<div class="two-right">
-						<div class="two-text">类型：上门维修</div>
-						<div class="two-text">上门时间：2018-7-4 13：20</div>
-						<div class="two-text">订单地址：云龙区绿地世纪城</div>
-						<div class="two-zi">
-							<div class="two-text">价格：</div>
-							<div class="two-news">￥50</div>
-						</div>
-					</div>
-				</div>
-				<div class="two-hezi">
-					<div class="two-word">取消订单</div>
-					<div class="two-word">接受订单</div>
-				</div>
-			</div>
-
 		</div>
 		<!--下面-->
 		<div class="bottom">
@@ -78,7 +54,7 @@
 				<img src="../../../static/ding_dan.png" />
 				<div class="bottom-news">订单</div>
 			</div>
-			<div class="bottom-box">
+			<div class="bottom-box" @click="opennew('wode-shifu')">
 				<img src="../../../static/wode.png" />
 				<div class="bottom-news">我的</div>
 			</div>
@@ -100,14 +76,97 @@
 					pagination: {
 						el: '.swiper-pagination'
 					}
-				}
+				},
+				navdata: [],
+				city:'未知',
+				orderdata:[]
 			}
 		},
 		methods: {
-
+			opennew: function(target) {
+				if(localStorage.getItem('msdCompanyId') == undefined) {
+					this.$router.push({
+						name: 'denglu-shifu'
+					})
+				} else {
+					this.$router.push({
+						name: target
+					})
+				}
+			},
+			myajax: function() {
+				function plusReady() {
+					plus.geolocation.getCurrentPosition(function(p) {
+						that.city = p.address.city
+					}, function(e) {
+						plus.nativeUI.confirm("请检查手机网络或者位置服务开关是否打开后", function(e) {
+							if(e.index == 0) {
+								if(mui.os.ios) {
+									plus.runtime.launchApplication({
+										action: 'app-settings:'
+									}, function(e) {}); //WIFI
+								} else {
+									var main = plus.android.runtimeMainActivity(); //获取activity
+									var Intent = plus.android.importClass('android.content.Intent');
+									var Settings = plus.android.importClass('android.provider.Settings');
+									var intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS); //可设置表中所有Action字段
+									main.startActivity(intent);
+									plusReady()
+								}
+							} else {
+								plusReady()
+							}
+						}, {
+							"title": "定位失败",
+							"buttons": ["点我设置", "点击重试"],
+							"verticalAlign": "bottom"
+						});
+					});
+				}
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener("plusready", plusReady, false);
+				}
+				//				获取轮播图
+				var that = this
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/user/selectMsdBanner',
+					success: function(res) {
+						if(res.status == 200) {
+							that.navdata = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+//				获取未接订单
+				var that = this
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/queryUnreceivedOrder',
+					data:{
+						msdCompanyId:localStorage.getItem('msdCompanyId')
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.orderdata = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			}
 		},
-		mounted(){
-			
+		mounted() {
+			this.myajax()
 		},
 		components: {
 			swiper,
@@ -116,6 +175,9 @@
 		computed: {
 			swiper() {
 				return this.$refs.mySwiper.swiper;
+			},
+			myurl() {
+				return this.$store.state.myurl
 			}
 		},
 	}

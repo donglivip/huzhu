@@ -35,7 +35,7 @@
 			</div>
 			<div class="main-three" @click="opennew('shezhi')">
 				<div class="three-lift">
-					<img src="../../static/dianpu.png" />
+					<img src="../../static/setting.png" />
 				</div>
 				<div class="three-content">设置</div>
 				<div class="three-right">
@@ -44,7 +44,7 @@
 			</div>
 			<div class="main-three" @click="opennew('bangzhu')">
 				<div class="three-lift">
-					<img src="../../static/dianpu.png" />
+					<img src="../../static/bangzhu.png" />
 				</div>
 				<div class="three-content">帮助</div>
 				<div class="three-right">
@@ -62,12 +62,12 @@
 			</a>
 		</div>
 		<div class="bottom">
-			<div class="bottom-box">
-				<img src="../../static/da.png"   @click="opennew('shouye-yonghu')"/>
+			<div class="bottom-box"   @click="opennew('shouye-yonghu')">
+				<img src="../../static/da.png"/>
 				<div class="bottom-news">大厅</div>
 			</div>
-			<div class="bottom-box">
-				<img src="../../static/ding_dan.png"  @click="opennew('wodedingdan')"/>
+			<div class="bottom-box"  @click="opennew('wodedingdan')">
+				<img src="../../static/ding_dan.png"/>
 				<div class="bottom-news">订单</div>
 			</div>
 			<div class="bottom-box">

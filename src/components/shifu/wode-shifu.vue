@@ -2,28 +2,28 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-lift" @click="back()">
-				<img src="../../../static/945421.jpg" />
+				<img :src="madCoHeadImg" />
 			</div>
 			<div class="header-content">
-				<div class="content-text">丁丁要努力鸭</div>
-				<div class="content-news">未实名认证</div>
+				<div class="content-text">{{msdCoName=='null'?'新用户':msdCoName}}</div>
+				<div class="content-news">{{msdCoIsIdentity==2?'未实名认证':'已实名认证'}}</div>
 			</div>
-			<div class="header-right">
+			<div class="header-right" v-if="msdCoIsMemeber==2">
 				<img src="../../../static/vip icon.png" />
 				<div class="right-text">开通会员</div>
 			</div>
 		</div>
 		<div class="main">
 			<div class="main-one">
-				<div class="one-box">
+				<div class="one-box" @click="opennew('qianbao-shifu')">
 					<img src="../../../static/qianbao.png" />
 					<div class="one-text">钱包充值</div>
 				</div>
-				<div class="one-box">
+				<!--<div class="one-box">
 					<img src="../../../static/dingwei0.png" />
 					<div class="one-text">我的地址</div>
-				</div>
-				<div class="one-box">
+				</div>-->
+				<div class="one-box" @click="opennew('renzheng-shifu')">
 					<img src="../../../static/renzheng.png" />
 					<div class="one-text">认证中心</div>
 				</div>
@@ -50,46 +50,46 @@
 					<img src="../../../static/you.png" />
 				</div>
 			</div>
-			<div class="main-three">
+			<div class="main-three" @click="opennew('shezhi-shifu')">
 				<div class="three-lift">
-					<img src="../../../static/dianpu.png" />
+					<img src="../../../static/setting.png" />
 				</div>
 				<div class="three-content">设置</div>
 				<div class="three-right">
 					<img src="../../../static/you.png" />
 				</div>
 			</div>
-			<div class="main-three">
+			<div class="main-three" @click="opennew('bangzhu')">
 				<div class="three-lift">
-					<img src="../../../static/dianpu.png" />
+					<img src="../../../static/bangzhu.png" />
 				</div>
 				<div class="three-content">帮助</div>
 				<div class="three-right">
 					<img src="../../../static/you.png" />
 				</div>
 			</div>
-			<div class="main-three">
+			<a class="main-three" href="tel:041-458-4568">
 				<div class="three-lift">
 					<img src="../../../static/kefu.png" />
 				</div>
 				<div class="three-content">客服</div>
 				<div class="three-right">
-					<img src="../../../static/you.png" />
+					041-458-4568
 				</div>
-			</div>
+			</a>
 		</div>
 		<div class="bottom">
-			<div class="bottom-box">
+			<div class="bottom-box" @click="opennew('shouye-shifu')">
 				<img src="../../../static/da.png" />
 				<div class="bottom-news">大厅</div>
 			</div>
 			<div class="bottom-box">
-				<img src="../../../static/dingdan.png" />
-				<div class="bottom-text">订单</div>
+				<img src="../../../static/ding_dan.png"/>
+				<div class="bottom-news">订单</div>
 			</div>
 			<div class="bottom-box">
-				<img src="../../../static/wode.png" />
-				<div class="bottom-news">我的</div>
+				<img src="../../../static/user-active.png" />
+				<div class="bottom-text">我的</div>
 			</div>
 		</div>
 	</div>
@@ -100,7 +100,12 @@
 		name: 'wode-shifu',
 		data() {
 			return {
-				tabdata: []
+				tabdata: [],
+				msdCoIsMemeber:localStorage.getItem('msdCoIsMemeber'),//是否会员
+				madCoHeadImg:localStorage.getItem('madCoHeadImg'),//头像
+				msdCoName:localStorage.getItem('msdCoName'),//名称
+				msdCoIsIdentity:localStorage.getItem('msdCoIsIdentity')
+				
 			}
 		},
 		methods: {

@@ -9,7 +9,7 @@
 				<img src="../../static/dingwei1.png" />
 				<div class="header-text">{{city + district}}</div>
 			</div>
-			<div class="header-cebian">
+			<div class="header-cebian" @click="opennew('shouye-shifu')">
 				<div class="cebian-news">切换身份</div>
 			</div>
 		</div>

@@ -27,7 +27,7 @@
 
 <script>
 	export default {
-		name: 'denglu',
+		name: 'denglu-shifu',
 		data() {
 			return {
 				phone: '',
@@ -52,26 +52,22 @@
 				}
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/userLogin',
+					url: that.myurl + '/company/companLogin',
 					data: {
 						phone: that.phone,
-						password: that.password
+						pwd: that.password
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							if(res.data.length == 0) {
-								alert('该用户未注册！')
-							} else {
-								var boo = false
-								//									是用户
-								localStorage.setItem('userid', res.data[0].msdUserId)
-								localStorage.setItem('userphone', res.data[0].msdPhone)
-								localStorage.setItem('msdIsMember', res.data[0].msdIsMember)
-								localStorage.setItem('msdHeadImg', res.data[0].msdHeadImg)
-								localStorage.setItem('msdIsIdentity', res.data[0].msdIsIdentity)
-								localStorage.setItem('msdNickname', res.data[0].msdNickname)
-								that.opennew('shouye-yonghu')
-							}
+							//									是师傅
+							localStorage.setItem('msdCompanyId', res.data.msdCompanyId) //师傅id
+							localStorage.setItem('msdCoPhone', res.data.msdCoPhone) //手机号
+							localStorage.setItem('msdCoIsMemeber', res.data.msdCoIsMemeber) //是否会员
+							localStorage.setItem('madCoHeadImg', res.data.madCoHeadImg) //头像
+							localStorage.setItem('msdCoIsIdentity', res.data.msdCoIsIdentity) //是否认证
+							localStorage.setItem('msdCoName', res.data.msdCoName) //名称
+							localStorage.setItem('msdCoIsCompany', res.data.msdCoIsCompany) //是否公司
+							that.opennew('shouye-shifu')
 						} else {
 							alert(res.msg)
 						}
