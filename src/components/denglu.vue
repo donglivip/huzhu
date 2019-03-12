@@ -21,6 +21,7 @@
 				<div class="three-text" @click="opennew('zhuce')">注册</div>
 				<!--<div class="three-text">忘记密码？ </div>-->
 			</div>
+			
 		</div>
 	</div>
 </template>
@@ -102,6 +103,7 @@
 </script>
 
 <style scoped>
+	
 	* {
 		margin: 0;
 		padding: 0;

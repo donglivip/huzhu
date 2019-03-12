@@ -41,7 +41,7 @@
 					<img src="../../../static/kaiguan.png" />
 				</div>
 			</div>
-			<div class="main-three">
+			<div class="main-three" @click="opennew('fuwuxiangmu')">
 				<div class="three-lift">
 					<img src="../../../static/dianpu.png" />
 				</div>
@@ -83,7 +83,7 @@
 				<img src="../../../static/da.png" />
 				<div class="bottom-news">大厅</div>
 			</div>
-			<div class="bottom-box">
+			<div class="bottom-box" @click="opennew('dingdan-shifu')">
 				<img src="../../../static/ding_dan.png"/>
 				<div class="bottom-news">订单</div>
 			</div>

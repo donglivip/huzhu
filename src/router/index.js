@@ -8,6 +8,20 @@ export default new Router({
 		path: '',
 		redirect: 'shouye-yonghu'
 	}, {
+		path: '/fuwuxiangmu',
+		name: 'fuwuxiangmu',
+		component: resolve => require(['@/components/shifu/fuwuxiangmu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/dingdan-shifu',
+		name: 'dingdan-shifu',
+		component: resolve => require(['@/components/shifu/dingdan-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/renzheng-shifu',
 		name: 'renzheng-shifu',
 		component: resolve => require(['@/components/shifu/renzheng-shifu'], resolve),

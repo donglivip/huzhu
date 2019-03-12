@@ -50,7 +50,7 @@
 				<img src="../../../static/dating.png" />
 				<div class="bottom-text">大厅</div>
 			</div>
-			<div class="bottom-box">
+			<div class="bottom-box" @click="opennew('dingdan-shifu')">
 				<img src="../../../static/ding_dan.png" />
 				<div class="bottom-news">订单</div>
 			</div>
