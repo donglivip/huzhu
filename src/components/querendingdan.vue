@@ -109,11 +109,14 @@
 						msdOrIsDelete:2,
 						msdOrCreateName:localStorage.getItem('userid'),
 						msdOrRemark:that.msdOrRemark,
-						msdOrAppointmentTime:that.msdOrAppointmentTime
+						msdOrAppointmentTime:that.msdOrAppointmentTime,
+						msdCompanyId:that.msdCompanyId
 					},
 					success: function(res) {
 						if(res.data == 1) {
 							that.opennew('wodedingdan')
+						} else if(res.data==-1){
+							alert('余额不足！')
 						} else {
 							alert(res.msg)
 						}

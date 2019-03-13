@@ -16,6 +16,10 @@ Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$ajax = axios
 
+
+Vue.filter('myimg',function(value){
+	return 'http://192.168.2.105'+value
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

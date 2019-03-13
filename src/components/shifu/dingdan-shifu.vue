@@ -1,73 +1,157 @@
 <template>
 	<div class="wrapper">
-			<div class="header">
-				<div class="header-cebian"></div>
-				<div class="header-text">我的订单</div>
-				<div class="header-cebian"></div>
+		<div class="header">
+			<div class="header-cebian"></div>
+			<div class="header-text">我的订单</div>
+			<div class="header-cebian"></div>
+		</div>
+		<div class="main">
+			<div class="main-one">
+				<div class="one-text" @click="change(0)" :class="navindex==0?'one-news':''">未完成</div>
+				<div class="one-text" @click="change(1)" :class="navindex==1?'one-news':''">已完成</div>
+				<div class="one-text" @click="change(2)" :class="navindex==2?'one-news':''">已取消</div>
 			</div>
-			<div class="main">
-				<div class="main-one">
-					<div class="one-news">未完成</div>
-					<div class="one-text">已完成</div>
-					<div class="one-text">已取消</div>
-				</div>
-				<div class="main-two">
+			<div class="main-inner">
+				<div class="main-two" v-for="val in tabdata" @click="opennew('xiangqing-shifu',val.msdOrderId)">
 					<div class="two-box">
 						<div class="two-left">
-							<img src="../../../static/352435.jpg" />
+							<img :src="val.msdSsImg | myimg" />
 						</div>
 						<div class="two-right">
-							<div class="two-text">类型：上门维修</div>
-							<div class="two-text">上门时间：2018-7-4 13：20</div>
-							<div class="two-text">订单地址：云龙区绿地世纪城</div>
+							<div class="two-text">类型：{{val.msdSsName}}</div>
+							<div class="two-text">上门时间：{{val.msdOrAppointmentTimeString}}</div>
+							<div class="two-text">订单地址：{{val.msdAddress}}</div>
 							<div class="two-zi">
 								<div class="two-text">价格：</div>
-								<div class="two-news">￥50</div>
+								<div class="two-news">￥{{val.msdOrPrice}}</div>
 							</div>
 						</div>
 					</div>
 					<div class="main-five">
-						<div class="five-text">导航过去</div>
-						<div class="five-news">拨打电话</div>
+						<div class="five-text" v-if="navindex==0" @click.stop="gomap(val.msdAddress)">导航过去</div>
+						<div class="five-text" v-if="navindex!=0" @click.stop="deleteorder(val.msdOrderId)">删除记录</div>
+						<a class="five-news" :href="'tel:'+val.msdAdPhone+''" v-if="navindex==0">拨打电话</a>
 						<div class="kongbai"></div>
-						<div class="five-word">完成订单</div>
+						<div class="five-word" v-if='navindex==0' @click.stop="orderok(val.msdOrderId)">完成订单</div>
 					</div>
 				</div>
 			</div>
-			<div class="bottom">
-				<div class="bottom-box" @click="opennew('shouye-shifu')">
-					<img src="../../../static/da.png"/>
-					<div class="bottom-news">大厅</div>
-				</div>
-				<div class="bottom-box">
-					<img src="../../../static/dingdan.png"/>
-					<div class="bottom-text">订单</div>
-				</div>
-				<div class="bottom-box" @click="opennew('wode-shifu')">
-					<img src="../../../static/wode.png"/>
-					<div class="bottom-news">我的</div>
-				</div>
+		</div>
+		<div class="bottom">
+			<div class="bottom-box" @click="opennew('shouye-shifu')">
+				<img src="../../../static/da.png" />
+				<div class="bottom-news">大厅</div>
+			</div>
+			<div class="bottom-box">
+				<img src="../../../static/dingdan.png" />
+				<div class="bottom-text">订单</div>
+			</div>
+			<div class="bottom-box" @click="opennew('wode-shifu')">
+				<img src="../../../static/wode.png" />
+				<div class="bottom-news">我的</div>
 			</div>
 		</div>
+	</div>
 </template>
 
 <script>
+	import AMap from 'AMap'
 	export default {
 		name: 'dingdan-shifu',
 		data() {
 			return {
-				tabdata: []
+				tabdata: [],
+				navindex: 0
 			}
 		},
 		methods: {
-			myajax: function() {
+			gomap: function(adress) {
+				AMap.service('AMap.Geocoder', function() { //回调函数
+					//			实例化Geocoder
+					var geocoder = new AMap.Geocoder({
+						city: "" //城市，默认：“全国”
+					});
+					//						根据地址查经纬度
+					geocoder.getLocation(adress, function(status, result) {
+						if(status === 'complete' && result.info === 'OK') {
+							plus.geolocation.getCurrentPosition(function(p) {
+								plus.maps.openSysMap(new plus.maps.Point(result.geocodes[0].location.lng,result.geocodes[0].location.lat), name, new plus.maps.Point(p.coords.longitude, p.coords.latitude));
+							});
+						} else {
+							//获取经纬度失败
+						}
+					});
+				})
+
+			},
+			deleteorder: function(id) {
 				var that = this
-				//				获取店铺列表
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/selectNewsId',
+					url: that.myurl + '/company/deleteOrder',
 					data: {
-						msdNewsId: that.msdNewsId
+						msdOrderId: id
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.myajax(that.navindex)
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
+			orderok: function(id) {
+				var that = this
+				var code = prompt('请输入完成码！')
+				if(code == '' || code == null) {
+					alert('完成码不能为空')
+					return false;
+				}
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/completeOrder',
+					data: {
+						msdOrderId: id,
+						userId: localStorage.getItem('msdCompanyId'),
+						type: 2,
+						msdOrCompletionCode: code
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.myajax(that.navindex)
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
+			change: function(index) {
+				this.navindex = index
+				this.myajax()
+			},
+			myajax: function() {
+				var that = this
+				var murl = ''
+				if(this.navindex == 0) {
+					murl = 'queryMyUnfinishedOrder'
+				} else if(this.navindex == 1) {
+					murl = 'queryMyCompletedOrder'
+				} else {
+					murl = 'queryMycanceledOrder'
+				}
+				//				获取未完成订单列表
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/' + murl + '',
+					data: {
+						msdCompanyId: localStorage.getItem('msdCompanyId')
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -85,18 +169,25 @@
 				this.$router.back()
 			},
 			opennew: function(target, id) {
-				this.$store.state.msdNewsId = id
+				this.$store.state.msdOrderId=id
+				this.$store.state.navindex0=this.navindex
 				this.$router.push({
 					name: target
 				})
 			}
 		},
 		mounted() {
-
+			this.myajax(0)
 		},
 		computed: {
 			myurl() {
 				return this.$store.state.myurl
+			},
+			msdOrderId() {
+				return this.$store.state.msdOrderId
+			},
+			navindex0() {
+				return this.$store.state.navindex0
 			}
 		}
 	}
@@ -106,6 +197,11 @@
 	* {
 		margin: 0;
 		padding: 0;
+	}
+	
+	.main-inner {
+		height: calc(100% - .9rem);
+		overflow-y: scroll;
 	}
 	
 	html,
@@ -136,8 +232,6 @@
 	
 	.main {
 		height: calc(100% - 2.2rem);
-		overflow-x: hidden;
-		overflow-y: scroll;
 	}
 	
 	.main-one {

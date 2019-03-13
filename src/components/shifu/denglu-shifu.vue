@@ -67,6 +67,7 @@
 							localStorage.setItem('msdCoIsIdentity', res.data.msdCoIsIdentity) //是否认证
 							localStorage.setItem('msdCoName', res.data.msdCoName) //名称
 							localStorage.setItem('msdCoIsCompany', res.data.msdCoIsCompany) //是否公司
+							localStorage.setItem('msdCoIsWork', res.data.msdCoIsWork) //是否工作
 							that.opennew('shouye-shifu')
 						} else {
 							alert(res.msg)

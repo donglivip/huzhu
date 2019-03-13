@@ -14,7 +14,7 @@
 				<div class="one-text" :class="navindex==6?'one-news':''" @click="changenum(6)">已取消</div>
 			</div>
 			<div class="main-two">
-				<div class="main-tab" v-for="val in tabdata">
+				<div class="main-tab" v-for="val in tabdata" @click="opennew('xiangqing-yonghu',val.msdOrderId)">
 					<div class="two-box">
 						<div class="two-text">{{val.msdOrIsDelete==1?'服务类':'餐饮'}}</div>
 						<div class="two-news">下单时间：{{val.msdOrCreateTimeString}}</div>
@@ -26,13 +26,13 @@
 					</div>
 					<div class="two-bottom">订单编号：{{val.msdOrderId}}</div>
 					<div class="two-hezi">
-						<div class="hezi-text" v-show="navindex==2" @click="cancel(val)">取消订单</div>
-						<div class="hezi-text" v-show="navindex==1||navindex==6" @click="godelete(val)">删除</div>
+						<div class="hezi-text" v-show="navindex==2" @click.stop="cancel(val)">取消订单</div>
+						<div class="hezi-text" v-show="navindex==1||navindex==6" @click.stop="godelete(val)">删除</div>
 						<div class="hezi-word"></div>
-						<div class="hezi-news" v-show="navindex==3" @click="tel(val.orderId,val.msdOrIsDelete)">联系公司</div>
+						<div class="hezi-news" v-show="navindex==3" @click.stop="tel(val.msdOrderId,val.msdOrIsDelete)">联系公司</div>
 						<!--<div class="hezi-news" v-show="navindex==3" @click="orderok(val.msdOrderId)">完成订单</div>-->
-						<div class="hezi-news" v-show="navindex==4" @click="ratingchange(val.msdOrderId)">立即评价</div>
-						<div class="hezi-news" v-show="navindex==1||navindex==6">再次下单</div>
+						<div class="hezi-news" v-show="navindex==4" @click.stop="ratingchange(val.msdOrderId)">立即评价</div>
+						<div class="hezi-news" v-show="navindex==1||navindex==6" @click.stop="opennew('shouye-yonghu')">再次下单</div>
 					</div>
 				</div>
 			</div>
@@ -279,7 +279,7 @@
 				this.$router.back()
 			},
 			opennew: function(target, id) {
-				this.$store.state.msdNewsId = id
+				this.$store.state.msdOrderId = id
 				this.$router.push({
 					name: target
 				})
@@ -291,6 +291,9 @@
 		computed: {
 			myurl() {
 				return this.$store.state.myurl
+			},
+			msdOrderId() {
+				return this.$store.state.msdOrderId
 			}
 		}
 	}

@@ -37,8 +37,9 @@
 					<img src="../../../static/dianpu.png" />
 				</div>
 				<div class="three-content">店铺状态</div>
-				<div class="three-right">
-					<img src="../../../static/kaiguan.png" />
+				<div class="three-right" @click="changework()">
+					<img src="../../../static/kaiguan0.png" v-if="msdCoIsWork==2" />
+					<img src="../../../static/kaiguan.png" v-if="msdCoIsWork==1" />
 				</div>
 			</div>
 			<div class="main-three" @click="opennew('fuwuxiangmu')">
@@ -84,7 +85,7 @@
 				<div class="bottom-news">大厅</div>
 			</div>
 			<div class="bottom-box" @click="opennew('dingdan-shifu')">
-				<img src="../../../static/ding_dan.png"/>
+				<img src="../../../static/ding_dan.png" />
 				<div class="bottom-news">订单</div>
 			</div>
 			<div class="bottom-box">
@@ -101,14 +102,37 @@
 		data() {
 			return {
 				tabdata: [],
-				msdCoIsMemeber:localStorage.getItem('msdCoIsMemeber'),//是否会员
-				madCoHeadImg:localStorage.getItem('madCoHeadImg'),//头像
-				msdCoName:localStorage.getItem('msdCoName'),//名称
-				msdCoIsIdentity:localStorage.getItem('msdCoIsIdentity')
-				
+				msdCoIsMemeber: localStorage.getItem('msdCoIsMemeber'), //是否会员
+				madCoHeadImg: localStorage.getItem('madCoHeadImg'), //头像
+				msdCoName: localStorage.getItem('msdCoName'), //名称
+				msdCoIsIdentity: localStorage.getItem('msdCoIsIdentity'), //是否认证
+				msdCoIsWork: localStorage.getItem('msdCoIsWork') //是够工作
 			}
 		},
 		methods: {
+			changework: function() {
+				var that = this
+				//				改变开启状态
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/updateCompanInfoById',
+					data: {
+						msdCompanyId: localStorage.getItem('msdCompanyId'),
+						msdCoIsWork:that.msdCoIsWork==1?2:1
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.msdCoIsWork=(that.msdCoIsWork==1?2:1)
+							localStorage.setItem('msdCoIsWork',that.msdCoIsWork==1?2:1)
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
 			myajax: function() {
 				var that = this
 				//				获取店铺列表

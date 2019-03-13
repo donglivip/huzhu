@@ -15,6 +15,20 @@ export default new Router({
 			keepAlive: false
 		}
 	}, {
+		path: '/xiangqing-yonghu',
+		name: 'xiangqing-yonghu',
+		component: resolve => require(['@/components/xiangqing-yonghu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/xiangqing-shifu',
+		name: 'xiangqing-shifu',
+		component: resolve => require(['@/components/shifu/xiangqing-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/dingdan-shifu',
 		name: 'dingdan-shifu',
 		component: resolve => require(['@/components/shifu/dingdan-shifu'], resolve),
@@ -61,7 +75,7 @@ export default new Router({
 		name: 'shouye-shifu',
 		component: resolve => require(['@/components/shifu/shouye-shifu'], resolve),
 		meta: {
-			keepAlive: true
+			keepAlive: false
 		}
 	},{
 		path: '/mingxi',

@@ -45,7 +45,7 @@
 					success: function(res) {
 						if(res.status == 200) {
 							that.tabdata = res.data
-							that.change(res.data[0].msdFootStatusId)
+							that.change(res.data[0].msdFootStatusId,0)
 						} else {
 							alert(res.msg)
 						}
@@ -64,7 +64,7 @@
 					name: target
 				})
 			},
-			change:function(id){
+			change:function(id,index){
 				var that = this
 				//				获取分类下商品
 				$.ajax({
@@ -76,6 +76,7 @@
 					success: function(res) {
 						if(res.status == 200) {
 							that.shopdata = res.data
+							that.navindex=index
 						} else {
 							alert(res.msg)
 						}

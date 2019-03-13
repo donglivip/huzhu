@@ -13,7 +13,9 @@ const store = new Vuex.Store({
 		msdCompanyname:'',		//公司名字
 		msdInsuranceResultId:'',
 		msdAddressId:'',  //地址id
-		msdFoodResultId:'' //食物ID
+		msdFoodResultId:'', //食物ID
+		msdOrderId:'', //订单id
+		navindex0:'' //订单状态
 	}
 })
 

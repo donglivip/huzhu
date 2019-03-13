@@ -17,13 +17,13 @@
 				<swiper :options="swiperOption" ref="mySwiper">
 					<!-- 这部分放你要渲染的那些内容 -->
 					<swiper-slide v-for='val in navdata'>
-						<img :src="val.msdBaImg" />
+						<img :src="val.msdSsImg | myimg" />
 					</swiper-slide>
 					<!-- 这是轮播的小圆点 -->
 					<div class="swiper-pagination" slot="pagination"></div>
 				</swiper>
 			</div>
-			<div class="main-two" v-for="val in orderdata">
+			<div class="main-two" v-for="val in orderdata" @click="opennew('xiangqing-shifu',val.msdOrderId)">
 				<div class="two-box">
 					<div class="two-left">
 						<img :src="val.msdSsImg" />
@@ -39,8 +39,8 @@
 					</div>
 				</div>
 				<div class="two-hezi">
-					<div class="two-word">取消订单</div>
-					<div class="two-word">接受订单</div>
+					<div class="two-word" @click.stop="cancel(val.msdOrderId)">取消订单</div>
+					<div class="two-word" @click.stop="haveorder(val.msdOrderId)">接受订单</div>
 				</div>
 			</div>
 		</div>
@@ -83,7 +83,51 @@
 			}
 		},
 		methods: {
-			opennew: function(target) {
+			haveorder:function(id){
+				var that = this
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/orderReceiving',
+					data:{
+						msdOrderId:id
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.myajax()
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
+			cancel:function(id){
+				var that = this
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/removeOrder',
+					data:{
+						msdOrderId:id,
+						userId:localStorage.getItem('msdCompanyId'),
+						type:2
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.myajax()
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
+			opennew: function(target,id) {
+				this.$store.state.navindex0=-1
+				this.$store.state.msdOrderId=id
 				if(localStorage.getItem('msdCompanyId') == undefined) {
 					this.$router.push({
 						name: 'denglu-shifu'
@@ -178,6 +222,12 @@
 			},
 			myurl() {
 				return this.$store.state.myurl
+			},
+			msdOrderId() {
+				return this.$store.state.msdOrderId
+			},
+			navindex0() {
+				return this.$store.state.navindex0
 			}
 		},
 	}
