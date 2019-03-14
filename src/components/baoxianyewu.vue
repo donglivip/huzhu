@@ -13,6 +13,14 @@
 					<div class="one-text" v-for="(val,index) in navdata" :class="navindex==index?'one-news':''" @click="havedetail(val.msdInsuranceStatusId,index)">{{val.msdItName}}</div>
 				</div>
 				<div class="main-inner">
+					<swiper :options="swiperOption" ref="mySwiper">
+						<!-- 这部分放你要渲染的那些内容 -->
+						<swiper-slide v-for='val in imgdata'>
+							<img :src="val.maInsuranceBannerImg | myimg" />
+						</swiper-slide>
+						<!-- 这是轮播的小圆点 -->
+						<div class="swiper-pagination" slot="pagination"></div>
+					</swiper>
 					<div class="main-two" v-for="(val,index) in detaildata" @click="opennew('baoxianxiangqing',val.msdInsuranceResultId)">
 						<div class="two-left">
 							<img :src="val.msdIrImg | myimg" />
@@ -42,11 +50,36 @@
 				navdata: [],
 				detaildata: [],
 				navindex: 0,
+				swiperOption: {
+					autoplay: {
+						stopOnLastSlide: true,
+					},
+					loop: true,
+					pagination: {
+						el: '.swiper-pagination'
+					}
+				},
+				imgdata:[]
 			}
 		},
 		methods: {
 			havenav: function() {
 				var that = this
+				//				获取轮播图
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/business/queryMaInsuranceListBanner',
+					success: function(res) {
+						if(res.status == 200) {
+							that.imgdata = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
 				$.ajax({
 					type: "post",
 					url: that.myurl + "/user/selectMsdInsuranceStatus",
@@ -107,7 +140,8 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+	.swiper-container{height: 2.8rem;width: 7rem;margin: .1rem auto;}
+	.swiper-container img{width: 100%!important;}
 	html,
 	body,
 	.wrapper {

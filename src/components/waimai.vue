@@ -11,6 +11,7 @@
 			<div class="main-one">
 				<div class="one-text" v-for='(val,index) in tabdata' @click="change(val.msdFootStatusId,index)" :class="navindex==index?'one-news':''">{{val.msdFsName}}</div>
 			</div>
+			
 			<div class="main-two" v-for="val in shopdata" @click="opennew('canyinxiangqing',val.msdFoodResultId)">
 				<div class="two-lift">
 					<img :src="val.msdFrHeadImg" />
@@ -38,6 +39,7 @@
 		methods: {
 			myajax: function() {
 				var that = this
+				
 				//				获取分类列表
 				$.ajax({
 					type: 'post',
@@ -106,6 +108,7 @@
 	margin: 0;padding: 0;
 }
 html,body,.wrapper{width: 100%;height: 100%;overflow: hidden;}
+
 .wrapper{
 	background: #F7F7F9 ;
 }

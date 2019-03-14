@@ -15,6 +15,13 @@ export default new Router({
 			keepAlive: false
 		}
 	}, {
+		path: '/xiangqing-yonghu-canyin',
+		name: 'xiangqing-yonghu-canyin',
+		component: resolve => require(['@/components/xiangqing-yonghu-canyin'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/xiangqing-yonghu',
 		name: 'xiangqing-yonghu',
 		component: resolve => require(['@/components/xiangqing-yonghu'], resolve),

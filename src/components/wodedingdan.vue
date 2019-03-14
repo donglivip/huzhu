@@ -14,7 +14,7 @@
 				<div class="one-text" :class="navindex==6?'one-news':''" @click="changenum(6)">已取消</div>
 			</div>
 			<div class="main-two">
-				<div class="main-tab" v-for="val in tabdata" @click="opennew('xiangqing-yonghu',val.msdOrderId)">
+				<div class="main-tab" v-for="val in tabdata" @click="opennew('xiangqing-yonghu',val.msdOrderId,val.msdOrIsDelete)">
 					<div class="two-box">
 						<div class="two-text">{{val.msdOrIsDelete==1?'服务类':'餐饮'}}</div>
 						<div class="two-news">下单时间：{{val.msdOrCreateTimeString}}</div>
@@ -76,7 +76,6 @@
 				navindex: 2,
 				ratingboo: false,
 				starindex: 4,
-				msdOrderId: '',
 				ptext: ''
 			}
 		},
@@ -197,7 +196,7 @@
 				})
 			},
 			ratingchange: function(id) {
-				this.msdOrderId = id
+				this.$store.state.msdOrderId = id
 				this.ratingboo = !this.ratingboo
 			},
 			changestar: function(index, type) {
@@ -278,11 +277,21 @@
 			back: function() {
 				this.$router.back()
 			},
-			opennew: function(target, id) {
+			opennew: function(target, id,index) {
 				this.$store.state.msdOrderId = id
-				this.$router.push({
-					name: target
-				})
+				if(index==2){
+					this.$router.push({
+						name: 'xiangqing-yonghu-canyin'
+					})
+				}else if(index==1){
+					this.$router.push({
+						name: 'xiangqing-yonghu'
+					})
+				}else{
+					this.$router.push({
+						name: target
+					})
+				}
 			}
 		},
 		mounted() {

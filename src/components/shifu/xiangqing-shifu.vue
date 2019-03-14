@@ -53,10 +53,10 @@
             		<img :src="tabdata.msdOrImg3 | myimg" v-if="tabdata.msdOrImg3!=null"/>
             	</div>
             	<div class="main-five" v-if="navindex0!=-1">
-            		<div class="five-text" v-if="navindex0==0">导航过去</div>
+            		<!--<div class="five-text" v-if="navindex0==0">导航过去</div>-->
             		<a class="five-news" href="'tel:'+tabdata.msdAdPhone+''" v-if="navindex0==0">拨打电话</a>
             		<div class="kongbai"></div>
-            		<div class="five-word" v-if="navindex0==0">完成订单</div>
+            		<div class="five-word" v-if="navindex0==0" @click="orderok()">完成订单</div>
             	</div>
             	<div class="main-four" v-if="navindex0==-1" @click="haveorder()">
             		<div class="four-text">确认接单</div>
@@ -75,6 +75,34 @@
 			}
 		},
 		methods: {
+			orderok:function(){
+				var that = this
+				var code = prompt('请输入完成码！')
+				if(code == '' || code == null) {
+					alert('完成码不能为空')
+					return false;
+				}
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/completeOrder',
+					data: {
+						msdOrderId: id,
+						userId: localStorage.getItem('msdCompanyId'),
+						type: 2,
+						msdOrCompletionCode: code
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.myajax(that.navindex)
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
 			haveorder:function(){
 				var that = this
 				$.ajax({

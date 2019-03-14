@@ -24,64 +24,33 @@
 				</div>
 				<div class="box-box">
 					<div class="box-left">
-						<img src="../../static/352435.jpg" />
+						<img :src="msdFrHeadImg | myimg" />
 					</div>
 					<div class="box-content">
-						<div class="box-above">{{tabdata.msdCoName}}</div>
+						<div class="box-above">{{tabdata.msdFrName}}</div>
 						<div class="box-below">
-							<div class="below-text">服务态度：</div>
+							<div class="below-text">价格：</div>
 							<div class="below-box">
-								<img src="../../static/xing.png" v-for="val in tabdata.msdCoEvaluate"/>
-								<img src="../../static/xingx.png"  v-for="val in (5 - tabdata.msdCoEvaluate)"/>
+								￥{{tabdata.msdFrPrice}}
 							</div>
 						</div>
 					</div>
-					<a class="box-right" :href="'tel:'+tabdata.msdAdPhone+''">
-						<img src="../../static/dianhua.png" />
-					</a>
 				</div>
-			</div>
-			<div class="main-two">
-				<div class="two-text">服务类型：</div>
-				<div class="two-text">{{tabdata.msdSsName}}</div>
-			</div>
-			<div class="main-two">
-				<div class="two-text">完成码：</div>
-				<div class="two-text">{{tabdata.msdOrCompletionCode}}</div>
-			</div>
-			<div class="main-two">
-				<div class="two-text">上门时间：{{tabdata.msdOrAppointmentTimeString}}</div>
-				<img src="../../static/you-hui.png" />
-			</div>
-			<div class="main-two">
-				<div class="two-text">最低价:</div>
-				<div class="two-news">￥{{tabdata.msdOrPrice}}</div>
 			</div>
 			<div class="main-three">
 				<div class="three-text">备注：</div>
-				<input type="text" v-model="tabdata.msdOrRemark" readonly="readonly" />
-			</div>
-			<div class="main-four">
-				<div class="four-text">附照（最多三张）</div>
-				<div class="four-box">
-					<div class="img-box"><img :src="tabdata.msdOrImg1 | myimg" v-if="tabdata.msdOrImg1!=null"/></div>
-					<div class="img-box"><img :src="tabdata.msdOrImg2 | myimg" v-if="tabdata.msdOrImg2!=null"/></div>
-					<div class="img-box"><img :src="tabdata.msdOrImg3 | myimg" v-if="tabdata.msdOrImg3!=null"/></div>
-				</div>
+				<input type="text" v-model="tabdata.msdFoRemark" readonly="readonly" />
 			</div>
 		</div>
-		<div class="bottom">
-			<div class="bottom-text" v-if="tabdata.msdOrStatus==2" @click="cancel">取消订单</div>
-			<div class="bottom-word"></div>
-			<a class="bottom-news" v-if="tabdata.msdOrStatus==3" :href="'tel:'+tabdata.msdAdPhone+''">联系师傅</a>
-			<div class="bottom-news" v-if="tabdata.msdOrStatus==3" @click="orderok">完成订单</div>
-		</div>
+		<!--<div class="bottom">
+			<div class="bottom-text" v-if="tabdata.msdOrStatus==2">取消订单</div>
+		</div>-->
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'xiangqing-yonghu',
+		name: 'xiangqing-yonghu-canyin',
 		data() {
 			return {
 				tabdata: []
@@ -95,33 +64,7 @@
 					type: 'post',
 					url: that.myurl + '/company/removeOrder',
 					data: {
-						msdOrderId: that.msdOrderId,
-						userId:localStorage.getItem('userid'),
-						type:1
-					},
-					success: function(res) {
-						if(res.status == 200) {
-							that.back()
-						} else {
-							alert(res.msg)
-						}
-					},
-					error: function(res) {
-						alert('网络连接失败，请检查网络后再试！')
-					}
-				})
-			},
-			orderok:function(){
-				var that = this
-				//				完成服务类订单
-				$.ajax({
-					type: 'post',
-					url: that.myurl + '/company/completeOrder',
-					data: {
-						msdOrderId: that.msdOrderId,
-						msdOrCompletionCode:that.tabdata.msdOrCompletionCode,
-						userId:localStorage.getItem('userId'),
-						type:1
+						msdOrderId: that.msdOrderId
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -140,9 +83,9 @@
 				//				获取订单详情
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/company/queryCompanyOrderPojo',
+					url: that.myurl + '/company/queryCompanyFoodOrderPojo',
 					data: {
-						msdOrderId: that.msdOrderId
+						msdFoodOrderId: that.msdOrderId
 					},
 					success: function(res) {
 						if(res.status == 200) {

@@ -18,7 +18,7 @@ Vue.prototype.$ajax = axios
 
 
 Vue.filter('myimg',function(value){
-	return 'http://192.168.2.105'+value
+	return 'http://192.168.2.185'+value
 })
 /* eslint-disable no-new */
 new Vue({

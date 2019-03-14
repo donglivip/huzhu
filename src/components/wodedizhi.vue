@@ -20,8 +20,9 @@
 					<div class="content-text">{{val.msdAdPhone}}</div>
 				</div>
 				<div class="main-bottom">
-					<div class="bottom-box">
-						<img src="../../static/xuanzhong.png" v-if='val.msdAdIsDefault==1'/>
+					<div class="bottom-box" @click="active(val.msdAddressId)">
+						<img src="../../static/xuanzhong.png" v-show='val.msdAdIsDefault==1'/>
+						<img src="../../static/xuanzhong (1).png" v-show='val.msdAdIsDefault!=1'/>
 						<div class="bottom-text">设为默认地址</div>
 					</div>
 					<div class="bottom-box">
@@ -43,6 +44,30 @@
 			}
 		},
 		methods: {
+			active:function(id){
+				var that = this
+				//				设置默认地址
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/user/updateAddressUser',
+					data: {
+						msdAdUpdateName: localStorage.getItem('userid'),
+						msdAddressId:id,
+						msdAdIsDefault:1,
+						msdUserId:localStorage.getItem('userid')
+					},
+					success: function(res) {
+						if(res.data == 1) {
+							that.myajax()
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
 			godelete:function(id){
 				var that = this
 				//				删除地址
@@ -52,7 +77,8 @@
 					data: {
 						msdAdUpdateName: localStorage.getItem('userid'),
 						msdAddressId:id,
-						msdAdIsDelete:1
+						msdAdIsDelete:1,
+						msdUserId:localStorage.getItem('userid')
 					},
 					success: function(res) {
 						if(res.data == 1) {
