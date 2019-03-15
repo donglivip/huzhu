@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-cebian" @click="back()">
-				<img src="../../static/youjian.png" />
+				<img src="../../../static/youjian.png" />
 			</div>
 			<div class="header-text">充值</div>
 			<div class="header-cebian"></div>
@@ -21,13 +21,13 @@
 			<div class="main-three">
 				<div class="three-box" @click="change(1)">
 					<div class="three-text">支付宝</div>
-					<img src="../../static/xuanzhong (1).png" v-if="state==2" />
-					<img src="../../static/xuanzhong.png" v-if="state==1" />
+					<img src="../../../static/xuanzhong (1).png" v-if="state==2" />
+					<img src="../../../static/xuanzhong.png" v-if="state==1" />
 				</div>
 				<div class="three-box" @click="change(2)">
 					<div class="three-text">微信</div>
-					<img src="../../static/xuanzhong (1).png" v-if="state==1" />
-					<img src="../../static/xuanzhong.png" v-if="state==2" />
+					<img src="../../../static/xuanzhong (1).png" v-if="state==1" />
+					<img src="../../../static/xuanzhong.png" v-if="state==2" />
 				</div>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 
 <script>
 	export default {
-		name: 'chongzhi',
+		name: 'chongzhi-shifu',
 		data() {
 			return {
 				price: '',
@@ -59,10 +59,10 @@
 				//				充值
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/userRecharge',
+					url: that.myurl + '/company/companyRecharge',
 					data: {
-						msdUprPrice: that.price,
-						msdUprCreateName: localStorage.getItem('userid'),
+						msdCprPrice: that.price,
+						msdCprCreateName: localStorage.getItem('userid'),
 						state: that.state
 					},
 					success: function(res) {

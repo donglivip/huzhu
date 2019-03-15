@@ -35,22 +35,40 @@
 				<div class="two-text">服务项目：{{servertext.msdCsName}}</div>
 				<img src="../../static/you-hui.png" />
 			</div>
+			<div class="main-two" @click="paychange()">
+				<div class="two-text">支付方式：{{state | ptype}}</div>
+				<img src="../../static/you-hui.png" />
+			</div>
 			<div class="main-two">
 				<div class="two-text">最低价:</div>
 				<div class="two-news">￥{{servertext.msdCsPrice}}</div>
 			</div>
 			<div class="main-three">
 				<div class="three-text">备注：</div>
-				<input type="text" placeholder="请输入您想要备注的内容" v-model="msdOrRemark"/>
+				<input type="text" placeholder="请输入您想要备注的内容" v-model="msdOrRemark" />
 			</div>
 			<div class="main-four">
 				<div class="four-text">附照（最多三张）</div>
-				<img :src="val" v-for="val in files"/>
-				<img src="../../static/jia.png" @click="upload()" v-if="files.length<3"/>
+				<img :src="val" v-for="val in files" />
+				<img src="../../static/jia.png" @click="upload()" v-if="files.length<3" />
 			</div>
 		</div>
 		<div class="bottom" @click="gosubmit()">
 			<div class="bottom-text">确认提交</div>
+		</div>
+		<!--支付方式-->
+		<div class="layui" v-if="payboo" @click="paychange()">
+			<div class="layui-bottom">
+				<div class="layui-tab" @click.stop="changepay(1)">
+					支付宝
+				</div>
+				<div class="layui-tab" @click.stop="changepay(2)">
+					微信
+				</div>
+				<div class="layui-tab" @click.stop="changepay(3)">
+					钱包支付
+				</div>
+			</div>
 		</div>
 		<!--服务项目-->
 		<div class="layui" v-if="layuiboo" @click="layuichange()">
@@ -61,7 +79,7 @@
 			</div>
 		</div>
 		<!--上门时间-->
-		<date-time ref="dateTime" type="dateTime"  @confirm="select"></date-time>
+		<date-time ref="dateTime" type="dateTime" @confirm="select"></date-time>
 	</div>
 </template>
 
@@ -76,62 +94,104 @@
 				layuiboo: false,
 				timeboo: false,
 				servertext: '',
-				serverid: '', 
+				serverid: '',
 				tabdata02: [],
 				msdOrIsAppointmentTime: 2,
-				files:[],
-				filesurl:[],
-				msdOrRemark:''
+				files: [],
+				filesurl: [],
+				msdOrRemark: '',
+				state: 1,
+				payboo: false,
+				channel:''
 			}
 		},
 		methods: {
-			gosubmit:function(){
+			changepay: function(index) {
+				this.state = index
+				this.paychange()
+			},
+			paychange: function() {
+				this.payboo = !this.payboo
+			},
+			gosubmit: function() {
 				var that = this
 				//				提交订单
-				if(this.msdOrIsAppointmentTime==2){
+				if(this.msdOrIsAppointmentTime == 2) {
 					var myDate = new Date();
-					this.msdOrAppointmentTime=myDate.toLocaleDateString()+' '+myDate.getHours()+':'+myDate.getMinutes()+':'+myDate.getSeconds()
-				}else{
-					this.msdOrAppointmentTime=this.msdOrAppointmentTime+':00'
+					this.msdOrAppointmentTime = myDate.toLocaleDateString() + ' ' + myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds()
+				} else {
+					this.msdOrAppointmentTime = this.msdOrAppointmentTime + ':00'
 				}
-				$.ajax({
-					type: 'post',
-					url: that.myurl + '/user/userWalletPayOrder',
-					data: {
-						msdUserId: localStorage.getItem('userid'),
-						msdServiceStyleId:that.MsdServiceStyleId,
-						msdAddressId:that.tabdata02.msdAddressId,
-						msdOrPrice:that.servertext.msdCsPrice,
-						msdOrImg1:that.filesurl[0],
-						msdOrImg2:that.filesurl[1],
-						msdOrImg3:that.filesurl[2],
-						msdOrIsAppointmentTime:that.msdOrIsAppointmentTime,
-						msdOrIsDelete:2,
-						msdOrCreateName:localStorage.getItem('userid'),
-						msdOrRemark:that.msdOrRemark,
-						msdOrAppointmentTime:that.msdOrAppointmentTime,
-						msdCompanyId:that.msdCompanyId
-					},
-					success: function(res) {
-						if(res.data == 1) {
-							that.opennew('wodedingdan')
-						} else if(res.data==-1){
-							alert('余额不足！')
-						} else {
-							alert(res.msg)
+				if(this.state == 3) {
+//					余额支付
+					$.ajax({
+						type: 'post',
+						url: that.myurl + '/user/userWalletPayOrder',
+						data: {
+							msdUserId: localStorage.getItem('userid'),
+							msdServiceStyleId: that.MsdServiceStyleId,
+							msdAddressId: that.tabdata02.msdAddressId,
+							msdOrPrice: that.servertext.msdCsPrice,
+							msdOrImg1: that.filesurl[0],
+							msdOrImg2: that.filesurl[1],
+							msdOrImg3: that.filesurl[2],
+							msdOrIsAppointmentTime: that.msdOrIsAppointmentTime,
+							msdOrIsDelete: 2,
+							msdOrCreateName: localStorage.getItem('userid'),
+							msdOrRemark: that.msdOrRemark,
+							msdOrAppointmentTime: that.msdOrAppointmentTime,
+							msdCompanyId: that.msdCompanyId
+						},
+						success: function(res) {
+							if(res.data == 1) {
+								that.opennew('wodedingdan')
+							} else if(res.data == -1) {
+								alert('余额不足！')
+							} else {
+								alert(res.msg)
+							}
+						},
+						error: function(res) {
+							alert('网络连接失败，请检查网络后再试！')
 						}
-					},
-					error: function(res) {
-						alert('网络连接失败，请检查网络后再试！')
-					}
-				})
+					})
+				} else {
+//					线上支付
+					$.ajax({
+						type: 'post',
+						url: that.myurl + '/user/userCreateOrderPay',
+						data: {
+							msdUserId: localStorage.getItem('userid'),
+							msdServiceStyleId: that.MsdServiceStyleId,
+							msdAddressId: that.tabdata02.msdAddressId,
+							msdOrPrice: that.servertext.msdCsPrice,
+							msdOrImg1: that.filesurl[0],
+							msdOrImg2: that.filesurl[1],
+							msdOrImg3: that.filesurl[2],
+							msdOrIsAppointmentTime: that.msdOrIsAppointmentTime,
+							msdOrIsDelete: 2,
+							msdOrCreateName: localStorage.getItem('userid'),
+							msdOrRemark: that.msdOrRemark,
+							msdOrAppointmentTime: that.msdOrAppointmentTime,
+							msdCompanyId: that.msdCompanyId,
+							state:that.state
+						},
+						success: function(res) {
+							
+						},
+						error: function(res) {
+							alert('网络连接失败，请检查网络后再试！')
+						}
+					})
+				}
+
 			},
 			show() {
 				this.$refs.dateTime.show()
 			},
 			// 日期组件回调
 			select(val) {
-				this.msdOrIsAppointmentTime=1
+				this.msdOrIsAppointmentTime = 1
 				this.msdOrAppointmentTime = val
 			},
 			changeserver: function(val) {
@@ -278,7 +338,7 @@
 						type: 'post',
 						url: thats.myurl + '/user/inserUserImgOrder',
 						data: {
-							imgStr:canvas.toDataURL('image/jpeg', 1 || 0.8)
+							imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
 						},
 						success: function(res) {
 							if(res.status == 200) {
@@ -303,6 +363,21 @@
 					name: 'denglu'
 				})
 			}
+			var that = this
+			// 1. 获取支付通道
+			function plusReady() {
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					that.channel = channels;
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
 		},
 		computed: {
 			myurl() {
@@ -323,6 +398,17 @@
 		},
 		components: {
 			DateTime
+		},
+		filters:{
+			ptype:function(value){
+				if(value==1){
+					return '支付宝'
+				}else if(value==2){
+					return '微信'
+				}else{
+					return '钱包充值'
+				}
+			}
 		}
 	}
 </script>

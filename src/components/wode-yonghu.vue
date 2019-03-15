@@ -9,7 +9,7 @@
 				<div class="content-text">{{msdNickname=='null'?'新用户':msdNickname}}</div>
 				<div class="content-news">{{msdIsIdentity==2?'未实名认证':'已实名认证'}}</div>
 			</div>
-			<div class="header-right" v-if="msdIsMember==2">
+			<div class="header-right" v-if="msdIsMember==1" @click="opennew('openvip')">
 				<img src="../../static/vip icon.png" />
 				<div class="right-text">开通会员</div>
 			</div>
@@ -94,6 +94,24 @@
 			myajax: function() {
 				var that = this
 				//				获取店铺列表
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/user/selectNewsId',
+					data: {
+						msdNewsId: that.msdNewsId
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.tabdata = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+				//				获取会员规则
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/selectNewsId',

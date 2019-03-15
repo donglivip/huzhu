@@ -26,7 +26,7 @@
 						<div class="bottom-text">设为默认地址</div>
 					</div>
 					<div class="bottom-box">
-						<div class="bottom-news" @click.stop="godelete(val.msdAddressId)">删除</div>
+						<div class="bottom-news" @click.stop="godelete(val.msdAddressId,val.msdAdIsDefault)">删除</div>
 						<div class="bottom-news" @click="opennew('xinzengdizhi',val.msdAddressId)">编辑</div>
 					</div>
 				</div>
@@ -68,7 +68,7 @@
 					}
 				})
 			},
-			godelete:function(id){
+			godelete:function(id,type){
 				var that = this
 				//				删除地址
 				$.ajax({
@@ -78,7 +78,8 @@
 						msdAdUpdateName: localStorage.getItem('userid'),
 						msdAddressId:id,
 						msdAdIsDelete:1,
-						msdUserId:localStorage.getItem('userid')
+						msdUserId:localStorage.getItem('userid'),
+						msdAdIsDefault:type
 					},
 					success: function(res) {
 						if(res.data == 1) {

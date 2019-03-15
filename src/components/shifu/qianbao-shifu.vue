@@ -33,7 +33,7 @@
 				<div class="four-text">绑定微信 </div>
 				<img src="../../../static/you-hui.png" class="right" />
 			</div>
-			<div class="main-four">
+			<div class="main-four" @click="opennew('chongzhi-shifu')">
 				<img src="../../../static/chongzhijilu.png" class="lift" />
 				<div class="four-text">充值</div>
 				<img src="../../../static/you-hui.png" class="right" />

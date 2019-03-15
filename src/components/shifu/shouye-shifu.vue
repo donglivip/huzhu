@@ -274,6 +274,7 @@
 	.cebian-text {
 		font-size: .28rem;
 		color: #26261E;
+		white-space: nowrap;
 	}
 	
 	.header-text {

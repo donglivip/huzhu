@@ -8,6 +8,27 @@ export default new Router({
 		path: '',
 		redirect: 'shouye-yonghu'
 	}, {
+		path: '/openvip',
+		name: 'openvip',
+		component: resolve => require(['@/components/openvip'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/zhuce-shifu',
+		name: 'zhuce-shifu',
+		component: resolve => require(['@/components/shifu/zhuce-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/openvip-shifu',
+		name: 'openvip-shifu',
+		component: resolve => require(['@/components/shifu/openvip-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/fuwuxiangmu',
 		name: 'fuwuxiangmu',
 		component: resolve => require(['@/components/shifu/fuwuxiangmu'], resolve),
@@ -18,6 +39,13 @@ export default new Router({
 		path: '/xiangqing-yonghu-canyin',
 		name: 'xiangqing-yonghu-canyin',
 		component: resolve => require(['@/components/xiangqing-yonghu-canyin'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/chongzhi-shifu',
+		name: 'chongzhi-shifu',
+		component: resolve => require(['@/components/shifu/chongzhi-shifu'], resolve),
 		meta: {
 			keepAlive: false
 		}

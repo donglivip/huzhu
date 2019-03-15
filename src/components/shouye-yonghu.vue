@@ -68,8 +68,7 @@
 			</div>
 			<div class="main-four">合作伙伴</div>
 			<div class="main-six">
-				<img src="../../static/youyou.png" />
-				<img src="../../static/youyou.png" />
+				<a :href="val.msdCpUrl" v-for="val in frienddata"><img :src="val.msdCpImg | myimg"/></a>
 			</div>
 		</div>
 		<div class="bottom">
@@ -108,7 +107,8 @@
 				tabdata: [],
 				imgdata: [],
 				district: '',
-				city: '获取中'
+				city: '获取中',
+				frienddata:[]
 			}
 		},
 		methods: {
@@ -185,6 +185,21 @@
 					success: function(res) {
 						if(res.status == 200) {
 							that.tabdata = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+				//				获取合作伙伴
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/user/selectMsdCooperativePartner',
+					success: function(res) {
+						if(res.status == 200) {
+							that.frienddata = res.data
 						} else {
 							alert(res.msg)
 						}

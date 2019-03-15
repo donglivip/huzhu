@@ -8,7 +8,7 @@
 				<div class="content-text">{{msdCoName=='null'?'新用户':msdCoName}}</div>
 				<div class="content-news">{{msdCoIsIdentity==2?'未实名认证':'已实名认证'}}</div>
 			</div>
-			<div class="header-right" v-if="msdCoIsMemeber==2">
+			<div class="header-right" v-if="msdCoIsMemeber==2" @click="opennew('openvip-shifu')">
 				<img src="../../../static/vip icon.png" />
 				<div class="right-text">开通会员</div>
 			</div>
