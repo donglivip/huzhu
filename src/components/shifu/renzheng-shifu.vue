@@ -15,6 +15,24 @@
 				<div class="main-one">
 					<input type="text" placeholder="身份证号码" v-model="msdCardId"/>
 				</div>
+				<div class="main-one">
+					<input type="text" placeholder="公司介绍" v-model="msdCoIntroduce"/>
+				</div>
+				<div class="main-one" @click="changeboo()">
+					<input type="text" placeholder="选择分类" v-model="msdSsName" readonly="readonly"/>
+				</div>
+				<div class="main-one">
+					<input type="text" placeholder="支付宝实名认证姓名" v-model="msdCwAliBindingName"/>
+				</div>
+				<div class="main-one">
+					<input type="text" placeholder="支付宝账号" v-model="msdCwAliBindingCode"/>
+				</div>
+				<div class="main-one">
+					<input type="text" placeholder="微信实名认证姓名" v-model="msdCwWechatBindingName"/>
+				</div>
+				<div class="main-one">
+					<input type="text" placeholder="微信账号" v-model="msdCwWechatBindingCode"/>
+				</div>
 				<div class="main-two">
 					<div class="two-text">身份证正面</div>
 					<div class="two-box">
@@ -48,6 +66,13 @@
 				</div>
 			</div>
 		</div>
+		<div class="layui" v-if="boo">
+			<div class="layui-inner">
+				<div class="layui-tab" v-for="val in navtab" @click="changenum(val.msdServiceStyleId,val.msdSsName)">
+					{{val.msdSsName}}
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -59,20 +84,54 @@
 				files: [],
 				uploadtarget: '',
 				msdName:'',
-				msdCardId:''
+				msdCardId:'',
+				navtab:[],
+				msdSsName:'',
+				msdServiceStyleId:'',
+				boo:false,
+				msdCoIntroduce:'',
+				msdCwAliBindingCode:'',
+				msdCwAliBindingName:'',
+				msdCwWechatBindingName:'',
+				msdCwWechatBindingCode:''
 			}
 		},
 		methods: {
+			changeboo:function(){
+				this.boo=!this.boo
+			},
+			changenum:function(id,name){
+				this.msdServiceStyleId=id
+				this.msdSsName=name
+				this.changeboo()
+			},
+			have:function(){
+				var that=this
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/user/selectMsdServiceStyle',
+					success: function(res) {
+						if(res.status == 200) {
+							that.navtab = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
 			back: function() {
 				this.$router.back()
 			},
 			myajax: function() {
 				var that = this
 				//				提交认证
-				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
-					alert('资料填写不完整')
-					return false;
-				}
+//				if(that.msdCwAliBindingName==''||that.msdCwAliBindingCode==''||that.msdCwWechatBindingName==''||that.msdCwWechatBindingCode==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
+//					alert('资料填写不完整')
+//					return false;
+//				}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/updateCompanInfoById',
@@ -82,7 +141,15 @@
 						msdCoCardId:that.msdCardId,
 						msdCoCardFrontImg:$('#sz').attr('imgsrc'),
 						msdCoCardBackImg:$('#sf').attr('imgsrc'),
-						msdCoIsIdentity:1
+						msdCoIsIdentity:1,
+						msdServiceStyleId:that.msdServiceStyleId,
+						msdCoIntroduce:that.msdCoIntroduce,
+						msdCwAliBindingCode:that.msdCwAliBindingCode,
+						msdCwAliBindingName:that.msdCwAliBindingName,
+						msdCwWechatBindingName:that.msdCwWechatBindingName,
+						msdCwWechatBindingCode:that.msdCwWechatBindingCode,
+						msdCwIsAliBinding:1,
+						msdCwIsWechatBinding:1
 					},
 					success: function(res) {
 						if(res.data == 1) {
@@ -201,7 +268,7 @@
 			}
 		},
 		mounted() {
-
+			this.have()
 		},
 		computed: {
 			myurl() {
@@ -216,7 +283,9 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+	.layui{position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.5);display: flex;align-items: flex-end;justify-content: center;}
+	.layui-inner{background: #FFFFFF;border-radius: .1rem;height: 5rem;overflow-y: scroll;width: 100%;}
+	.layui-tab{height: 1rem;border-bottom: 1px solid ghostwhite;display: flex;align-items: center;justify-content: center;}
 	html,
 	body,
 	.wrapper {

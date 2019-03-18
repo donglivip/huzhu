@@ -3,7 +3,7 @@
 		<!--头-->
 		<div class="header">
 			<div class="header-cebian"></div>
-			<div class="header-text">登录</div>
+			<div class="header-text">师傅登录</div>
 			<div class="header-cebian"></div>
 		</div>
 		<!--中间主体-->
@@ -18,7 +18,7 @@
 				<div class="two-text">登录</div>
 			</div>
 			<div class="main-three ">
-				<div class="three-text" @click="opennew('zhuce')">注册</div>
+				<div class="three-text" @click="opennew('zhuce-shifu')">注册</div>
 				<!--<div class="three-text">忘记密码？ </div>-->
 			</div>
 		</div>

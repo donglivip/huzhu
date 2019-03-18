@@ -29,7 +29,6 @@
 			},
 			sharew:function(){
 				var that=this
-				console.log(that.myurl + "/user/share?phone=" + localStorage.getItem('userphone') + "&userId="+localStorage.getItem('userid')+"&state=1")
 				this.sharewx.send({
 					title: '最好用的服务软件 无忧互助！',
 					content: "最好用的服务软件 无忧互助！",

@@ -9,7 +9,7 @@
 		</div>
 		<div class="main">
 			<div class="main-one">
-				<img :src="navdata.msdIrImg" />
+				<img :src="navdata.msdIrImg | myimg" />
 				<!--<p>{{navdata.maIlName}}</p>-->
 			</div>
 			<div class="main-two">

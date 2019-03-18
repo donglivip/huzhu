@@ -14,11 +14,11 @@
 				<div class="main-one" @click="upload()">
 					<div class="one-text">头像</div>
 					<img src="../../static/234564.jpg" v-if="msdHeadImg=='null'"/>
-					<img :src="msdHeadImg"  v-if="msdHeadImg!='null'"/>
+					<img :src="msdHeadImg | myimg"  v-if="msdHeadImg!='null'"/>
 				</div>
 				<div class="main-two">
 					<div class="two-text">昵称</div>
-					<input class="two-news" type="text" v-model="msdNickname" placeholder="请输入用户名"/>
+					<input class="two-news" type="text" v-model="msdNickname=='null'?'':msdNickname" placeholder="请输入用户名"/>
 				</div>
 				<!--<div class="main-three">
 					<div class="three-text">登录密码</div>
@@ -162,7 +162,7 @@
 					success: function(res) {
 						if(res.status == 200) {
 							localStorage.setItem('msdNickname',that.msdNickname)
-							localStorage.setItem('msdHeadImg',that.msdHeadImg)
+							localStorage.setItem('msdHeadImg',that.msdHeadImgurl)
 							that.back()
 						} else {
 							alert(res.msg)
@@ -178,7 +178,7 @@
 			},
 			opennew: function(target, id) {
 				this.$store.state.msdNewsId = id
-				this.$router.push({
+				this.$router.replace({
 					name: target
 				})
 			}

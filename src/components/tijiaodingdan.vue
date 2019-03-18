@@ -29,15 +29,29 @@
 				<div class="main-two">
 					<textarea placeholder="备注：" v-model="msdFoRemark"></textarea>
 				</div>
-				<!--<div class="main-three">
-					<div class="two-text">在线支付</div>
+				<div class="main-three" @click="paychange()">
+					<div class="two-text">{{state | ptype}}</div>
 					<img src="../../static/you-hui.png" />
-				</div>-->
+				</div>
 			</div>
 
 		</div>
 		<div class="bottom" @click="gosubmit()">
 			<div class="bottom-text">去结算</div>
+		</div>
+		<!--支付方式-->
+		<div class="layui" v-if="payboo" @click="paychange()">
+			<div class="layui-bottom">
+				<div class="layui-tab" @click.stop="changepay(1)">
+					支付宝
+				</div>
+				<div class="layui-tab" @click.stop="changepay(2)">
+					微信
+				</div>
+				<div class="layui-tab" @click.stop="changepay(3)">
+					钱包支付
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -48,34 +62,86 @@
 		data() {
 			return {
 				tabdata:[],
-				msdFoRemark:''
+				msdFoRemark:'',
+				payboo:false,
+				state:1,
+				channel:''
 			}
 		},
 		methods: {
+			changepay: function(index) {
+				this.state = index
+				this.paychange()
+			},
+			paychange: function() {
+				this.payboo = !this.payboo
+			},
 			gosubmit:function(){
 				var that = this
 				//				钱包下单
-				$.ajax({
-					type: 'post',
-					url: that.myurl + '/user/userWalletPay',
-					data: {
-						msdUserId: localStorage.getItem('userid'),
-						msdAddressId:that.tabdata.msdAddressId,
-						msdFoPrice:that.msdFoodResultId.msdFrPrice,
-						msdFoodResultId:that.msdFoodResultId.msdFoodResultId,
-						msdFoRemark:that.msdFoRemark
-					},
-					success: function(res) {
-						if(res.data == 1) {
-							that.opennew('wodedingdan')
-						}else{
-							alert(res.msg)
+				if(that.state==3){
+					$.ajax({
+						type: 'post',
+						url: that.myurl + '/user/userWalletPay',
+						data: {
+							msdUserId: localStorage.getItem('userid'),
+							msdAddressId:that.tabdata.msdAddressId,
+							msdFoPrice:that.msdFoodResultId.msdFrPrice,
+							msdFoodResultId:that.msdFoodResultId.msdFoodResultId,
+							msdFoRemark:that.msdFoRemark
+						},
+						success: function(res) {
+							if(res.data == 1) {
+								that.opennew('wodedingdan')
+							}else{
+								alert('余额不足！')
+							}
+						},
+						error: function(res) {
+							alert('网络连接失败，请检查网络后再试！')
 						}
-					},
-					error: function(res) {
-						alert('网络连接失败，请检查网络后再试！')
-					}
-				})
+					})
+				}else{
+//					线上付款
+					$.ajax({
+						type: 'post',
+						url: that.myurl + '/user/userCreateFoodOrderPay ',
+						dataType:'json',
+						data: {
+							msdUserId: localStorage.getItem('userid'),
+							msdAddressId:that.tabdata.msdAddressId,
+							msdFoPrice:that.msdFoodResultId.msdFrPrice,
+							msdFoodResultId:that.msdFoodResultId.msdFoodResultId,
+							msdFoRemark:that.msdFoRemark,
+							state:that.state
+						},
+						success: function(res) {
+							if(that.state == 1) {
+								//								支付宝充值
+								plus.payment.request(that.channel[0], res.data[0], function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										that.back()
+									});
+								}, function(error) {
+									alert('支付失败！')
+								});
+							} else {
+								//								微信充值
+								plus.payment.request(that.channel[1], res, function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										that.back()
+									});
+								}, function(error) {
+									alert('支付失败！')
+								});
+							}
+						},
+						error: function(res) {
+							alert('网络连接失败，请检查网络后再试！')
+						}
+					})
+				}
+				
 			},
 			myajax: function() {
 				var that = this
@@ -118,6 +184,21 @@
 		},
 		mounted() {
 			this.myajax()
+			var that = this
+			// 1. 获取支付通道
+			function plusReady() {
+				// 获取支付通道
+				plus.payment.getChannels(function(channels) {
+					that.channel = channels;
+				}, function(e) {
+					alert("获取支付通道失败：" + e.message);
+				});
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
 		},
 		computed: {
 			myurl() {
@@ -125,6 +206,17 @@
 			},
 			msdFoodResultId() {
 				return this.$store.state.msdFoodResultId
+			}
+		},
+		filters:{
+			ptype:function(value){
+				if(value==1){
+					return '支付宝'
+				}else if(value==2){
+					return '微信'
+				}else{
+					return '钱包支付'
+				}
 			}
 		}
 	}
@@ -135,7 +227,31 @@
 		margin: 0;
 		padding: 0;
 	}
+	.layui,
+	.modal {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background: rgba(0, 0, 0, .5);
+		display: flex;
+		align-items: flex-end;
+	}
 	
+	.layui-bottom {
+		background: #FFFFFF;
+		width: 100%;
+	}
+	
+	.layui-tab {
+		height: 1rem;
+		border-bottom: 1px solid ghostwhite;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: .25rem;
+	}
 	html,
 	body,
 	.wrapper {

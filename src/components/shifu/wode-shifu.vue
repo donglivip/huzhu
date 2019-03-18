@@ -2,7 +2,8 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-lift" @click="back()">
-				<img :src="madCoHeadImg" />
+				<img :src="madCoHeadImg | myimg" v-if="madCoHeadImg!='null'"/>
+				<img src="../../../static/234564.jpg" v-if="madCoHeadImg=='null'"/>
 			</div>
 			<div class="header-content">
 				<div class="content-text">{{msdCoName=='null'?'新用户':msdCoName}}</div>
@@ -112,18 +113,19 @@
 		methods: {
 			changework: function() {
 				var that = this
+				var id=that.msdCoIsWork==1?2:1
 				//				改变开启状态
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/updateCompanInfoById',
 					data: {
 						msdCompanyId: localStorage.getItem('msdCompanyId'),
-						msdCoIsWork:that.msdCoIsWork==1?2:1
+						msdCoIsWork:id
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							that.msdCoIsWork=(that.msdCoIsWork==1?2:1)
-							localStorage.setItem('msdCoIsWork',that.msdCoIsWork==1?2:1)
+							that.msdCoIsWork=id
+							localStorage.setItem('msdCoIsWork',id)
 						} else {
 							alert(res.msg)
 						}

@@ -14,7 +14,7 @@
 			
 			<div class="main-two" v-for="val in shopdata" @click="opennew('canyinxiangqing',val.msdFoodResultId)">
 				<div class="two-lift">
-					<img :src="val.msdFrHeadImg" />
+					<img :src="val.msdFrHeadImg | myimg" />
 				</div>
 				<div class="two-right">
 					<div class="two-text">{{val.msdFrName}}</div>

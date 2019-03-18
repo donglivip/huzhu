@@ -23,12 +23,12 @@
 					<div class="three-text">余额按照银行的年利率计算，存满一年后，利息到达余额账户未满一年不计算</div>
 				</div>
 			</div>
-			<div class="main-four" @click="mypro()">
+			<div class="main-four" @click="opennew('renzhengzhongxin')">
 				<img src="../../static/bangding.png" class="lift" />
 				<div class="four-text">绑定支付宝 </div>
 				<img src="../../static/you-hui.png" class="right" />
 			</div>
-			<div class="main-four" @click="mypro02()">
+			<div class="main-four" @click="opennew('renzhengzhongxin')">
 				<img src="../../static/bangding.png" class="lift" />
 				<div class="four-text">绑定微信 </div>
 				<img src="../../static/you-hui.png" class="right" />
@@ -38,7 +38,7 @@
 				<div class="four-text">充值</div>
 				<img src="../../static/you-hui.png" class="right" />
 			</div>
-			<div class="main-four">
+			<div class="main-four" @click="opennew('tixian')">
 				<img src="../../static/chongzhijilu.png" class="lift" />
 				<div class="four-text">提现</div>
 				<img src="../../static/you-hui.png" class="right" />

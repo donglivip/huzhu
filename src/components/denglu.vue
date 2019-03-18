@@ -3,7 +3,7 @@
 		<!--头-->
 		<div class="header">
 			<div class="header-cebian"></div>
-			<div class="header-text">登录</div>
+			<div class="header-text">用户登录</div>
 			<div class="header-cebian"></div>
 		</div>
 		<!--中间主体-->
@@ -61,7 +61,7 @@
 					success: function(res) {
 						if(res.status == 200) {
 							if(res.data.length == 0) {
-								alert('该用户未注册！')
+								alert('账号或密码错误！')
 							} else {
 								var boo = false
 								//									是用户

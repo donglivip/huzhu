@@ -8,7 +8,7 @@
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
-			<div class="main-three" v-for='val in tabdata'>
+			<div class="main-three" v-for='val in tabdata' @click="opennew('bangzhuxiangqing',val.msdHelpId)">
 				<div class="three-text">{{val.msdHeTitle}}</div>
 				<!--<img src="../../static/you.png" />-->
 			</div>
@@ -59,6 +59,9 @@
 		computed: {
 			myurl() {
 				return this.$store.state.myurl
+			},
+			msdNewsId() {
+				return this.$store.state.msdNewsId
 			}
 		}
 	}

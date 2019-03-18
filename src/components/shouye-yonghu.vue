@@ -9,7 +9,7 @@
 				<img src="../../static/dingwei1.png" />
 				<div class="header-text">{{city + district}}</div>
 			</div>
-			<div class="header-cebian" @click="opennew('shouye-shifu')">
+			<div class="header-cebian" @click="opennew02('shouye-shifu')">
 				<div class="cebian-news">切换身份</div>
 			</div>
 		</div>
@@ -18,7 +18,7 @@
 				<swiper :options="swiperOption" ref="mySwiper">
 					<!-- 这部分放你要渲染的那些内容 -->
 					<swiper-slide v-for='val in imgdata' v-if='val.msdBaIsDelete==2'>
-						<img :src="val.msdBaImg" />
+						<img :src="val.msdBaImg | myimg" />
 					</swiper-slide>
 					<!-- 这是轮播的小圆点 -->
 					<div class="swiper-pagination" slot="pagination"></div>
@@ -26,7 +26,7 @@
 			</div>
 			<div class="main-two">
 				<div class="two-box" v-for="(val,index) in tabdata" v-if="index<3" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
-					<img :src="val.msdSsImg" />
+					<img :src="val.msdSsImg | myimg" />
 					<div class="two-text">{{val.msdSsName}}</div>
 				</div>
 				<div class="two-box" @click="opennew('fenlei','','')">
@@ -68,7 +68,7 @@
 			</div>
 			<div class="main-four">合作伙伴</div>
 			<div class="main-six">
-				<a :href="val.msdCpUrl" v-for="val in frienddata"><img :src="val.msdCpImg | myimg"/></a>
+				<a :href="val.msdCpUrl" v-for="val in frienddata"><img :src="val.msdCpImg | myimg" /></a>
 			</div>
 		</div>
 		<div class="bottom">
@@ -108,7 +108,7 @@
 				imgdata: [],
 				district: '',
 				city: '获取中',
-				frienddata:[]
+				frienddata: []
 			}
 		},
 		methods: {
@@ -209,13 +209,18 @@
 					}
 				})
 			},
-			opennew: function(target, id,name) {
-				if(localStorage.getItem('userid')=='null'||localStorage.getItem('userid')==undefined){
+			opennew02: function(target) {
+				this.$router.push({
+					name: target
+				})
+			},
+			opennew: function(target, id, name) {
+				if(localStorage.getItem('userid') == 'null' || localStorage.getItem('userid') == undefined) {
 					this.$router.replace({
 						name: 'denglu'
 					})
-				}else{
-					this.$store.state.MsdServiceStylename=name
+				} else {
+					this.$store.state.MsdServiceStylename = name
 					this.$store.state.MsdServiceStyleId = id
 					this.$router.push({
 						name: target

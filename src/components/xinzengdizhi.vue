@@ -10,11 +10,11 @@
 		<div class="main">
 			<div class="main-one">
 				<div class="one-text">联系人</div>
-				<input type="text" placeholder="丁丁" class="phone" v-model="msdAdName"/>
+				<input type="text" placeholder="请输入姓名" class="phone" v-model="msdAdName"/>
 			</div>
 			<div class=" main-one ">
 				<div class="one-text ">手机号码</div>
-				<input type="number " placeholder="1784756289 " class="phone " v-model="msdAdPhone"/>
+				<input type="number " placeholder="请输入手机号 " class="phone " v-model="msdAdPhone"/>
 			</div>
 			<div class="main-two ">
 				<div class="two-left ">

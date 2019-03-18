@@ -9,12 +9,12 @@
 		</div>
 		<div class="main">
 			<div class="main-one">
-				<img :src="navdata.msdFrHeadImg" />
+				<img :src="navdata.msdFrHeadImg | myimg" />
 				<!--<p>{{navdata.maIlName}}</p>-->
 			</div>
 			<div class="main-two">
 				<div class="two-text">产品特色</div>
-				<div v-html="navdata.msdIrConcise">
+				<div v-html="navdata.msdFrResult">
 
 				</div>
 			</div>

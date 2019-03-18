@@ -8,9 +8,30 @@ export default new Router({
 		path: '',
 		redirect: 'shouye-yonghu'
 	}, {
+		path: '/bangzhuxiangqing',
+		name: 'bangzhuxiangqing',
+		component: resolve => require(['@/components/bangzhuxiangqing'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/tixian',
+		name: 'tixian',
+		component: resolve => require(['@/components/tixian'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/openvip',
 		name: 'openvip',
 		component: resolve => require(['@/components/openvip'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/tixian-shifu',
+		name: 'tixian-shifu',
+		component: resolve => require(['@/components/shifu/tixian-shifu'], resolve),
 		meta: {
 			keepAlive: false
 		}

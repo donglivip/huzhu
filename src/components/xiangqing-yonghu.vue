@@ -120,7 +120,7 @@
 					data: {
 						msdOrderId: that.msdOrderId,
 						msdOrCompletionCode:that.tabdata.msdOrCompletionCode,
-						userId:localStorage.getItem('userId'),
+						userId:localStorage.getItem('userid'),
 						type:1
 					},
 					success: function(res) {

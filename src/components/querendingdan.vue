@@ -160,6 +160,7 @@
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/user/userCreateOrderPay',
+						dataType:'json',
 						data: {
 							msdUserId: localStorage.getItem('userid'),
 							msdServiceStyleId: that.MsdServiceStyleId,
@@ -177,7 +178,25 @@
 							state:that.state
 						},
 						success: function(res) {
-							
+							if(that.state == 1) {
+								//								支付宝充值
+								plus.payment.request(that.channel[0], res.data[0], function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										that.back()
+									});
+								}, function(error) {
+									alert('支付失败！')
+								});
+							} else {
+								//								微信充值
+								plus.payment.request(that.channel[1], res, function(result) {
+									plus.nativeUI.alert("支付成功！", function() {
+										that.back()
+									});
+								}, function(error) {
+									alert('支付失败！')
+								});
+							}
 						},
 						error: function(res) {
 							alert('网络连接失败，请检查网络后再试！')
@@ -344,7 +363,6 @@
 							if(res.status == 200) {
 								thats.files.push(canvas.toDataURL('image/jpeg', 1 || 0.8))
 								thats.filesurl.push(res.data)
-								alert(JSON.stringify(thats.filesurl))
 							} else {
 								alert(res.msg)
 							}
@@ -406,7 +424,7 @@
 				}else if(value==2){
 					return '微信'
 				}else{
-					return '钱包充值'
+					return '钱包支付'
 				}
 			}
 		}

@@ -24,7 +24,7 @@
 				</div>
 				<div class="box-box">
 					<div class="box-left">
-						<img :src="msdFrHeadImg | myimg" />
+						<img :src="tabdata.msdFrHeadImg | myimg" />
 					</div>
 					<div class="box-content">
 						<div class="box-above">{{tabdata.msdFrName}}</div>

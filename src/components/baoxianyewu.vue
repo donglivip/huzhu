@@ -13,10 +13,10 @@
 					<div class="one-text" v-for="(val,index) in navdata" :class="navindex==index?'one-news':''" @click="havedetail(val.msdInsuranceStatusId,index)">{{val.msdItName}}</div>
 				</div>
 				<div class="main-inner">
-					<swiper :options="swiperOption" ref="mySwiper">
+					<swiper :options="swiperOption" ref="mySwiper" v-if='imgdata.length!=0'>
 						<!-- 这部分放你要渲染的那些内容 -->
 						<swiper-slide v-for='val in imgdata'>
-							<img :src="val.maInsuranceBannerImg | myimg" />
+							<img :src="val.msdIrIsBannerImg | myimg" />
 						</swiper-slide>
 						<!-- 这是轮播的小圆点 -->
 						<div class="swiper-pagination" slot="pagination"></div>
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 
-				<!--					<div class="main-three">没有更多了～</div>-->
+									<div class="main-three">没有更多了～</div>
 			</div>
 		</div>
 	</div>
@@ -68,7 +68,7 @@
 				//				获取轮播图
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/business/queryMaInsuranceListBanner',
+					url: that.myurl + '/company/queryMsdInsuranceResultBanner',
 					success: function(res) {
 						if(res.status == 200) {
 							that.imgdata = res.data

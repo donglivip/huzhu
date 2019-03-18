@@ -4,15 +4,18 @@
 			<div class="header-cebian" @click="back()">
 				<img src="../../static/youjian.png" />
 			</div>
-			<div class="header-text">分类</div>
+			<div class="header-text">帮助</div>
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
-			<div class="main-box" v-for="val in tabdata" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
-				<div class="main-top">
-					<img :src="val.msdSsImg | myimg" />
-				</div>
-				<div class="main-bottom">{{val.msdSsName}}</div>
+			<div class="main-one">
+				<div class="one-text">{{tabdata.msdHeTitle}}</div>
+			</div>
+			<div class="main-two">
+				<div class="two-text">{{tabdata.msdHeCreateTimeString}}</div>
+			</div>
+			<div class="main-three">
+				<div class="three-text" v-html="tabdata.msdHeResult"></div>
 			</div>
 		</div>
 	</div>
@@ -20,19 +23,22 @@
 
 <script>
 	export default {
-		name: 'fenlei',
+		name: 'bangzhuxiangqing',
 		data() {
 			return {
-				tabdata: []
+				tabdata: ''
 			}
 		},
 		methods: {
 			myajax: function() {
 				var that = this
-				//				获取店铺列表
+				//				获取帮助详情
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/selectMsdServiceStyle',
+					url: that.myurl + '/company/queryAllMsdHelpById',
+					data:{
+						msdHelpId:that.msdNewsId
+					},
 					success: function(res) {
 						if(res.status == 200) {
 							that.tabdata = res.data
@@ -48,12 +54,10 @@
 			back: function() {
 				this.$router.back()
 			},
-			opennew: function(target, id,name) {
-				this.$store.state.MsdServiceStylename=name
-					this.$store.state.MsdServiceStyleId = id
-					this.$router.push({
-						name: target
-					})
+			opennew: function(target) {
+				this.$router.push({
+					name: target
+				})
 			}
 		},
 		mounted() {
@@ -62,6 +66,9 @@
 		computed: {
 			myurl() {
 				return this.$store.state.myurl
+			},
+			msdNewsId() {
+				return this.$store.state.msdNewsId
 			}
 		}
 	}
@@ -82,16 +89,15 @@
 	}
 	
 	.wrapper {
-		background: #F7F7F9;
+		background: #FFFFFF;
 	}
 	
 	.header {
-		background: #FFFFFF;
 		height: .96rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: .4rem;
+		margin-bottom: .2rem;
 		padding: 0 .3rem;
 	}
 	
@@ -106,45 +112,57 @@
 		height: .36rem;
 	}
 	
-	.header-text {
-		font-size: .32rem;
-		color: #1B1B1B;
-	}
-	
 	.main {
 		height: calc(100% - .96rem);
 		overflow-x: hidden;
 		overflow-y: scroll;
-		display: flex;
-		flex-wrap: wrap;
+		padding-bottom: 1rem;
 	}
 	
-	.main-box {
-		height: 3.6rem;
-		width: 3rem;
-		background: #FFFFFF;
+	.main-one {
 		display: flex;
-		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		margin-left: .4rem;
-		margin-bottom: .2rem;
-	}
-	
-	.main-top {
-		height: 1.3rem;
-		width: 1.2rem;
+		line-height: .6rem;
+		height: 1.2rem;
 		overflow: hidden;
+		margin-bottom: .24rem;
+		padding: 0 .3rem;
 	}
 	
-	.main-top img {
-		width: 100%;
+	.one-text {
+		font-size: .44rem;
+		color: #000000;
+		word-break: break-all;
 	}
 	
-	.main-bottom {
-		font-size: .34rem;
-		color: #292929;
-		margin-top: .2rem;
-		font-weight: 600;
+	.main-two {
+		padding: 0 .3rem;
+	}
+	
+	.two-text {
+		font-size: .24rem;
+		color: #000000;
+		margin-bottom: .48rem;
+	}
+	
+	.main-three {
+		display: flex;
+		align-items: center;
+		line-height: .4rem;
+		overflow: hidden;
+		margin-bottom: .4rem;
+		padding: 0 .3rem;
+	}
+	
+	.three-text {
+		font-size: .28rem;
+		color: #000000;
+		word-break: break-all;
+	}
+	
+	.main img {
+		width: calc(100% - .6rem);
+		margin-left: .3rem;
+		border-radius: .08rem;
 	}
 </style>

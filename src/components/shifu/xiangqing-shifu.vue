@@ -75,7 +75,7 @@
 			}
 		},
 		methods: {
-			orderok:function(){
+			orderok:function(id){
 				var that = this
 				var code = prompt('请输入完成码！')
 				if(code == '' || code == null) {
@@ -86,14 +86,14 @@
 					type: 'post',
 					url: that.myurl + '/company/completeOrder',
 					data: {
-						msdOrderId: id,
+						msdOrderId: that.msdOrderId,
 						userId: localStorage.getItem('msdCompanyId'),
 						type: 2,
 						msdOrCompletionCode: code
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							that.myajax(that.navindex)
+							that.back()
 						} else {
 							alert(res.msg)
 						}

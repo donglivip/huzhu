@@ -7,7 +7,7 @@
 				<img src="../../../static/xia.png" />
 			</div>
 			<div class="header-text">接单大厅</div>
-			<div class="header-cebian" @click="opennew('shouye-yonghu')">
+			<div class="header-cebian" @click="opennew02('shouye-yonghu')">
 				<div class="cebian-news">切换身份</div>
 			</div>
 		</div>
@@ -17,7 +17,7 @@
 				<swiper :options="swiperOption" ref="mySwiper">
 					<!-- 这部分放你要渲染的那些内容 -->
 					<swiper-slide v-for='val in navdata'>
-						<img :src="val.msdSsImg | myimg" />
+						<img :src="val.msdBaImg | myimg" />
 					</swiper-slide>
 					<!-- 这是轮播的小圆点 -->
 					<div class="swiper-pagination" slot="pagination"></div>
@@ -26,7 +26,7 @@
 			<div class="main-two" v-for="val in orderdata" @click="opennew('xiangqing-shifu',val.msdOrderId)">
 				<div class="two-box">
 					<div class="two-left">
-						<img :src="val.msdSsImg" />
+						<img :src="val.msdSsImg | myimg" />
 					</div>
 					<div class="two-right">
 						<div class="two-text">类型：{{val.msdSsName}}</div>
@@ -137,6 +137,11 @@
 						name: target
 					})
 				}
+			},
+			opennew02: function(target) {
+				this.$router.push({
+					name: target
+				})
 			},
 			myajax: function() {
 				function plusReady() {
@@ -283,7 +288,7 @@
 	}
 	
 	.cebian-news {
-		font-size: .2rem;
+		font-size: .28rem;
 		color: #5380B1;
 	}
 	

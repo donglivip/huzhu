@@ -14,7 +14,7 @@
 				<div class="main-one" @click="upload()">
 					<div class="one-text">头像</div>
 					<img src="../../../static/234564.jpg" v-if="madCoHeadImg=='null'"/>
-					<img :src="madCoHeadImg"  v-if="madCoHeadImg!='null'"/>
+					<img :src="madCoHeadImg | myimg"  v-if="madCoHeadImg!='null'"/>
 				</div>
 				<div class="main-two">
 					<div class="two-text">昵称</div>
@@ -161,7 +161,7 @@
 					success: function(res) {
 						if(res.status == 200) {
 							localStorage.setItem('msdCoName',that.msdCoName)
-							localStorage.setItem('madCoHeadImg',that.madCoHeadImg)
+							localStorage.setItem('madCoHeadImg',that.madCoHeadImgurl)
 							that.back()
 						} else {
 							alert(res.msg)
@@ -177,7 +177,7 @@
 			},
 			opennew: function(target, id) {
 				this.$store.state.msdNewsId = id
-				this.$router.push({
+				this.$router.replace({
 					name: target
 				})
 			}

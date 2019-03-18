@@ -1,9 +1,9 @@
 <template>
 	<div class="wrapper">
 		<div class="header">
-			<div class="header-lift" @click="back()">
+			<div class="header-lift">
 				<img src="../../static/234564.jpg" v-if="msdHeadImg=='null'"/>
-				<img :src="msdHeadImg"  v-if="msdHeadImg!='null'"/>
+				<img :src="msdHeadImg | myimg"  v-if="msdHeadImg!='null'"/>
 			</div>
 			<div class="header-content">
 				<div class="content-text">{{msdNickname=='null'?'新用户':msdNickname}}</div>

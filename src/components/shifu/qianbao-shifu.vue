@@ -38,7 +38,7 @@
 				<div class="four-text">充值</div>
 				<img src="../../../static/you-hui.png" class="right" />
 			</div>
-			<div class="main-four">
+			<div class="main-four" @click="opennew('tixian-shifu')">
 				<img src="../../../static/chongzhijilu.png" class="lift" />
 				<div class="four-text">提现</div>
 				<img src="../../../static/you-hui.png" class="right" />
@@ -247,7 +247,6 @@
 	
 	.main-three {
 		background: #A6BCEA;
-		height: .4rem;
 		overflow-x: scroll;
 		overflow-y: hidden;
 		padding-left: .3rem;
@@ -256,6 +255,7 @@
 	.three-text {
 		font-size: .24rem;
 		color: #FFFFFF;
+		line-height: .4rem;
 	}
 	
 	.main-four {

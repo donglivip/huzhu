@@ -5,7 +5,7 @@
 			<div class="header-cebian" @click="opennew('denglu')">
 				<img src="../../static/youjian.png"/>
 			</div>
-			<div class="header-text">注册</div>
+			<div class="header-text">用户注册</div>
 			<div class="header-cebian"></div>
 		</div>
 		<!--中间主体-->
@@ -45,6 +45,10 @@
 				}
 				if(that.msdPassword==''){
 					alert('请输入密码')
+					return false;
+				}
+				if(!(/^1[3|4|5|8|9|7][0-9]\d{4,8}$/.test(that.msdPhone))) {
+					plus.nativeUI.toast("不是完整的11位手机号或者正确的手机号前七位");
 					return false;
 				}
 				$.ajax({

@@ -12,10 +12,10 @@
 				<div class="one-text">{{tabdata.msdNeTitle}}</div>
 			</div>
 			<div class="main-two">
-				<div class="two-text">{{tabdata.msdNeCreateTime}}</div>
+				<div class="two-text">{{tabdata.msdNeCreateTimeString}}</div>
 			</div>
 			<div class="main-three">
-				<div class="three-text">{{tabdata.msdNeResult}}</div>
+				<div class="three-text" v-html="tabdata.msdNeResult"></div>
 			</div>
 		</div>
 	</div>
@@ -150,7 +150,6 @@
 		display: flex;
 		align-items: center;
 		line-height: .4rem;
-		height: 1.6rem;
 		overflow: hidden;
 		margin-bottom: .4rem;
 		padding: 0 .3rem;

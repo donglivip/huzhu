@@ -60,6 +60,7 @@
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/companyRecharge',
+					dataType:'json',
 					data: {
 						msdCprPrice: that.price,
 						msdCprCreateName: localStorage.getItem('userid'),
