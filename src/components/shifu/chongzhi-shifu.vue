@@ -63,7 +63,7 @@
 					dataType:'json',
 					data: {
 						msdCprPrice: that.price,
-						msdCprCreateName: localStorage.getItem('userid'),
+						msdCprCreateName: localStorage.getItem('msdCompanyId'),
 						state: that.state
 					},
 					success: function(res) {

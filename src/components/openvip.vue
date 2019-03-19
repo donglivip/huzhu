@@ -74,6 +74,7 @@
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/user/insertMember',
+						dataType:'json',
 						data: {
 							msdUserId: localStorage.getItem('userid')
 						},
@@ -82,7 +83,9 @@
 								//								支付宝充值
 								localStorage.setItem('msdIsMember',1)
 								that.back()
-							} 
+							} else{
+								alert(res.msg)
+							}
 						},
 						error: function(res) {
 							alert('网络连接失败，请检查网络后再试！')
@@ -92,6 +95,7 @@
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/user/insertMemberAPI',
+						dataType:'json',
 						data: {
 							msdUserId: localStorage.getItem('userid'),
 							state: that.state

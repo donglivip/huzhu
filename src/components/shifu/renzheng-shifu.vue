@@ -10,28 +10,28 @@
 			</div>
 			<div class="main">
 				<div class="main-one">
-					<input type="text" placeholder="真实姓名" v-model="msdName"/>
+					<input type="text" placeholder="真实姓名" v-model="msdName" />
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="身份证号码" v-model="msdCardId"/>
+					<input type="text" placeholder="身份证号码" v-model="msdCardId" />
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="公司介绍" v-model="msdCoIntroduce"/>
+					<input type="text" placeholder="公司介绍" v-model="msdCoIntroduce" />
 				</div>
 				<div class="main-one" @click="changeboo()">
-					<input type="text" placeholder="选择分类" v-model="msdSsName" readonly="readonly"/>
+					<input type="text" placeholder="选择分类" v-model="msdSsName" readonly="readonly" />
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="支付宝实名认证姓名" v-model="msdCwAliBindingName"/>
+					<input type="text" placeholder="支付宝实名认证姓名" v-model="msdCwAliBindingName" />
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="支付宝账号" v-model="msdCwAliBindingCode"/>
+					<input type="text" placeholder="支付宝账号" v-model="msdCwAliBindingCode" />
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="微信实名认证姓名" v-model="msdCwWechatBindingName"/>
+					<input type="text" placeholder="微信实名认证姓名" v-model="msdCwWechatBindingName" />
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="微信账号" v-model="msdCwWechatBindingCode"/>
+					<input type="text" placeholder="微信账号" v-model="msdCwWechatBindingCode" />
 				</div>
 				<div class="main-two">
 					<div class="two-text">身份证正面</div>
@@ -83,36 +83,58 @@
 			return {
 				files: [],
 				uploadtarget: '',
-				msdName:'',
-				msdCardId:'',
-				navtab:[],
-				msdSsName:'',
-				msdServiceStyleId:'',
-				boo:false,
-				msdCoIntroduce:'',
-				msdCwAliBindingCode:'',
-				msdCwAliBindingName:'',
-				msdCwWechatBindingName:'',
-				msdCwWechatBindingCode:''
+				msdName: '',
+				msdCardId: '',
+				navtab: [],
+				msdSsName: '',
+				msdServiceStyleId: '',
+				boo: false,
+				msdCoIntroduce: '',
+				msdCwAliBindingCode: '',
+				msdCwAliBindingName: '',
+				msdCwWechatBindingName: '',
+				msdCwWechatBindingCode: ''
 			}
 		},
 		methods: {
-			changeboo:function(){
-				this.boo=!this.boo
+			changeboo: function() {
+				this.boo = !this.boo
 			},
-			changenum:function(id,name){
-				this.msdServiceStyleId=id
-				this.msdSsName=name
+			changenum: function(id, name) {
+				this.msdServiceStyleId = id
+				this.msdSsName = name
 				this.changeboo()
 			},
-			have:function(){
-				var that=this
+			have: function() {
+				var that = this
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/selectMsdServiceStyle',
 					success: function(res) {
 						if(res.status == 200) {
 							that.navtab = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+				//				获取钱包
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/queryCompanyWallet',
+					data: {
+						msdCompanyId: localStorage.getItem('msdCompanyId')
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.msdName=res.data.msdCwAliBindingName
+							that.msdCwAliBindingName=res.data.msdCwAliBindingName
+							that.msdCwAliBindingCode=res.data.msdCwAliBindingCode
+							that.msdCwWechatBindingName=res.data.msdCwWechatBindingName
+							that.msdCwWechatBindingCode=res.data.msdCwWechatBindingCode
 						} else {
 							alert(res.msg)
 						}
@@ -128,32 +150,32 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-//				if(that.msdCwAliBindingName==''||that.msdCwAliBindingCode==''||that.msdCwWechatBindingName==''||that.msdCwWechatBindingCode==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
-//					alert('资料填写不完整')
-//					return false;
-//				}
+				//				if(that.msdCwAliBindingName==''||that.msdCwAliBindingCode==''||that.msdCwWechatBindingName==''||that.msdCwWechatBindingCode==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
+				//					alert('资料填写不完整')
+				//					return false;
+				//				}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/updateCompanInfoById',
 					data: {
 						msdCompanyId: localStorage.getItem('msdCompanyId'),
-						msdCoName:that.msdName,
-						msdCoCardId:that.msdCardId,
-						msdCoCardFrontImg:$('#sz').attr('imgsrc'),
-						msdCoCardBackImg:$('#sf').attr('imgsrc'),
-						msdCoIsIdentity:1,
-						msdServiceStyleId:that.msdServiceStyleId,
-						msdCoIntroduce:that.msdCoIntroduce,
-						msdCwAliBindingCode:that.msdCwAliBindingCode,
-						msdCwAliBindingName:that.msdCwAliBindingName,
-						msdCwWechatBindingName:that.msdCwWechatBindingName,
-						msdCwWechatBindingCode:that.msdCwWechatBindingCode,
-						msdCwIsAliBinding:1,
-						msdCwIsWechatBinding:1
+						msdCoName: that.msdName,
+						msdCoCardId: that.msdCardId,
+						msdCoCardFrontImg: $('#sz').attr('imgsrc'),
+						msdCoCardBackImg: $('#sf').attr('imgsrc'),
+						msdCoIsIdentity: 1,
+						msdServiceStyleId: that.msdServiceStyleId,
+						msdCoIntroduce: that.msdCoIntroduce,
+						msdCwAliBindingCode: that.msdCwAliBindingCode,
+						msdCwAliBindingName: that.msdCwAliBindingName,
+						msdCwWechatBindingName: that.msdCwWechatBindingName,
+						msdCwWechatBindingCode: that.msdCwWechatBindingCode,
+						msdCwIsAliBinding: 1,
+						msdCwIsWechatBinding: 1
 					},
 					success: function(res) {
 						if(res.data == 1) {
-							localStorage.setItem('msdCoIsIdentity',1)
+							localStorage.setItem('msdCoIsIdentity', 1)
 							that.back()
 						} else {
 							alert(res.msg)
@@ -251,11 +273,11 @@
 						type: 'post',
 						url: thats.myurl + '/company/imageCompanyCardImage',
 						data: {
-							imgStr:canvas.toDataURL('image/jpeg', 1 || 0.8)
+							imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
 						},
 						success: function(res) {
 							if(res.status == 200) {
-								$('#' + thats.uploadtarget + '').attr('imgsrc',res.data)
+								$('#' + thats.uploadtarget + '').attr('imgsrc', res.data)
 							} else {
 								alert(res.msg)
 							}
@@ -283,9 +305,35 @@
 		margin: 0;
 		padding: 0;
 	}
-	.layui{position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.5);display: flex;align-items: flex-end;justify-content: center;}
-	.layui-inner{background: #FFFFFF;border-radius: .1rem;height: 5rem;overflow-y: scroll;width: 100%;}
-	.layui-tab{height: 1rem;border-bottom: 1px solid ghostwhite;display: flex;align-items: center;justify-content: center;}
+	
+	.layui {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, .5);
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+	}
+	
+	.layui-inner {
+		background: #FFFFFF;
+		border-radius: .1rem;
+		height: 5rem;
+		overflow-y: scroll;
+		width: 100%;
+	}
+	
+	.layui-tab {
+		height: 1rem;
+		border-bottom: 1px solid ghostwhite;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
 	html,
 	body,
 	.wrapper {

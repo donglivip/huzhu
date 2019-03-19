@@ -19,7 +19,7 @@
             		</div>
             		<div class="one-box">
             			<div class="one-text">上门时间：</div>
-            			<div class="one-text">{{tabdata.msdOrAppointmentTimeString}}</div>
+            			<div class="one-text">{{tabdata.msdOrIsAppointmentTime==1?val.msdOrAppointmentTimeString:'立即上门'}}</div>
             		</div>
             		<div class="one-box">
             			<div class="one-text">联系人：</div>
@@ -54,7 +54,7 @@
             	</div>
             	<div class="main-five" v-if="navindex0!=-1">
             		<!--<div class="five-text" v-if="navindex0==0">导航过去</div>-->
-            		<a class="five-news" href="'tel:'+tabdata.msdAdPhone+''" v-if="navindex0==0">拨打电话</a>
+            		<a class="five-news" :href="'tel:'+tabdata.msdAdPhone+''" v-if="navindex0==0">拨打电话</a>
             		<div class="kongbai"></div>
             		<div class="five-word" v-if="navindex0==0" @click="orderok()">完成订单</div>
             	</div>

@@ -30,7 +30,7 @@
 					</div>
 					<div class="two-right">
 						<div class="two-text">类型：{{val.msdSsName}}</div>
-						<div class="two-text">上门时间：{{val.msdOrCreateTimeString}}</div>
+						<div class="two-text">上门时间：{{val.msdOrIsAppointmentTime==1?val.msdOrAppointmentTime:'立即上门'}}</div>
 						<div class="two-text">订单地址：{{val.msdAdProvince+val.msdAdCity+val.msdAdArea}}</div>
 						<div class="two-zi">
 							<div class="two-text">价格：</div>
@@ -329,7 +329,7 @@
 	.two-text {
 		font-size: .24rem;
 		color: #333333;
-		margin-bottom: .17rem;
+		margin-bottom: .2rem;
 	}
 	
 	.two-zi {
@@ -341,6 +341,7 @@
 	.two-news {
 		font-size: .24rem;
 		color: #E24B2D;
+		margin-bottom: .2rem;
 	}
 	
 	.two-hezi {

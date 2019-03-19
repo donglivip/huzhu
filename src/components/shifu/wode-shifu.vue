@@ -1,7 +1,7 @@
 <template>
 	<div class="wrapper">
 		<div class="header">
-			<div class="header-lift" @click="back()">
+			<div class="header-lift">
 				<img :src="madCoHeadImg | myimg" v-if="madCoHeadImg!='null'"/>
 				<img src="../../../static/234564.jpg" v-if="madCoHeadImg=='null'"/>
 			</div>

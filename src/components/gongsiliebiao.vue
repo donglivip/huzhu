@@ -10,7 +10,8 @@
 		<div class="main">
 			<div class="main-box" v-for="val in tabdata" @click="opennew('querendingdan',val.msdCompanyId,val.msdCoName)">
 				<div class="main-lift">
-					<img :src="val.madCoHeadImg" />
+					<img :src="val.madCoHeadImg" v-if="val.madCoHeadImg!=null"/>
+					<img src="../../static/234564.jpg" v-if="val.madCoHeadImg==null" />
 				</div>
 				<div class="main-right">
 					<div class="right-text">{{val.msdCoName}}</div>
@@ -46,6 +47,9 @@
 					},
 					success: function(res) {
 						if(res.status == 200) {
+							for (var i in res.data) {
+								res.data[i].msdCoEvaluate=parseInt(res.data[i].msdCoEvaluate)
+							}
 							that.tabdata = res.data
 						} else {
 							alert(res.msg)

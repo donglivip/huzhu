@@ -14,7 +14,7 @@
 			</div>
 			<div class="main-two">
 				<div class="two-text">产品特色</div>
-				<div v-html="navdata.msdIrConcise">
+				<div v-html="navdata.msdIrResult">
 
 				</div>
 			</div>

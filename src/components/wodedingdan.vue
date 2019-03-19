@@ -106,9 +106,9 @@
 					//					餐饮类
 					$.ajax({
 						type: 'post',
-						url: that.myurl + '/company/deleteOrder',
+						url: that.myurl + '/company/deleteFoodOrder',
 						data: {
-							deleteFoodOrder: val.msdOrderId,
+							msdFoodOrderId: val.msdOrderId,
 						},
 						success: function(res) {
 							if(res.status == 200) {

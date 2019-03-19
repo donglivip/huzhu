@@ -36,7 +36,7 @@
 							</div>
 						</div>
 					</div>
-					<a class="box-right" :href="'tel:'+tabdata.msdAdPhone+''">
+					<a class="box-right" :href="'tel:'+tabdata.msdCoPhone+''">
 						<img src="../../static/dianhua.png" />
 					</a>
 				</div>
@@ -73,7 +73,7 @@
 		<div class="bottom">
 			<div class="bottom-text" v-if="tabdata.msdOrStatus==2" @click="cancel">取消订单</div>
 			<div class="bottom-word"></div>
-			<a class="bottom-news" v-if="tabdata.msdOrStatus==3" :href="'tel:'+tabdata.msdAdPhone+''">联系师傅</a>
+			<a class="bottom-news" v-if="tabdata.msdOrStatus==3" :href="'tel:'+tabdata.msdCoPhone+''">联系师傅</a>
 			<div class="bottom-news" v-if="tabdata.msdOrStatus==3" @click="orderok">完成订单</div>
 		</div>
 	</div>

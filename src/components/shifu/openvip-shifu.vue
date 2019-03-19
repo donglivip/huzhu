@@ -74,6 +74,7 @@
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/company/companyMemberWallet',
+						dataType:'json',
 						data: {
 							msdCompanyId: localStorage.getItem('msdCompanyId')
 						},
@@ -82,7 +83,9 @@
 								//								支付宝充值
 								localStorage.setItem('msdCoIsMemeber',1)
 								that.back()
-							} 
+							} else{
+								alert(res.msg)
+							}
 						},
 						error: function(res) {
 							alert('网络连接失败，请检查网络后再试！')
@@ -92,6 +95,7 @@
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/company/companyMemberApi',
+						dataType:'json',
 						data: {
 							msdCompanyId: localStorage.getItem('msdCompanyId'),
 							state: that.state
@@ -101,7 +105,7 @@
 								//								支付宝充值
 								plus.payment.request(that.channel[0], res.data[0], function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										localStorage.setItem('msdIsMember',1)
+										localStorage.setItem('msdCoIsMemeber',1)
 										that.back()
 									});
 								}, function(error) {
@@ -111,7 +115,7 @@
 								//								微信充值
 								plus.payment.request(that.channel[1], res, function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										localStorage.setItem('msdIsMember',1)
+										localStorage.setItem('msdCoIsMemeber',1)
 										that.back()
 									});
 								}, function(error) {

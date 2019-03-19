@@ -103,14 +103,14 @@ export default new Router({
 		name: 'mingxi-shifu',
 		component: resolve => require(['@/components/shifu/mingxi-shifu'], resolve),
 		meta: {
-			keepAlive: true
+			keepAlive: false
 		}
 	}, {
 		path: '/qianbao-shifu',
 		name: 'qianbao-shifu',
 		component: resolve => require(['@/components/shifu/qianbao-shifu'], resolve),
 		meta: {
-			keepAlive: true
+			keepAlive: false
 		}
 	}, {
 		path: '/shezhi-shifu',

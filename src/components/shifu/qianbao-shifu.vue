@@ -20,7 +20,7 @@
 					<div class="two-news">{{tabdata.msdCwProfit}}</div>
 				</div>
 				<div class="main-three">
-					<div class="three-text">余额按照银行的年利率计算，存满一年后，利息到达余额账户未满一年不计算</div>
+					<div class="three-text">账户余额不提现，每天都会产生收益金！！</div>
 				</div>
 			</div>
 			<div class="main-four" @click="mypro()">

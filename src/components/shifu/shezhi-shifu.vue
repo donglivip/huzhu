@@ -127,7 +127,7 @@
 						height: h
 					});
 					ctx.drawImage(that, 0, 0, w, h);
-					thats.madCoHeadImg=canvas.toDataURL('image/jpeg', 1 || 0.8)
+					
 					$.ajax({
 						type: 'post',
 						url: thats.myurl + '/company/imageCompanyHeadImage',
@@ -136,6 +136,7 @@
 						},
 						success: function(res) {
 							if(res.status == 200) {
+								thats.madCoHeadImg=res.data
 								thats.madCoHeadImgurl=res.data
 							} else {
 								alert(res.msg)
@@ -277,6 +278,7 @@
 	.two-news {
 		font-size: .28rem;
 		color: #CCCCCC;
+		padding-right: .3rem;
 	}
 	
 	.main-three {

@@ -12,7 +12,7 @@
 				<div class="ont-text">提现金额</div>
 				<div class="one-one">
 					<div class="one-news">￥</div>
-					<input type="number" placeholder="" v-model="price" />
+					<input type="number" placeholder="" v-model="price" @input="changinput()"/>
 				</div>
 			</div>
 			<div class="main-two">
@@ -47,6 +47,12 @@
 			}
 		},
 		methods: {
+			changinput:function(){
+				if(this.price<0.1){
+					this.price=0.1
+					plus.nativeUI.toast('体现最小值为0.1元')
+				}
+			},
 			change: function(index) {
 				this.state = index
 			},

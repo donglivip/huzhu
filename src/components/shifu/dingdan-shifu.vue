@@ -19,7 +19,7 @@
 						</div>
 						<div class="two-right">
 							<div class="two-text">类型：{{val.msdSsName}}</div>
-							<div class="two-text">上门时间：{{val.msdOrAppointmentTimeString}}</div>
+							<div class="two-text">上门时间：{{val.msdOrIsAppointmentTime==1?val.msdOrAppointmentTimeString:'立即上门'}}</div>
 							<div class="two-text">订单地址：{{val.msdAddress}}</div>
 							<div class="two-zi">
 								<div class="two-text">价格：</div>
