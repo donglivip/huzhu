@@ -10,7 +10,7 @@
 		<div class="main">
 			<div class="main-box" v-for="val in tabdata" @click="opennew('querendingdan',val.msdCompanyId,val.msdCoName)">
 				<div class="main-lift">
-					<img :src="val.madCoHeadImg" v-if="val.madCoHeadImg!=null"/>
+					<img :src="val.madCoHeadImg | myimg" v-if="val.madCoHeadImg!=null"/>
 					<img src="../../static/234564.jpg" v-if="val.madCoHeadImg==null" />
 				</div>
 				<div class="main-right">

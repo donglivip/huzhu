@@ -363,6 +363,7 @@
 		padding: 0 .3rem;
 		height: 1.2rem;
 		margin-bottom: .3rem;
+		box-shadow: 0 0 2px 2px ghostwhite;
 	}
 	
 	.three-lift {
@@ -411,6 +412,9 @@
 		height: 1.6rem;
 		padding: 0 .3rem;
 		margin-bottom: .6rem;
+		box-shadow: 0 0 2px 3px ghostwhite;
+		margin: .4rem .2rem;
+		border-radius: .1rem;
 	}
 	
 	.five-lift {
@@ -457,7 +461,9 @@
 	
 	.main-six img {
 		height: 1.6rem;
-		width: 3.3rem;
+		width: 3.2rem;
+		border-radius: .1rem;
+		box-shadow: 0 0 1px 2px ghostwhite;
 	}
 	
 	.bottom {

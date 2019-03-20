@@ -21,7 +21,7 @@
 					<div class="two-news">{{val.msdFrPrice}}元</div>
 				</div>
 			</div>
-			<!--<div class="main-three">没有更多了～</div>-->
+			<div class="main-three">没有更多了～</div>
 		</div>
 	</div>
 </template>

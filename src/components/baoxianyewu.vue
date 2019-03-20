@@ -34,9 +34,9 @@
 							<div class="two-word">{{val.msdIrStartPrice}}元起</div>
 						</div>
 					</div>
+					<div class="main-three">没有更多了～</div>
 				</div>
-
-									<div class="main-three">没有更多了～</div>
+				
 			</div>
 		</div>
 	</div>
@@ -236,7 +236,7 @@
 	}
 	
 	.two-right {
-		height: 2.1rem;
+		height: 1.8rem;
 		margin-left: .2rem;
 		flex: 1;
 	}

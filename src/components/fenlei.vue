@@ -129,6 +129,8 @@
 		justify-content: center;
 		margin-left: .4rem;
 		margin-bottom: .2rem;
+		box-shadow: 0 0 2px 2px ghostwhite;
+		border-radius: .1rem;
 	}
 	
 	.main-top {
