@@ -4,7 +4,6 @@
 		<div class="header">
 			<div class="header-cebian">
 				<div class="cebian-text">{{city}}</div>
-				<img src="../../../static/xia.png" />
 			</div>
 			<div class="header-text">接单大厅</div>
 			<div class="header-cebian" @click="opennew02('shouye-yonghu')">

@@ -3,7 +3,6 @@
 		<div class="header">
 			<div class="header-cebian">
 				<div class="cebian-text">{{city}}</div>
-				<img src="../../static/xia.png" />
 			</div>
 			<div class="header-content">
 				<img src="../../static/dingwei1.png" />

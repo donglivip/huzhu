@@ -120,7 +120,7 @@
 								//								支付宝充值
 								plus.payment.request(that.channel[0], res.data[0], function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										that.back()
+										that.opennew('wodedingdan')
 									});
 								}, function(error) {
 									alert('支付失败！')
@@ -129,7 +129,7 @@
 								//								微信充值
 								plus.payment.request(that.channel[1], res, function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										that.back()
+										that.opennew('wodedingdan')
 									});
 								}, function(error) {
 									alert('支付失败！')
