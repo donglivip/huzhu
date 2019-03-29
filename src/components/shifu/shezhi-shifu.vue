@@ -38,7 +38,7 @@
 		data() {
 			return {
 				madCoHeadImg:localStorage.getItem('madCoHeadImg'),
-				msdCoName:localStorage.getItem('msdCoName'),
+				msdCoName:'',
 				tabdata: [],
 				madCoHeadImgurl:''
 			}
@@ -127,7 +127,6 @@
 						height: h
 					});
 					ctx.drawImage(that, 0, 0, w, h);
-					
 					$.ajax({
 						type: 'post',
 						url: thats.myurl + '/company/imageCompanyHeadImage',
@@ -184,7 +183,9 @@
 			}
 		},
 		mounted() {
-
+			if(localStorage.getItem('msdCoName')!='null'){
+				this.msdCoName=localStorage.getItem('msdCoName')
+			}
 		},
 		computed: {
 			myurl() {
@@ -253,7 +254,8 @@
 	
 	.main-one img {
 		height: 1.2rem;
-		border-radius: 2rem;
+		border-radius:50%;
+		width: 1.2rem;
 	}
 	
 	.one-text {

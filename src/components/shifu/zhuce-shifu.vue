@@ -5,7 +5,7 @@
 			<div class="header-cebian" @click="opennew('denglu-shifu')">
 				<img src="../../../static/youjian.png"/>
 			</div>
-			<div class="header-text">师傅注册</div>
+			<div class="header-text">公司注册</div>
 			<div class="header-cebian"></div>
 		</div>
 		<!--中间主体-->

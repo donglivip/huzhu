@@ -29,7 +29,7 @@
 					<div class="one-text">认证中心</div>
 				</div>
 			</div>
-			<div class="main-two">
+			<div class="main-two" @click="opennew('share-shifu')">
 				<img src="../../../static/VIP.png" />
 				<div class="two-text">推荐有奖</div>
 			</div>

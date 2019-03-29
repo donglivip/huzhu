@@ -3,13 +3,13 @@
 		<div class="header" @click="back()">
 
 		</div>
-		<img src="../../static/back02.png" @click="sharew()" />
+		<img src="../../../static/back02.png" @click="sharew()" />
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'share',
+		name: 'share-shifu',
 		data() {
 			return {
 				tabdata: [],
@@ -29,11 +29,10 @@
 			},
 			sharew: function() {
 				var that = this
-				console.log(JSON.stringify(that.sharewx))
 				that.sharewx.send({
 					title: '最好用的服务软件 无忧互助！',
 					content: "最好用的服务软件 无忧互助！",
-					href: that.myurl + "/user/share?phone=" + localStorage.getItem('userphone') + "&userId=" + localStorage.getItem('userid') + "&state=1",
+					href: that.myurl + "/user/share?phone=" + localStorage.getItem('msdCoPhone') + "&userId=" + localStorage.getItem('msdCompanyId') + "&state=2",
 					extra: {
 						scene: "WXSceneSession"
 					}

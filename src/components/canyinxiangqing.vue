@@ -1,13 +1,14 @@
 <template>
 	<div class="wrapper" id="app">
-		<div class="header">
+		<div class="header" :class="headboo?'white':''">
 			<div class="header-cebian mui-action-back" @click="back()">
-				<img src="../../static/y-bai.png" />
+				<img src="../../static/y-bai.png" v-if="!headboo"/>
+				<img src="../../static/youjian.png" v-if="headboo"/>
 			</div>
 			<div class="header-text">{{navdata.msdFrName}}</div>
 			<div class="header-cebian"></div>
 		</div>
-		<div class="main">
+		<div class="main" @scroll="myscroll">
 			<div class="main-one">
 				<img :src="navdata.msdFrHeadImg | myimg" />
 				<!--<p>{{navdata.maIlName}}</p>-->
@@ -34,10 +35,18 @@
 		name: 'canyinxiangqing',
 		data() {
 			return {
-				navdata:''
+				navdata:'',
+				headboo:false
 			}
 		},
 		methods: {
+			myscroll:function(){
+				if($('.main').scrollTop()>45){
+					this.headboo=true
+				}else{
+					this.headboo=false
+				}
+			},
 			myalert:function(){
 				alert('联系电话'+this.navdata.msdIrPhone)
 			},
@@ -112,7 +121,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin: 0 .3rem;
 		position: fixed;
 		width: 100%;
 		z-index: 99;
@@ -219,4 +227,11 @@
 		font-size: .32rem;
 		color: #FFFFFF;
 	}
+	.white{
+		background: #FFFFFF;
+		
+	}
+	.white .header-text{
+			color: #333333!important;
+		}
 </style>

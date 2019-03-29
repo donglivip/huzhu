@@ -52,9 +52,9 @@
 				<img :src="val" v-for="val in files" />
 				<img src="../../static/jia.png" @click="upload()" v-if="files.length<3" />
 			</div>
-		</div>
-		<div class="bottom" @click="gosubmit()">
-			<div class="bottom-text">确认提交</div>
+			<div class="bottom" @click="gosubmit()">
+				<div class="bottom-text">确认提交</div>
+			</div>
 		</div>
 		<!--支付方式-->
 		<div class="layui" v-if="payboo" @click="paychange()">
@@ -194,7 +194,8 @@
 										that.opennew('wodedingdan')
 									});
 								}, function(error) {
-									alert('支付失败！')
+									alert(JSON.stringify(error))
+//									alert('支付失败！')
 								});
 							}
 						},
@@ -586,7 +587,7 @@
 		height: 3rem;
 		background: #FFFFFF;
 		padding: .2rem .3rem;
-		margin-bottom: 2rem;
+		margin-bottom: .4rem;
 	}
 	
 	.four-text {
@@ -606,9 +607,7 @@
 		height: .9rem;
 		background: #0DA5FE;
 		border-radius: .6rem;
-		position: fixed;
-		bottom: 0;
-		margin: .8rem .72rem;
+		margin: 0 auto 1rem;
 	}
 	
 	.bottom-text {

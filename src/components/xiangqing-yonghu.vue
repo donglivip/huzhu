@@ -50,8 +50,7 @@
 				<div class="two-text">{{tabdata.msdOrCompletionCode}}</div>
 			</div>
 			<div class="main-two">
-				<div class="two-text">上门时间：{{tabdata.msdOrAppointmentTimeString}}</div>
-				<img src="../../static/you-hui.png" />
+				<div class="two-text">上门时间：{{tabdata.msdOrIsAppointmentTime==2?'立即上门':tabdata.msdOrAppointmentTimeString}}</div>
 			</div>
 			<div class="main-two">
 				<div class="two-text">最低价:</div>

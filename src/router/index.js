@@ -29,6 +29,13 @@ export default new Router({
 			keepAlive: false
 		}
 	}, {
+		path: '/share-shifu',
+		name: 'share-shifu',
+		component: resolve => require(['@/components/shifu/share-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/tixian-shifu',
 		name: 'tixian-shifu',
 		component: resolve => require(['@/components/shifu/tixian-shifu'], resolve),

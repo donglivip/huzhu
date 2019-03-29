@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<div class="main-two">
-				<div class="two-text">充值方式</div>
+				<div class="two-text">提现方式</div>
 			</div>
 			<div class="main-three">
 				<div class="three-box" @click="change(1)">
@@ -50,7 +50,7 @@
 			changinput:function(){
 				if(this.price<0.1){
 					this.price=0.1
-					plus.nativeUI.toast('体现最小值为0.1元')
+					plus.nativeUI.toast('提现最小值为0.1元')
 				}
 			},
 			change: function(index) {
@@ -58,7 +58,7 @@
 			},
 			myajax: function() {
 				var that = this
-				plus.nativeUI.showWaiting()
+//				plus.nativeUI.showWaiting()
 				if(this.price == '') {
 					return false;
 				}
@@ -74,7 +74,7 @@
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							plus.nativeUI.closeWaiting()
+//							plus.nativeUI.closeWaiting()
 							that.back()
 						} else{
 							alert(res.msg)
