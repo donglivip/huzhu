@@ -3,7 +3,7 @@
 		<!--头-->
 		<div class="header">
 			<div class="header-cebian"></div>
-			<div class="header-text">师傅登录</div>
+			<div class="header-text">公司登录</div>
 			<div class="header-cebian"></div>
 		</div>
 		<!--中间主体-->

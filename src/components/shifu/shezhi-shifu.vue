@@ -13,12 +13,12 @@
 			<div class="main-box">
 				<div class="main-one" @click="upload()">
 					<div class="one-text">头像</div>
-					<img src="../../../static/234564.jpg" v-if="madCoHeadImg=='null'"/>
-					<img :src="madCoHeadImg | myimg"  v-if="madCoHeadImg!='null'"/>
+					<img src="../../../static/234564.jpg" v-if="madCoHeadImg=='null'" />
+					<img :src="madCoHeadImg | myimg" v-if="madCoHeadImg!='null'" />
 				</div>
 				<div class="main-two">
 					<div class="two-text">昵称</div>
-					<input class="two-news" type="text" v-model="msdCoName" placeholder="请输入用户名"/>
+					<input class="two-news" type="text" v-model="msdCoName" placeholder="请输入用户名" />
 				</div>
 				<!--<div class="main-three">
 					<div class="three-text">登录密码</div>
@@ -37,14 +37,14 @@
 		name: 'shezhi-shifu',
 		data() {
 			return {
-				madCoHeadImg:localStorage.getItem('madCoHeadImg'),
-				msdCoName:'',
+				madCoHeadImg: localStorage.getItem('madCoHeadImg'),
+				msdCoName: '',
 				tabdata: [],
-				madCoHeadImgurl:''
+				madCoHeadImgurl: ''
 			}
 		},
 		methods: {
-			exit:function(){
+			exit: function() {
 				localStorage.clear()
 				this.opennew('denglu-shifu')
 			},
@@ -131,12 +131,12 @@
 						type: 'post',
 						url: thats.myurl + '/company/imageCompanyHeadImage',
 						data: {
-							imgStr:canvas.toDataURL('image/jpeg', 1 || 0.8)
+							imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
 						},
 						success: function(res) {
 							if(res.status == 200) {
-								thats.madCoHeadImg=res.data
-								thats.madCoHeadImgurl=res.data
+								thats.madCoHeadImg = res.data
+								thats.madCoHeadImgurl = res.data
 							} else {
 								alert(res.msg)
 							}
@@ -150,18 +150,24 @@
 			myajax: function() {
 				var that = this
 				//				提交修改
+				var ajaxjson = {
+					msdCompanyId: localStorage.getItem('msdCompanyId'),
+					madCoHeadImg: that.madCoHeadImgurl,
+					msdCoName: that.msdCoName
+				}
+				if(that.madCoHeadImgur==''){
+					delete ajaxjson.madCoHeadImg
+				}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/updateCompanInfoById',
-					data: {
-						msdCompanyId: localStorage.getItem('msdCompanyId'),
-						madCoHeadImg:that.madCoHeadImgurl,
-						msdCoName:that.msdCoName
-					},
+					data: ajaxjson,
 					success: function(res) {
 						if(res.status == 200) {
-							localStorage.setItem('msdCoName',that.msdCoName)
-							localStorage.setItem('madCoHeadImg',that.madCoHeadImgurl)
+							if(that.madCoHeadImgur==''){
+								localStorage.setItem('madCoHeadImg', that.madCoHeadImgurl)
+							}
+							localStorage.setItem('msdCoName', that.msdCoName)
 							that.back()
 						} else {
 							alert(res.msg)
@@ -183,8 +189,8 @@
 			}
 		},
 		mounted() {
-			if(localStorage.getItem('msdCoName')!='null'){
-				this.msdCoName=localStorage.getItem('msdCoName')
+			if(localStorage.getItem('msdCoName') != 'null') {
+				this.msdCoName = localStorage.getItem('msdCoName')
 			}
 		},
 		computed: {
@@ -208,7 +214,14 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	input{flex: 1;border: 0;height: 100%;text-align: right;}
+	
+	input {
+		flex: 1;
+		border: 0;
+		height: 100%;
+		text-align: right;
+	}
+	
 	.wrapper {
 		background: #F7F7F9;
 	}
@@ -254,7 +267,7 @@
 	
 	.main-one img {
 		height: 1.2rem;
-		border-radius:50%;
+		border-radius: 50%;
 		width: 1.2rem;
 	}
 	

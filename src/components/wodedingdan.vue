@@ -400,8 +400,6 @@
 	
 	.main {
 		height: calc(100% - 2.2rem);
-		overflow-x: hidden;
-		overflow-y: scroll;
 	}
 	
 	.main-one {

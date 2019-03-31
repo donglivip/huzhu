@@ -13,12 +13,12 @@
 			<div class="main-box">
 				<div class="main-one" @click="upload()">
 					<div class="one-text">头像</div>
-					<img src="../../static/234564.jpg" v-if="msdHeadImg=='null'"/>
-					<img :src="msdHeadImg | myimg"  v-if="msdHeadImg!='null'"/>
+					<img src="../../static/234564.jpg" v-if="msdHeadImg=='null'" />
+					<img :src="msdHeadImg | myimg" v-if="msdHeadImg!='null'" />
 				</div>
 				<div class="main-two">
 					<div class="two-text">昵称</div>
-					<input class="two-news" type="text" v-model="msdNickname=='null'?'':msdNickname" placeholder="请输入用户名"/>
+					<input class="two-news" type="text" v-model="msdNickname" placeholder="请输入用户名" />
 				</div>
 				<!--<div class="main-three">
 					<div class="three-text">登录密码</div>
@@ -37,14 +37,14 @@
 		name: 'shezhi',
 		data() {
 			return {
-				msdHeadImg:localStorage.getItem('msdHeadImg'),
-				msdNickname:localStorage.getItem('msdNickname'),
+				msdHeadImg: localStorage.getItem('msdHeadImg'),
+				msdNickname: '',
 				tabdata: [],
-				msdHeadImgurl:''
+				msdHeadImgurl: ''
 			}
 		},
 		methods: {
-			exit:function(){
+			exit: function() {
 				localStorage.clear()
 				this.opennew('denglu')
 			},
@@ -128,17 +128,17 @@
 						height: h
 					});
 					ctx.drawImage(that, 0, 0, w, h);
-					
+
 					$.ajax({
 						type: 'post',
 						url: thats.myurl + '/user/inserUserImg',
 						data: {
-							imgStr:canvas.toDataURL('image/jpeg', 1 || 0.8)
+							imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
 						},
 						success: function(res) {
 							if(res.status == 200) {
-								thats.msdHeadImg=res.data
-								thats.msdHeadImgurl=res.data
+								thats.msdHeadImg = res.data
+								thats.msdHeadImgurl = res.data
 							} else {
 								alert(res.msg)
 							}
@@ -152,18 +152,24 @@
 			myajax: function() {
 				var that = this
 				//				提交修改
+				var ajaxjson = {
+					msdUserId: localStorage.getItem('userid'),
+					msdHeadImg: that.msdHeadImgurl,
+					msdNickname: that.msdNickname
+				}
+				if(that.msdHeadImgurl==''){
+					delete ajaxjson.msdHeadImg
+				}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/updateUserAuthentication',
-					data: {
-						msdUserId: localStorage.getItem('userid'),
-						msdHeadImg:that.msdHeadImgurl,
-						msdNickname:that.msdNickname
-					},
+					data: ajaxjson,
 					success: function(res) {
 						if(res.status == 200) {
-							localStorage.setItem('msdNickname',that.msdNickname)
-							localStorage.setItem('msdHeadImg',that.msdHeadImgurl)
+							if(that.msdHeadImgurl!=''){
+								localStorage.setItem('msdHeadImg', that.msdHeadImgurl)
+							}
+							localStorage.setItem('msdNickname', that.msdNickname)
 							that.back()
 						} else {
 							alert(res.msg)
@@ -185,7 +191,9 @@
 			}
 		},
 		mounted() {
-
+			if(localStorage.getItem('msdNickname')!='null'){
+				this.msdNickname=localStorage.getItem('msdNickname')
+			}
 		},
 		computed: {
 			myurl() {
@@ -208,7 +216,14 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	input{flex: 1;border: 0;height: 100%;text-align: right;}
+	
+	input {
+		flex: 1;
+		border: 0;
+		height: 100%;
+		text-align: right;
+	}
+	
 	.wrapper {
 		background: #F7F7F9;
 	}
