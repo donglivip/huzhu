@@ -68,6 +68,8 @@
 							localStorage.setItem('msdCoName', res.data.msdCoName) //名称
 							localStorage.setItem('msdCoIsCompany', res.data.msdCoIsCompany) //是否公司
 							localStorage.setItem('msdCoIsWork', res.data.msdCoIsWork) //是否工作
+							localStorage.setItem('msdCoIsConsume', res.data.msdCoIsConsume)//是否消费
+							localStorage.setItem('mima',that.password)//密码
 							that.opennew('shouye-shifu')
 						} else {
 							alert(res.msg)

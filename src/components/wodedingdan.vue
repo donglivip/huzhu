@@ -35,6 +35,7 @@
 						<div class="hezi-news" v-show="navindex==1||navindex==6" @click.stop="opennew('shouye-yonghu')">再次下单</div>
 					</div>
 				</div>
+				<img src="../../static/noorder.png" v-if="tabdata.length==0" class="nodata" style="margin: .8rem auto;"/>
 			</div>
 		</div>
 		<div class="layui" v-if='ratingboo'>
@@ -400,6 +401,7 @@
 	
 	.main {
 		height: calc(100% - 2.2rem);
+		overflow: hidden;
 	}
 	
 	.main-one {

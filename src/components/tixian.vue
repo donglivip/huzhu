@@ -24,11 +24,11 @@
 					<img src="../../static/xuanzhong (1).png" v-if="state==2" />
 					<img src="../../static/xuanzhong.png" v-if="state==1" />
 				</div>
-				<div class="three-box" @click="change(2)">
+				<!--<div class="three-box" @click="change(2)">
 					<div class="three-text">微信</div>
 					<img src="../../static/xuanzhong (1).png" v-if="state==1" />
 					<img src="../../static/xuanzhong.png" v-if="state==2" />
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<div class="bottom" :class="price==''?'':'active'" @click="myajax()">
@@ -199,7 +199,7 @@
 	}
 	
 	.main-three {
-		height: 1.8rem;
+		/*height: 1.8rem;*/
 		background: #FFFFFF;
 		padding: 0 .3rem;
 	}

@@ -24,7 +24,7 @@
 					<img src="../../../static/dingwei0.png" />
 					<div class="one-text">我的地址</div>
 				</div>-->
-				<div class="one-box" @click="opennew('renzheng-shifu')">
+				<div class="one-box" @click="opennew('renzheng-shifu')" v-if="msdCoIsIdentity==2">
 					<img src="../../../static/renzheng.png" />
 					<div class="one-text">认证中心</div>
 				</div>

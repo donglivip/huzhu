@@ -11,9 +11,10 @@
 			<div class="main-one" @click="opennew('wodedizhi')">
 				<div class="one-box">
 					<div class="one-text">订单地址：</div>
-					<div class="one-text">{{tabdata02.msdAdProvince+tabdata02.msdAdCity+tabdata02.msdAdArea+tabdata02.msdAdDetailed}}</div>
+					<div class="one-text" v-if="tabdata02!=''">{{tabdata02.msdAdProvince+tabdata02.msdAdCity+tabdata02.msdAdArea+tabdata02.msdAdDetailed}}</div>
 				</div>
-				<div class="one-hezi">
+				<div class="one-text" v-if="tabdata02==''">您还未选择默认地址，点我添加</div>
+				<div class="one-hezi" v-if="tabdata02!=''">
 					<div class="one-text">联系人：{{tabdata02.msdAdName}}</div>
 					<div class="one-text">{{tabdata02.msdAdPhone}}</div>
 				</div>
@@ -52,7 +53,7 @@
 				<img :src="val" v-for="val in files" />
 				<img src="../../static/jia.png" @click="upload()" v-if="files.length<3" />
 			</div>
-			<div class="bottom" @click="gosubmit()">
+			<div class="bottom" @click="gosubmit()" v-if="tabdata!=''">
 				<div class="bottom-text">确认提交</div>
 			</div>
 		</div>
@@ -186,6 +187,18 @@
 									});
 								}, function(error) {
 									alert('支付失败！')
+//									删除订单
+									$.ajax({
+										type: 'post',
+										url: that.myurl + '/user/deleteOrderId',
+										data: {
+											orderId: res.data[1],
+											status:2
+										},
+										success: function(res) {
+											
+										}
+									})
 								});
 							} else {
 								//								微信充值
@@ -194,8 +207,19 @@
 										that.opennew('wodedingdan')
 									});
 								}, function(error) {
-									alert(JSON.stringify(error))
-//									alert('支付失败！')
+									alert('支付失败！')
+//									删除订单
+									$.ajax({
+										type: 'post',
+										url: that.myurl + '/user/deleteOrderId',
+										data: {
+											orderId: res.orderId,
+											status:2
+										},
+										success: function(res) {
+											
+										}
+									})									
 								});
 							}
 						},
@@ -250,15 +274,15 @@
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							if(res.data.length == 0) {
-								that.opennew('xinzengdizhi')
-							} else {
+//							if(res.data.length == 0) {
+//								that.opennew('xinzengdizhi')
+//							} else {
 								for(var i in res.data) {
 									if(res.data[i].msdAdIsDefault == 1) {
 										that.tabdata02 = res.data[i]
 									}
 								}
-							}
+//							}
 
 						} else {
 							alert(res.msg)

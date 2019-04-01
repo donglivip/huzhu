@@ -21,12 +21,12 @@
 				<div class="main-one">
 					<input type="text" placeholder="支付宝账号" v-model="msdUwAliBindingCode"/>
 				</div>
-				<div class="main-one">
+				<!--<div class="main-one">
 					<input type="text" placeholder="微信实名认证姓名" v-model="msdUwWechatBindingName"/>
 				</div>
 				<div class="main-one">
 					<input type="text" placeholder="微信账号" v-model="msdUwWechatBindingCode"/>
-				</div>
+				</div>-->
 				<div class="main-two">
 					<div class="two-text">身份证正面</div>
 					<div class="two-box">
@@ -85,7 +85,7 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-				if(that.msdUwWechatBindingName==''||that.msdUwWechatBindingCode==''||that.msdUwAliBindingCode==''||that.msdUwAliBindingName==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
+				if(that.msdUwAliBindingCode==''||that.msdUwAliBindingName==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
 					alert('资料填写不完整')
 					return false;
 				}

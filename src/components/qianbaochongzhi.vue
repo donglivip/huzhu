@@ -28,11 +28,11 @@
 				<div class="four-text">绑定支付宝 </div>
 				<img src="../../static/you-hui.png" class="right" />
 			</div>
-			<div class="main-four" @click="opennew('renzhengzhongxin')">
+			<!--<div class="main-four" @click="opennew('renzhengzhongxin')">
 				<img src="../../static/bangding.png" class="lift" />
 				<div class="four-text">绑定微信 </div>
 				<img src="../../static/you-hui.png" class="right" />
-			</div>
+			</div>-->
 			<div class="main-four" @click="opennew('chongzhi')">
 				<img src="../../static/chongzhijilu.png" class="lift" />
 				<div class="four-text">充值</div>

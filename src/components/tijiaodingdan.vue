@@ -12,10 +12,13 @@
 				<div class="one-left">
 					<img src="../../static/dingwei.png" />
 				</div>
-				<div class="one-content">
+				<div class="one-content" v-if="tabdata!=''">
 					<div class="content-text">{{tabdata.msdAdArea+tabdata.msdAdDetailed}}</div>
 					<div class="content-news">{{tabdata.msdAdName}}</div>
 					<div class="content-news">{{tabdata.msdAdPhone}}</div>
+				</div>
+				<div class="one-content" v-if="tabdata==''">
+					您未选择默认地址，点我添加
 				</div>
 				<div class="one-right">
 					<img src="../../static/you-hui.png" />
@@ -36,7 +39,7 @@
 			</div>
 
 		</div>
-		<div class="bottom" @click="gosubmit()">
+		<div class="bottom" @click="gosubmit()" v-if="tabdata!=''">
 			<div class="bottom-text">去结算</div>
 		</div>
 		<!--支付方式-->
@@ -124,6 +127,18 @@
 									});
 								}, function(error) {
 									alert('支付失败！')
+//									删除订单
+									$.ajax({
+										type: 'post',
+										url: that.myurl + '/user/deleteOrderId',
+										data: {
+											orderId: res.data[1],
+											status:2
+										},
+										success: function(res) {
+											
+										}
+									})									
 								});
 							} else {
 								//								微信充值
@@ -133,6 +148,18 @@
 									});
 								}, function(error) {
 									alert('支付失败！')
+//									删除订单
+									$.ajax({
+										type: 'post',
+										url: that.myurl + '/user/deleteOrderId',
+										data: {
+											orderId: res.data[1],
+											status:2
+										},
+										success: function(res) {
+											
+										}
+									})									
 								});
 							}
 						},
@@ -154,15 +181,15 @@
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							if(res.data.length==0){
-								that.opennew('xinzengdizhi')
-							}else{
+//							if(res.data.length==0){
+//								that.opennew('xinzengdizhi')
+//							}else{
 								for (var i in res.data) {
 									if(res.data[i].msdAdIsDefault==1){
 										that.tabdata = res.data[i]
 									}
 								}
-							}
+//							}
 							
 						} else {
 							alert(res.msg)

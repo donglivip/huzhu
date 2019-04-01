@@ -27,12 +27,12 @@
 				<div class="main-one">
 					<input type="text" placeholder="支付宝账号" v-model="msdCwAliBindingCode" />
 				</div>
-				<div class="main-one">
+				<!--<div class="main-one">
 					<input type="text" placeholder="微信实名认证姓名" v-model="msdCwWechatBindingName" />
 				</div>
 				<div class="main-one">
 					<input type="text" placeholder="微信账号" v-model="msdCwWechatBindingCode" />
-				</div>
+				</div>-->
 				<div class="main-two">
 					<div class="two-text">身份证正面</div>
 					<div class="two-box">
@@ -150,10 +150,10 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-				//				if(that.msdCwAliBindingName==''||that.msdCwAliBindingCode==''||that.msdCwWechatBindingName==''||that.msdCwWechatBindingCode==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
-				//					alert('资料填写不完整')
-				//					return false;
-				//				}
+								if(that.msdCwAliBindingName==''||that.msdCwAliBindingCode==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
+									alert('资料填写不完整')
+									return false;
+								}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/updateCompanInfoById',
@@ -163,7 +163,6 @@
 						msdCoCardId: that.msdCardId,
 						msdCoCardFrontImg: $('#sz').attr('imgsrc'),
 						msdCoCardBackImg: $('#sf').attr('imgsrc'),
-						msdCoIsIdentity: 1,
 						msdServiceStyleId: that.msdServiceStyleId,
 						msdCoIntroduce: that.msdCoIntroduce,
 						msdCwAliBindingCode: that.msdCwAliBindingCode,

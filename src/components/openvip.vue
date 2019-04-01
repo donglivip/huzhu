@@ -58,8 +58,8 @@
 					success: function(res) {
 						that.mydata = res.data[0]
 						if(res.data.length==0){
-							plus.nativeUI.toast('会员功能暂时没有开通呢！')
-							that,back()
+							alert('会员功能暂时没有开通呢！')
+							that.back()
 						}
 					},
 					error: function(res) {

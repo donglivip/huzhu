@@ -8,11 +8,13 @@
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
-			<div class="main-box" v-for="val in tabdata" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
-				<div class="main-top">
-					<img :src="val.msdSsImg | myimg" />
+			<div class="main-inner">
+				<div class="main-box" v-for="val in tabdata" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
+					<div class="main-top">
+						<img :src="val.msdSsImg | myimg" />
+					</div>
+					<div class="main-bottom">{{val.msdSsName}}</div>
 				</div>
-				<div class="main-bottom">{{val.msdSsName}}</div>
 			</div>
 		</div>
 	</div>
@@ -115,10 +117,11 @@
 		height: calc(100% - .96rem);
 		overflow-x: hidden;
 		overflow-y: scroll;
+	}
+	.main-inner{
 		display: flex;
 		flex-wrap: wrap;
 	}
-	
 	.main-box {
 		height: 3.6rem;
 		width: 3rem;

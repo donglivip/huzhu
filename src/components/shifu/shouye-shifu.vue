@@ -42,6 +42,7 @@
 					<div class="two-word" @click.stop="haveorder(val.msdOrderId)">接受订单</div>
 				</div>
 			</div>
+			<img src="../../../static/noorder.png" v-if="orderdata.length==0" class="nodata" style="margin: .8rem auto;"/>
 		</div>
 		<!--下面-->
 		<div class="bottom">
@@ -143,6 +144,33 @@
 				})
 			},
 			myajax: function() {
+				var that = this
+				if(localStorage.getItem('msdCoIsConsume')==2){
+					$.ajax({
+						type: 'post',
+						url: that.myurl + '/company/companLogin',
+						data: {
+							phone:localStorage.getItem('msdCoPhone'),
+							pwd:localStorage.getItem('mima')
+						},
+						success: function(res) {
+							if(res.status == 200) {
+								if(res.data.msdCoIsConsume==2){
+									alert('购买保险后方可接单')
+									return false;
+								}else{
+									localStorage.setItem('msdCoIsConsume',1)
+								}
+							} else {
+								alert(res.msg)
+							}
+						},
+						error: function(res) {
+							alert('网络连接失败，请检查网络后再试！')
+						}
+					})
+					
+				}
 				function plusReady() {
 					plus.geolocation.getCurrentPosition(function(p) {
 						that.city = p.address.city
@@ -177,7 +205,7 @@
 					document.addEventListener("plusready", plusReady, false);
 				}
 				//				获取轮播图
-				var that = this
+				
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/selectMsdBanner',
