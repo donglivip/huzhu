@@ -94,6 +94,7 @@
 					success: function(res) {
 						if(res.status == 200) {
 							that.myajax()
+							plus.nativeUI.toast('接单成功')
 						} else {
 							alert(res.msg)
 						}
@@ -116,6 +117,7 @@
 					success: function(res) {
 						if(res.status == 200) {
 							that.myajax()
+							plus.nativeUI.toast('取消成功')
 						} else {
 							alert(res.msg)
 						}

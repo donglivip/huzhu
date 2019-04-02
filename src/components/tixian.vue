@@ -77,6 +77,7 @@
 							plus.nativeUI.closeWaiting()
 							that.back()
 						} else{
+							plus.nativeUI.closeWaiting()
 							alert(res.msg)
 						}
 					},
@@ -84,6 +85,7 @@
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
+				plus.nativeUI.closeWaiting()
 			},
 			back: function() {
 				this.$router.back()
