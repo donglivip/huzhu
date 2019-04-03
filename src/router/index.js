@@ -15,6 +15,13 @@ export default new Router({
 			keepAlive: false
 		}
 	}, {
+		path: '/wangjimima',
+		name: 'wangjimima',
+		component: resolve => require(['@/components/wangjimima'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/tixian',
 		name: 'tixian',
 		component: resolve => require(['@/components/tixian'], resolve),
@@ -25,6 +32,13 @@ export default new Router({
 		path: '/openvip',
 		name: 'openvip',
 		component: resolve => require(['@/components/openvip'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/wangji-shifu',
+		name: 'wangji-shifu',
+		component: resolve => require(['@/components/shifu/wangji-shifu'], resolve),
 		meta: {
 			keepAlive: false
 		}

@@ -174,7 +174,6 @@
 					},
 					success: function(res) {
 						if(res.data == 1) {
-							localStorage.setItem('msdCoIsIdentity', 1)
 							that.back()
 						} else {
 							alert(res.msg)

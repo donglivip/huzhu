@@ -157,14 +157,16 @@
 						},
 						success: function(res) {
 							if(res.status == 200) {
+								if(res.data.msdCoIsIdentity==1){
+									localStorage.setItem('msdCoIsIdentity', 1)
+								}
 								if(res.data.msdCoIsConsume==2){
 									alert('购买保险后方可接单')
+									window.location.href = "tel:051666695588";
 									return false;
 								}else{
 									localStorage.setItem('msdCoIsConsume',1)
 								}
-							} else {
-								alert(res.msg)
 							}
 						},
 						error: function(res) {

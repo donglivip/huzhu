@@ -1,17 +1,17 @@
 <template>
 	<div class="wrapper">
 		<!--头-->
-		<div class="header">
-			<div class="header-cebian" @click="opennew('denglu-shifu')">
-				<img src="../../../static/youjian.png"/>
+		<div class="header" @click="back()">
+			<div class="header-cebian">
+				<img src="../../../static/youjian.png" />
 			</div>
-			<div class="header-text">公司注册</div>
+			<div class="header-text">找回密码</div>
 			<div class="header-cebian"></div>
 		</div>
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="number" placeholder="请输入账号" class="shouji" v-model="msdPhone"/>
+				<input type="number" placeholder="请输入账号" class="shouji" v-model="msdPhone" />
 			</div>
 			<div class="main-one">
 				<input type="number" placeholder="输入验证码" class="phone" v-model="code" />
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="main-one">
-				<input type="password" placeholder="密码" class="phone" v-model="msdPassword"/>
+				<input type="password" placeholder="密码" class="phone" v-model="msdPassword" />
 			</div>
 			<div class="main-two" @click="myajax()">
 				<div class="two-text">注册</div>
@@ -34,11 +34,11 @@
 
 <script>
 	export default {
-		name: 'zhuce-shifu',
+		name: 'wangjimima',
 		data() {
 			return {
-				msdPhone:'',
-				msdPassword:'',
+				msdPhone: '',
+				msdPassword: '',
 				code: '',
 				codetext: '获取验证码',
 				setcode:''
@@ -74,7 +74,7 @@
 					url: that.myurl + '/user/message',
 					data: {
 						phone: that.msdPhone,
-						status:1
+						status:2
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -90,16 +90,16 @@
 			},
 			myajax: function() {
 				var that = this
+				//				注册
 				if(that.setcode != that.code||that.code=='') {
 					alert('验证码错误')
 					return false;
 				}
-				//				注册
-				if(that.msdPhone==''){
+				if(that.msdPhone == '') {
 					alert('请输入手机号')
 					return false;
 				}
-				if(that.msdPassword==''){
+				if(that.msdPassword == '') {
 					alert('请输入密码')
 					return false;
 				}
@@ -109,19 +109,17 @@
 				}
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/userRegister',
+					url: that.myurl + '/user/findPsd',
 					data: {
-						msdCoPhone: that.msdPhone,
-						msdCoPassword:that.msdPassword,
-						state:2
+						phone: that.msdPhone,
+						psd : that.msdPassword,
+						status: 2
 					},
 					success: function(res) {
-						if(res.data == 1) {
+						if(res.status == 200) {
 							that.opennew('denglu-shifu')
-						} else if(res.data==-1){
-							alert('请勿重复注册')
-						}else{
-							alert('注册失败，请联系客服！')
+						} else {
+							alert(res.msg)
 						}
 					},
 					error: function(res) {
@@ -133,7 +131,7 @@
 				this.$router.back()
 			},
 			opennew: function(target) {
-				this.$router.replace({
+				this.$router.push({
 					name: target
 				})
 			}
@@ -154,13 +152,19 @@
 		margin: 0;
 		padding: 0;
 	}
-	.header-text{flex: 1;text-align: center;}
+	
+	.header-text {
+		flex: 1;
+		text-align: center;
+	}
+	
 	html,
 	body,
 	.wrapper {
 		width: 100%;
 		height: 100%;
 	}
+	
 	.code {
 		background: #0DA5FE;
 		color: #FFFFFF;
@@ -169,10 +173,16 @@
 		text-align: center;
 		width: 1.5rem;
 	}
+	
 	.wrapper {
 		background: #F7F7F9;
 	}
-	.header-cebian img{height: .4rem;margin-left: .2rem;}
+	
+	.header-cebian img {
+		height: .4rem;
+		margin-left: .2rem;
+	}
+	
 	.header {
 		display: flex;
 		align-items: center;

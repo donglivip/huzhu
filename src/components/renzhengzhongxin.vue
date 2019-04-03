@@ -103,7 +103,8 @@
 						msdUwWechatBindingName:that.msdUwWechatBindingName,
 						msdUwWechatBindingCode:that.msdUwWechatBindingCode,
 						msdUwIsAliBinding:1,
-						msdUwIsWechatBinding:1
+						msdUwIsWechatBinding:1,
+						msdIsIdentity:1
 					},
 					success: function(res) {
 						if(res.data == 1) {

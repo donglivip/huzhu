@@ -53,7 +53,7 @@
 				<img :src="val" v-for="val in files" />
 				<img src="../../static/jia.png" @click="upload()" v-if="files.length<3" />
 			</div>
-			<div class="bottom" @click="gosubmit()" v-if="tabdata!=''">
+			<div class="bottom" @click="gosubmit()" v-if="tabdata02!=''">
 				<div class="bottom-text">确认提交</div>
 			</div>
 		</div>

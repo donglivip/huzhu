@@ -3,7 +3,7 @@
 		<!--头-->
 		<div class="header">
 			<div class="header-cebian" @click="opennew('denglu')">
-				<img src="../../static/youjian.png"/>
+				<img src="../../static/youjian.png" />
 			</div>
 			<div class="header-text">用户注册</div>
 			<div class="header-cebian"></div>
@@ -11,10 +11,16 @@
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="text" placeholder="请输入账号" class="shouji" v-model="msdPhone"/>
+				<input type="number" placeholder="请输入账号" class="shouji" v-model="msdPhone" />
 			</div>
 			<div class="main-one">
-				<input type="password" placeholder="密码" class="phone" v-model="msdPassword"/>
+				<input type="number" placeholder="输入验证码" class="phone" v-model="code" />
+				<div class="code" @click="havecode">
+					{{codetext}}
+				</div>
+			</div>
+			<div class="main-one">
+				<input type="password" placeholder="密码" class="phone" v-model="msdPassword" />
 			</div>
 			<div class="main-two" @click="myajax()">
 				<div class="two-text">注册</div>
@@ -31,19 +37,69 @@
 		name: 'zhuce',
 		data() {
 			return {
-				msdPhone:'',
-				msdPassword:''
+				msdPhone: '',
+				msdPassword: '',
+				code: '',
+				codetext: '获取验证码',
+				setcode:''
 			}
 		},
 		methods: {
+			havecode: function() {
+				var that = this
+				if(!(/^1[3|4|5|8|9|7][0-9]\d{4,8}$/.test(that.msdPhone))) {
+					plus.nativeUI.toast("不是完整的11位手机号或者正确的手机号前七位");
+					return false;
+				}
+				if(this.codetext != '获取验证码') {
+					plus.nativeUI.toast('点击的太频繁啦！')
+				} else {
+					this.setcode02()
+					this.codetext = 60
+					setInterval(function() {
+						if(that.codetext > 1) {
+							that.codetext--
+						} else {
+							that.codetext = '获取验证码'
+						}
+					}, 1000)
+				}
+			},
+			//			发送验证码
+			setcode02: function() {
+				var that = this
+
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/user/message',
+					data: {
+						phone: that.msdPhone,
+						status:1
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							that.setcode=res.data[1]
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
 			myajax: function() {
 				var that = this
 				//				注册
-				if(that.msdPhone==''){
+				if(that.setcode != that.code||that.code=='') {
+					alert('验证码错误')
+					return false;
+				}
+				if(that.msdPhone == '') {
 					alert('请输入手机号')
 					return false;
 				}
-				if(that.msdPassword==''){
+				if(that.msdPassword == '') {
 					alert('请输入密码')
 					return false;
 				}
@@ -56,15 +112,15 @@
 					url: that.myurl + '/user/userRegister',
 					data: {
 						msdPhone: that.msdPhone,
-						msdPassword:that.msdPassword,
-						state:1
+						msdPassword: that.msdPassword,
+						state: 1
 					},
 					success: function(res) {
 						if(res.data == 1) {
 							that.opennew('denglu')
-						} else if(res.data==-1){
+						} else if(res.data == -1) {
 							alert('请勿重复注册')
-						}else{
+						} else {
 							alert('注册失败，请联系客服！')
 						}
 					},
@@ -98,7 +154,12 @@
 		margin: 0;
 		padding: 0;
 	}
-	.header-text{flex: 1;text-align: center;}
+	
+	.header-text {
+		flex: 1;
+		text-align: center;
+	}
+	
 	html,
 	body,
 	.wrapper {
@@ -106,10 +167,24 @@
 		height: 100%;
 	}
 	
+	.code {
+		background: #0DA5FE;
+		color: #FFFFFF;
+		height: .9rem;
+		line-height: .9rem;
+		text-align: center;
+		width: 1.5rem;
+	}
+	
 	.wrapper {
 		background: #F7F7F9;
 	}
-	.header-cebian img{height: .4rem;margin-left: .2rem;}
+	
+	.header-cebian img {
+		height: .4rem;
+		margin-left: .2rem;
+	}
+	
 	.header {
 		display: flex;
 		align-items: center;
@@ -137,6 +212,7 @@
 		height: .9rem;
 		padding-left: .2rem;
 		border-radius: .08rem;
+		overflow: hidden;
 	}
 	
 	.shouji {

@@ -20,10 +20,10 @@
 					<div class="two-text">昵称</div>
 					<input class="two-news" type="text" v-model="msdCoName" placeholder="请输入用户名" />
 				</div>
-				<!--<div class="main-three">
+				<div class="main-three" @click="opennew('wangji-shifu')">
 					<div class="three-text">登录密码</div>
 					<img src="../../../static/you.png" />
-				</div>-->
+				</div>
 			</div>
 			<div class="main-bottom" @click="exit()">
 				<div class="bottom-text">退出账号</div>
@@ -155,7 +155,7 @@
 					madCoHeadImg: that.madCoHeadImgurl,
 					msdCoName: that.msdCoName
 				}
-				if(that.madCoHeadImgur==''){
+				if(that.madCoHeadImgurl==''){
 					delete ajaxjson.madCoHeadImg
 				}
 				$.ajax({
@@ -164,7 +164,7 @@
 					data: ajaxjson,
 					success: function(res) {
 						if(res.status == 200) {
-							if(that.madCoHeadImgur==''){
+							if(that.madCoHeadImgurl!=''){
 								localStorage.setItem('madCoHeadImg', that.madCoHeadImgurl)
 							}
 							localStorage.setItem('msdCoName', that.msdCoName)

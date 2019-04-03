@@ -19,7 +19,7 @@
 			</div>
 			<div class="main-three ">
 				<div class="three-text" @click="opennew('zhuce-shifu')">注册</div>
-				<!--<div class="three-text">忘记密码？ </div>-->
+				<div class="three-text" @click="opennew('wangji-shifu')">忘记密码？ </div>
 			</div>
 		</div>
 	</div>

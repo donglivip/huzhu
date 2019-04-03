@@ -20,10 +20,10 @@
 					<div class="two-text">昵称</div>
 					<input class="two-news" type="text" v-model="msdNickname" placeholder="请输入用户名" />
 				</div>
-				<!--<div class="main-three">
+				<div class="main-three"  @click="opennew('wangjimima')">
 					<div class="three-text">登录密码</div>
 					<img src="../../static/you.png" />
-				</div>-->
+				</div>
 			</div>
 			<div class="main-bottom" @click="exit()">
 				<div class="bottom-text">退出账号</div>
@@ -185,7 +185,7 @@
 			},
 			opennew: function(target, id) {
 				this.$store.state.msdNewsId = id
-				this.$router.replace({
+				this.$router.push({
 					name: target
 				})
 			}
@@ -259,6 +259,7 @@
 	}
 	
 	.main-one {
+		
 		height: 1.8rem;
 		display: flex;
 		align-items: center;
@@ -269,7 +270,8 @@
 	
 	.main-one img {
 		height: 1.2rem;
-		border-radius: 2rem;
+		border-radius: 50%;
+		width: 1.2rem;
 	}
 	
 	.one-text {

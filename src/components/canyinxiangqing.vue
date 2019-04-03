@@ -5,7 +5,7 @@
 				<img src="../../static/y-bai.png" v-if="!headboo"/>
 				<img src="../../static/youjian.png" v-if="headboo"/>
 			</div>
-			<div class="header-text">{{navdata.msdFrName}}</div>
+			<div class="header-text"></div>
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main" @scroll="myscroll">
@@ -14,7 +14,10 @@
 				<!--<p>{{navdata.maIlName}}</p>-->
 			</div>
 			<div class="main-two">
-				<div class="two-text">产品特色</div>
+				<div class="two-text">
+					<span>产品特色</span>
+					{{navdata.msdFrName}}
+				</div>
 				<div v-html="navdata.msdFrResult">
 
 				</div>
@@ -174,10 +177,8 @@
 	}
 	
 	.main-two {
-		height: 7rem;
 		background: #FFFFFF;
 		margin: .2rem 0;
-		height: calc(100% - 4.8rem);
 	}
 	
 	.two-text {
@@ -185,6 +186,8 @@
 		padding: .3rem 0;
 		font-size: .36rem;
 		color: #000000;
+		display: flex;
+		justify-content: space-between;
 	}
 	
 	.two-box {
