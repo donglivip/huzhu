@@ -9,7 +9,7 @@
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="number" placeholder="请输入账号" class="phone" v-model="phone" />
+				<input type="number" placeholder="请输入手机号" class="phone" v-model="phone" />
 			</div>
 			<div class="main-one">
 				<input type="password" placeholder="密码" class="phone" v-model="password" />
@@ -30,8 +30,8 @@
 		name: 'denglu-shifu',
 		data() {
 			return {
-				phone: '',
-				password: ''
+				phone: localStorage.getItem('msdCoPhone'),
+				password: localStorage.getItem('shifumima')
 			}
 		},
 		methods: {
@@ -69,7 +69,7 @@
 							localStorage.setItem('msdCoIsCompany', res.data.msdCoIsCompany) //是否公司
 							localStorage.setItem('msdCoIsWork', res.data.msdCoIsWork) //是否工作
 							localStorage.setItem('msdCoIsConsume', res.data.msdCoIsConsume)//是否消费
-							localStorage.setItem('mima',that.password)//密码
+							localStorage.setItem('shifumima',that.password)//密码
 							that.opennew('shouye-shifu')
 						} else {
 							alert(res.msg)

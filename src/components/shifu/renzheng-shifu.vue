@@ -150,10 +150,10 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-								if(that.msdCwAliBindingName==''||that.msdCwAliBindingCode==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
-									alert('资料填写不完整')
-									return false;
-								}
+				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
+					alert('资料填写不完整')
+					return false;
+				}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/updateCompanInfoById',
@@ -392,7 +392,6 @@
 		height: .9rem;
 		width: 100%;
 		font-size: .28rem;
-		color: #CACACA;
 	}
 	
 	.main-two {

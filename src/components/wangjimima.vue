@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="main-one">
-				<input type="password" placeholder="密码" class="phone" v-model="msdPassword" />
+				<input type="password" placeholder="请输入8位数以上的密码" class="phone" v-model="msdPassword" />
 			</div>
 			<div class="main-two" @click="myajax()">
 				<div class="two-text">立即找回</div>

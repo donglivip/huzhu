@@ -11,7 +11,7 @@
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="number" placeholder="请输入账号" class="shouji" v-model="msdPhone"/>
+				<input type="number" placeholder="请输入手机号" class="shouji" v-model="msdPhone"/>
 			</div>
 			<div class="main-one">
 				<input type="number" placeholder="输入验证码" class="phone" v-model="code" />
@@ -20,14 +20,14 @@
 				</div>
 			</div>
 			<div class="main-one">
-				<input type="password" placeholder="密码" class="phone" v-model="msdPassword"/>
+				<input type="password" placeholder="请输入8位数以上的密码" class="phone" v-model="msdPassword"/>
 			</div>
 			<div class="main-two" @click="myajax()">
 				<div class="two-text">注册</div>
 			</div>
-			<!--<div class="main-three ">
+			<div class="main-three" @click="opennew('zhucexieyi-shifu')">
 				<div class="three-text">注册协议 </div>
-			</div>-->
+			</div>
 		</div>
 	</div>
 </template>
@@ -99,8 +99,8 @@
 					alert('请输入手机号')
 					return false;
 				}
-				if(that.msdPassword==''){
-					alert('请输入密码')
+				if(that.msdPassword.length<=8){
+					alert('密码格式错误')
 					return false;
 				}
 				if(!(/^1[3|4|5|8|9|7][0-9]\d{4,8}$/.test(that.msdPhone))) {

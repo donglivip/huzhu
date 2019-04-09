@@ -1,13 +1,15 @@
 <template>
 	<div class="wrapper">
-		<div class="header" @click="back()">
+		<div class="header02" @click="back()">
 
 		</div>
-		<img src="../../static/back02.png" @click="sharew()" />
+		<div id="output"></div>
+		<img src="../../static/back02.png" @click="sharew()"  style="width: 100%;height: 100%;"/>
 	</div>
 </template>
 
 <script>
+	import'../assets/js/jquery.qrcode.min.js'
 	export default {
 		name: 'share',
 		data() {
@@ -29,7 +31,6 @@
 			},
 			sharew: function() {
 				var that = this
-				console.log(JSON.stringify(that.sharewx))
 				that.sharewx.send({
 					title: '最好用的服务软件 无忧互助！',
 					content: "最好用的服务软件 无忧互助！",
@@ -46,7 +47,7 @@
 		},
 		mounted() {
 			var that = this
-
+			$('#output').qrcode(that.myurl + "/user/share?phone=" + localStorage.getItem('msdCoPhone') + "&userId=" + localStorage.getItem('msdCompanyId') + "&state=2");
 			function plusReady() {
 				plus.share.getServices(function(s) {
 					for(var i in s) {
@@ -76,20 +77,29 @@
 	}
 </script>
 
-<style scoped>
+<style>
 	html,
 	body,
-	.wrapper,
-	img {
+	.wrapper{
 		width: 100%;
 		height: 100%;
 	}
 	
-	.header {
+	.header02 {
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 1rem;
+	}
+	#output{
+		position: fixed;
+		top: 6rem;
+		left: 2.3rem;
+		z-index: 999;
+	}
+	canvas{
+		width: 2.5rem!important;
+		height:2.5rem!important;
 	}
 </style>

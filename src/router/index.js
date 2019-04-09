@@ -10,7 +10,11 @@ export default new Router({
 	}, {
 		path: '/bangzhuxiangqing',
 		name: 'bangzhuxiangqing',
-		component: resolve => require(['@/components/bangzhuxiangqing'], resolve),
+		component: resolve => require(['@/components/bangzhuxiangqing'], resolve)
+	}, {
+		path: '/anquan',
+		name: 'anquan',
+		component: resolve => require(['@/components/anquan'], resolve),
 		meta: {
 			keepAlive: false
 		}
@@ -29,9 +33,23 @@ export default new Router({
 			keepAlive: false
 		}
 	}, {
+		path: '/zhcuexieyi',
+		name: 'zhcuexieyi',
+		component: resolve => require(['@/components/zhcuexieyi'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/openvip',
 		name: 'openvip',
 		component: resolve => require(['@/components/openvip'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
+		path: '/zhucexieyi-shifu',
+		name: 'zhucexieyi-shifu',
+		component: resolve => require(['@/components/shifu/zhucexieyi-shifu'], resolve),
 		meta: {
 			keepAlive: false
 		}

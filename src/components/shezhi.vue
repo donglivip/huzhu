@@ -45,7 +45,15 @@
 		},
 		methods: {
 			exit: function() {
+				var phone1=localStorage.getItem('msdCoPhone')
+				var mima1=localStorage.getItem('shifumima')
+				var phone=localStorage.getItem('userphone')
+				var mima=localStorage.getItem('mima')
 				localStorage.clear()
+				localStorage.setItem('msdCoPhone',phone1)
+				localStorage.setItem('shifumima',mima1)
+				localStorage.setItem('userphone',phone)
+				localStorage.setItem('mima',mima)
 				this.opennew('denglu')
 			},
 			upload: function() {

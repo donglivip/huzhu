@@ -9,7 +9,7 @@
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="number" placeholder="请输入账号" class="phone" v-model="phone" />
+				<input type="number" placeholder="请输入手机号" class="phone" v-model="phone" />
 			</div>
 			<div class="main-one">
 				<input type="password" placeholder="密码" class="phone" v-model="password" />
@@ -31,8 +31,8 @@
 		name: 'denglu',
 		data() {
 			return {
-				phone: '',
-				password: ''
+				phone: localStorage.getItem('userphone'),
+				password: localStorage.getItem('mima')
 			}
 		},
 		methods: {
@@ -66,7 +66,8 @@
 								var boo = false
 								//									是用户
 								localStorage.setItem('userid', res.data[0].msdUserId)
-								localStorage.setItem('userphone', res.data[0].msdPhone)
+								localStorage.setItem('userphone', res.data[0].msdPhone) //账号
+								localStorage.setItem('mima', that.password) //密码
 								localStorage.setItem('msdIsMember', res.data[0].msdIsMember)
 								localStorage.setItem('msdHeadImg', res.data[0].msdHeadImg)
 								localStorage.setItem('msdIsIdentity', res.data[0].msdIsIdentity)

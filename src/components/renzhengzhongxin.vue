@@ -16,7 +16,7 @@
 					<input type="text" placeholder="身份证号码" v-model="msdCardId"/>
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="支付宝实名认证姓名" v-model="msdUwAliBindingName"/>
+					<input type="text" placeholder="支付宝实名认证姓名(填错会影响提现)" v-model="msdUwAliBindingName"/>
 				</div>
 				<div class="main-one">
 					<input type="text" placeholder="支付宝账号" v-model="msdUwAliBindingCode"/>
@@ -85,7 +85,7 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-				if(that.msdUwAliBindingCode==''||that.msdUwAliBindingName==''||that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
+				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
 					alert('资料填写不完整')
 					return false;
 				}
@@ -299,7 +299,6 @@
 		height: .9rem;
 		width: 100%;
 		font-size: .28rem;
-		color: #CACACA;
 	}
 	
 	.main-two {

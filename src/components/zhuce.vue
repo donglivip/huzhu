@@ -1,8 +1,8 @@
 <template>
 	<div class="wrapper">
 		<!--头-->
-		<div class="header">
-			<div class="header-cebian" @click="opennew('denglu')">
+		<div class="header" @click="back">
+			<div class="header-cebian">
 				<img src="../../static/youjian.png" />
 			</div>
 			<div class="header-text">用户注册</div>
@@ -11,7 +11,7 @@
 		<!--中间主体-->
 		<div class="main">
 			<div class="main-one">
-				<input type="number" placeholder="请输入账号" class="shouji" v-model="msdPhone" />
+				<input type="number" placeholder="请输入手机号" class="shouji" v-model="msdPhone" />
 			</div>
 			<div class="main-one">
 				<input type="number" placeholder="输入验证码" class="phone" v-model="code" />
@@ -20,14 +20,14 @@
 				</div>
 			</div>
 			<div class="main-one">
-				<input type="password" placeholder="密码" class="phone" v-model="msdPassword" />
+				<input type="password" placeholder="请输入8位数以上的密码" class="phone" v-model="msdPassword" />
 			</div>
 			<div class="main-two" @click="myajax()">
 				<div class="two-text">注册</div>
 			</div>
-			<!--<div class="main-three ">
+			<div class="main-three" @click="opennew('zhcuexieyi')">
 				<div class="three-text">注册协议 </div>
-			</div>-->
+			</div>
 		</div>
 	</div>
 </template>
@@ -90,17 +90,18 @@
 			},
 			myajax: function() {
 				var that = this
-				//				注册
+
+				if(that.msdPassword.length<=8) {
+					alert('请输入8位数以上密码')
+					return false;
+				}
+								//				注册
 				if(that.setcode != that.code||that.code=='') {
 					alert('验证码错误')
 					return false;
 				}
 				if(that.msdPhone == '') {
 					alert('请输入手机号')
-					return false;
-				}
-				if(that.msdPassword == '') {
-					alert('请输入密码')
 					return false;
 				}
 				if(!(/^1[3|4|5|8|9|7][0-9]\d{4,8}$/.test(that.msdPhone))) {
