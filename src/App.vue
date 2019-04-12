@@ -9,9 +9,20 @@
 		name: 'App',
 		mounted: function() {
 			var that=this
+			var first = null;
 			function plusReady() {
 				plus.key.addEventListener("backbutton", function() {
-					that.$router.back()
+					if(first==null) {
+						first = new Date().getTime();
+						that.$router.back()
+						setTimeout(function() {
+							first = null;
+						}, 1000);
+					} else {
+						if(new Date().getTime() - first < 1000) {
+							plus.runtime.quit();
+						}
+					}
 				})
 				plus.navigator.setStatusBarBackground('#0DA5FE');
 				plus.runtime.getProperty(plus.runtime.appid, function(inf) {
