@@ -24,7 +24,7 @@
 				</swiper>
 			</div>
 			<div class="main-two">
-				<div class="two-box" v-for="(val,index) in tabdata" v-if="index<3" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
+				<div class="two-box" v-for="(val,index) in tabdata" v-if="index<7" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
 					<img :src="val.msdSsImg | myimg" />
 					<div class="two-text">{{val.msdSsName}}</div>
 				</div>
@@ -47,12 +47,21 @@
 				</div>
 			</div>
 			<div class="main-four">推荐服务</div>
-			<div class="main-five" @click="opennew('waimai','')">
+			<div class="main-five" onclick="alert('正在开发中')">
 				<div class="five-lift">
 					<img src="../../static/canyin.png" />
 				</div>
 				<div class="five-right">
 					<div class="five-text">餐饮业务</div>
+					<div class="five-news">去查看</div>
+				</div>
+			</div>
+			<div class="main-five" @click="opennew('waimai','')">
+				<div class="five-lift">
+					<img src="../../static/yanglao.png" />
+				</div>
+				<div class="five-right">
+					<div class="five-text">养老服务</div>
 					<div class="five-news">去查看</div>
 				</div>
 			</div>
@@ -334,8 +343,7 @@
 	.main-two {
 		display: flex;
 		align-items: center;
-		justify-content: space-around;
-		height: 1.6rem;
+		flex-wrap: wrap;
 	}
 	
 	.two-box {
@@ -343,6 +351,8 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		width: 25%;
+		margin: .2rem 0;
 	}
 	
 	.two-box img {
