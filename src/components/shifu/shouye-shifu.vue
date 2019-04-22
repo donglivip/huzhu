@@ -42,7 +42,7 @@
 					<div class="two-word" @click.stop="haveorder(val.msdOrderId)">接受订单</div>
 				</div>
 			</div>
-			<img src="../../../static/noorder.png" v-if="orderdata.length==0" class="nodata" style="margin: .8rem auto;"/>
+			<img src="../../../static/noorder.png" v-if="orderdata.length==0" class="nodata" style="margin: .8rem auto;" />
 		</div>
 		<!--下面-->
 		<div class="bottom">
@@ -57,6 +57,16 @@
 			<div class="bottom-box" @click="opennew('wode-shifu')">
 				<img src="../../../static/wode.png" />
 				<div class="bottom-news">我的</div>
+			</div>
+		</div>
+		<div class="layui" v-if="baoboo">
+			<div class="layui-inner">
+				<p>接单之前必须购买{{myprice.msdIrName}}</p>
+				<p>{{myprice.msdIrPrice}}元/年{{myprice.msdIrName}}</p>
+				<div class="btn-box">
+					<div class="btn" @click="baocancel">取消购买</div>
+					<div class="btn" @click="opennew('kaibaoxian')">确认购买</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -78,18 +88,23 @@
 					}
 				},
 				navdata: [],
-				city:'未知',
-				orderdata:[]
+				city: '未知',
+				orderdata: [],
+				baoboo: false,
+				myprice: 0
 			}
 		},
 		methods: {
-			haveorder:function(id){
+			baocancel: function() {
+				this.baoboo = false
+			},
+			haveorder: function(id) {
 				var that = this
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/orderReceiving',
-					data:{
-						msdOrderId:id
+					data: {
+						msdOrderId: id
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -104,15 +119,15 @@
 					}
 				})
 			},
-			cancel:function(id){
+			cancel: function(id) {
 				var that = this
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/removeOrder',
-					data:{
-						msdOrderId:id,
-						userId:localStorage.getItem('msdCompanyId'),
-						type:2
+					data: {
+						msdOrderId: id,
+						userId: localStorage.getItem('msdCompanyId'),
+						type: 2
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -127,9 +142,9 @@
 					}
 				})
 			},
-			opennew: function(target,id) {
-				this.$store.state.navindex0=-1
-				this.$store.state.msdOrderId=id
+			opennew: function(target, id) {
+				this.$store.state.navindex0 = -1
+				this.$store.state.msdOrderId = id
 				if(localStorage.getItem('msdCompanyId') == undefined) {
 					this.$router.push({
 						name: 'denglu-shifu'
@@ -147,25 +162,54 @@
 			},
 			myajax: function() {
 				var that = this
-				if(localStorage.getItem('msdCoIsConsume')==2){
+				if(localStorage.getItem('msdCoIsConsume') == 2) {
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/company/companLogin',
 						data: {
-							phone:localStorage.getItem('msdCoPhone'),
-							pwd:localStorage.getItem('mima')
+							phone: localStorage.getItem('msdCoPhone'),
+							pwd: localStorage.getItem('shifumima')
 						},
 						success: function(res) {
 							if(res.status == 200) {
-								if(res.data.msdCoIsIdentity==1){
+								if(res.data.msdCoIsIdentity == 1) {
 									localStorage.setItem('msdCoIsIdentity', 1)
 								}
-								if(res.data.msdCoIsConsume==2){
-									alert('购买保险后方可接单')
-									window.location.href = "tel:051666695588";
+								if(res.data.msdCoIsConsume == 2) {
+									$.ajax({
+										type: 'post',
+										url: that.myurl + '/company/queryMsdInsuranceRule',
+										success: function(res) {
+											if(res.status == 200) {
+												that.myprice = res.data
+												that.baoboo = true
+												return
+											}
+										},
+										error: function(res) {
+											alert('网络连接失败，请检查网络后再试！')
+										}
+									})
 									return false;
-								}else{
-									localStorage.setItem('msdCoIsConsume',1)
+								} else {
+									localStorage.setItem('msdCoIsConsume', 1)
+									$.ajax({
+										type: 'post',
+										url: that.myurl + '/company/queryUnreceivedOrder',
+										data: {
+											msdCompanyId: localStorage.getItem('msdCompanyId')
+										},
+										success: function(res) {
+											if(res.status == 200) {
+												that.orderdata = res.data
+											} else {
+												alert(res.msg)
+											}
+										},
+										error: function(res) {
+											alert('网络连接失败，请检查网络后再试！')
+										}
+									})
 								}
 							}
 						},
@@ -173,8 +217,9 @@
 							alert('网络连接失败，请检查网络后再试！')
 						}
 					})
-					
+
 				}
+
 				function plusReady() {
 					plus.geolocation.getCurrentPosition(function(p) {
 						that.city = p.address.city
@@ -209,7 +254,7 @@
 					document.addEventListener("plusready", plusReady, false);
 				}
 				//				获取轮播图
-				
+
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/user/selectMsdBanner',
@@ -224,25 +269,7 @@
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
-//				获取未接订单
-				var that = this
-				$.ajax({
-					type: 'post',
-					url: that.myurl + '/company/queryUnreceivedOrder',
-					data:{
-						msdCompanyId:localStorage.getItem('msdCompanyId')
-					},
-					success: function(res) {
-						if(res.status == 200) {
-							that.orderdata = res.data
-						} else {
-							alert(res.msg)
-						}
-					},
-					error: function(res) {
-						alert('网络连接失败，请检查网络后再试！')
-					}
-				})
+
 			}
 		},
 		mounted() {
@@ -272,6 +299,47 @@
 	* {
 		margin: 0;
 		padding: 0;
+	}
+	
+	.layui {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(0, 0, 0, .5);
+	}
+	
+	.layui-inner {
+		width: 6.5rem;
+		height: 3rem;
+		background: #0DA5FE;
+		color: #FFFFFF;
+		border-radius: .1rem;
+	}
+	
+	.layui-inner p {
+		line-height: 1.1rem;
+		text-align: center;
+	}
+	
+	.btn-box {
+		display: flex;
+		border-top: 1px solid #FFFFFF;
+	}
+	
+	.btn-box .btn {
+		flex: 1;
+		height: 1rem;
+		text-align: center;
+		line-height: 1rem;
+	}
+	
+	.btn-box .btn:first-of-type {
+		border-right: 1px solid #FFFFFF;
 	}
 	
 	html,

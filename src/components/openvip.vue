@@ -7,7 +7,20 @@
 			<div class="header-text">开通vip</div>
 			<div class="header-cebian"></div>
 		</div>
-		<div class="main">
+		<div class="main" v-if="!payboo">
+			<block v-for='val in mydata'>
+				<div class="title">
+					{{val.msdMeName}}
+				</div>
+				<div class="text" v-html="val.msdMeResult">
+					
+				</div>
+				<div class="btn" @click="payshow(val.msdMemberId)">
+					立即加入{{val.msdMeName}}/支付{{val.msdMePrice}}元
+				</div>
+			</block>
+		</div>
+		<div class="main" v-if="payboo">
 			<div class="main-two">
 				<div class="two-text">付款方式</div>
 			</div>
@@ -28,10 +41,11 @@
 					<img src="../../static/xuanzhong.png" v-if="state==3" />
 				</div>
 			</div>
+			<div class="bottom active" @click="myajax()">
+				<div class="bottom-text">确认开通 </div>
+			</div>
 		</div>
-		<div class="bottom active" @click="myajax()">
-			<div class="bottom-text">确认开通 ￥{{mydata.msdMePrice}}</div>
-		</div>
+		
 	</div>
 </template>
 
@@ -43,10 +57,16 @@
 				price: '',
 				state: 1,
 				channel: '',
-				mydata: {}
+				mydata: {},
+				payboo:false,
+				myid:''
 			}
 		},
 		methods: {
+			payshow:function(id){
+				this.myid=id
+				this.payboo=!this.payboo
+			},
 			change: function(index) {
 				this.state = index
 			},
@@ -54,9 +74,9 @@
 				var that = this
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/selectMsdMember',
+					url: that.myurl + '/user/queryMsdMember',
 					success: function(res) {
-						that.mydata = res.data[0]
+						that.mydata = res.data
 						if(res.data.length==0){
 							alert('会员功能暂时没有开通呢！')
 							that.back()
@@ -76,7 +96,9 @@
 						url: that.myurl + '/user/insertMember',
 						dataType:'json',
 						data: {
-							msdUserId: localStorage.getItem('userid')
+							msdUserId: localStorage.getItem('userid'),
+							msdMemberId:that.myid,
+							type:1
 						},
 						success: function(res) {
 							if(res.status == 200) {
@@ -94,11 +116,12 @@
 				} else {
 					$.ajax({
 						type: 'post',
-						url: that.myurl + '/user/insertMemberAPI',
+						url: that.myurl + '/user/insertUserMemberAPIWX',
 						dataType:'json',
 						data: {
 							msdUserId: localStorage.getItem('userid'),
-							state: that.state
+							state: that.state,
+							msdMemberId:that.myid
 						},
 						success: function(res) {
 							if(that.state == 1) {
@@ -168,12 +191,27 @@
 	.active {
 		background: #0DA5FE!important;
 	}
-	
+	.btn{
+		margin: .2rem;
+		background: #0DA5FE;
+		color: #FFFFFF;
+		border-radius: .1rem;
+		text-align: center;
+		line-height: 1rem;
+	}
 	* {
 		padding: 0;
 		margin: 0;
 	}
-	
+	.title{
+		margin: .2rem;
+		border-bottom: 1px solid #0DA5FE;
+		text-align: center;
+		line-height: .8rem;
+		color: #0DA5FE;
+		font-weight: 600;
+		font-size: .4rem;
+	}
 	html,
 	body,
 	.wrapper {

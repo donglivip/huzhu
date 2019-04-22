@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-cebian" @click="back()">
-				<img src="../../../static/youjian.png" />
+				<img src="../../static/youjian.png" />
 			</div>
 			<div class="header-text">开通vip</div>
 			<div class="header-cebian"></div>
@@ -12,60 +12,36 @@
 				<div class="title">
 					{{val.msdMeName}}
 				</div>
-				<div class="text" v-html="val.msdMeResult">
-					
-				</div>
 				<div class="btn" @click="payshow(val.msdMemberId)">
 					立即加入{{val.msdMeName}}/支付{{val.msdMePrice}}元
 				</div>
 			</block>
 		</div>
-		<div class="main" v-if="payboo">
-			<div class="main-two">
-				<div class="two-text">付款方式</div>
-			</div>
-			<div class="main-three">
-				<div class="three-box" @click="change(1)">
-					<div class="three-text">支付宝</div>
-					<img src="../../../static/xuanzhong (1).png" v-if="state!=1" />
-					<img src="../../../static/xuanzhong.png" v-if="state==1" />
-				</div>
-				<div class="three-box" @click="change(2)">
-					<div class="three-text">微信</div>
-					<img src="../../../static/xuanzhong (1).png" v-if="state!=2" />
-					<img src="../../../static/xuanzhong.png" v-if="state==2" />
-				</div>
-				<div class="three-box" @click="change(3)">
-					<div class="three-text">钱包支付</div>
-					<img src="../../../static/xuanzhong (1).png" v-if="state!=3" />
-					<img src="../../../static/xuanzhong.png" v-if="state==3" />
-				</div>
-			</div>
-			<div class="bottom active" @click="myajax()">
-				<div class="bottom-text">确认开通 </div>
-			</div>
+
+		<div class="bottom active" @click="myajax()">
+			<div class="bottom-text">领取会员礼品 </div>
 		</div>
-		
+
 	</div>
 </template>
 
 <script>
 	export default {
-		name: 'openvip-shifu',
+		name: 'openvip',
 		data() {
 			return {
 				price: '',
 				state: 1,
 				channel: '',
 				mydata: {},
-				payboo:false,
-				myid:''
+				payboo: false,
+				myid: ''
 			}
 		},
 		methods: {
-			payshow:function(id){
-				this.myid=id
-				this.payboo=!this.payboo
+			payshow: function(id) {
+				this.myid = id
+				this.payboo = !this.payboo
 			},
 			change: function(index) {
 				this.state = index
@@ -77,10 +53,6 @@
 					url: that.myurl + '/user/queryMsdMember',
 					success: function(res) {
 						that.mydata = res.data
-						if(res.data.length==0){
-							alert('会员功能暂时没有开通呢！')
-							that.back()
-						}
 					},
 					error: function(res) {
 						alert('网络连接失败，请检查网络后再试！')
@@ -94,18 +66,18 @@
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/user/insertMember',
-						dataType:'json',
+						dataType: 'json',
 						data: {
-							msdUserId: localStorage.getItem('msdCompanyId'),
-							msdMemberId:that.myid,
-							type:2
+							msdUserId: localStorage.getItem('userid'),
+							msdMemberId: that.myid,
+							type: 1
 						},
 						success: function(res) {
 							if(res.status == 200) {
 								//								支付宝充值
-								localStorage.setItem('msdCoIsMemeber',1)
+								localStorage.setItem('msdIsMember', 1)
 								that.back()
-							} else{
+							} else {
 								alert(res.msg)
 							}
 						},
@@ -116,19 +88,19 @@
 				} else {
 					$.ajax({
 						type: 'post',
-						url: that.myurl + '/user/insertCompanyMemberAPIWX',
-						dataType:'json',
+						url: that.myurl + '/user/insertUserMemberAPIWX',
+						dataType: 'json',
 						data: {
-							msdUserId: localStorage.getItem('msdCompanyId'),
+							msdUserId: localStorage.getItem('userid'),
 							state: that.state,
-							msdMemberId:that.myid
+							msdMemberId: that.myid
 						},
 						success: function(res) {
 							if(that.state == 1) {
 								//								支付宝充值
 								plus.payment.request(that.channel[0], res.data[0], function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										localStorage.setItem('msdCoIsMemeber',1)
+										localStorage.setItem('msdIsMember', 1)
 										that.back()
 									});
 								}, function(error) {
@@ -138,7 +110,7 @@
 								//								微信充值
 								plus.payment.request(that.channel[1], res, function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										localStorage.setItem('msdCoIsMemeber',1)
+										localStorage.setItem('msdIsMember', 1)
 										that.back()
 									});
 								}, function(error) {
@@ -191,7 +163,8 @@
 	.active {
 		background: #0DA5FE!important;
 	}
-	.btn{
+	
+	.btn {
 		margin: .2rem;
 		background: #0DA5FE;
 		color: #FFFFFF;
@@ -199,11 +172,13 @@
 		text-align: center;
 		line-height: 1rem;
 	}
+	
 	* {
 		padding: 0;
 		margin: 0;
 	}
-	.title{
+	
+	.title {
 		margin: .2rem;
 		border-bottom: 1px solid #0DA5FE;
 		text-align: center;
@@ -212,6 +187,7 @@
 		font-weight: 600;
 		font-size: .4rem;
 	}
+	
 	html,
 	body,
 	.wrapper {

@@ -47,12 +47,13 @@
 				</div>
 			</div>
 			<div class="main-four">推荐服务</div>
-			<div class="main-five" onclick="alert('正在开发中')">
+
+			<div class="main-five" @click="opennew('baoxianyewu','')">
 				<div class="five-lift">
-					<img src="../../static/canyin.png" />
+					<img src="../../static/baoxian.png" />
 				</div>
 				<div class="five-right">
-					<div class="five-text">餐饮业务</div>
+					<div class="five-text">保险业务</div>
 					<div class="five-news">去查看</div>
 				</div>
 			</div>
@@ -65,12 +66,12 @@
 					<div class="five-news">去查看</div>
 				</div>
 			</div>
-			<div class="main-five" @click="opennew('baoxianyewu','')">
+			<div class="main-five" onclick="alert('正在开发中')">
 				<div class="five-lift">
-					<img src="../../static/baoxian.png" />
+					<img src="../../static/canyin.png" />
 				</div>
 				<div class="five-right">
-					<div class="five-text">保险业务</div>
+					<div class="five-text">餐饮业务</div>
 					<div class="five-news">去查看</div>
 				</div>
 			</div>

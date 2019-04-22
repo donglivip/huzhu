@@ -2,47 +2,46 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-cebian" @click="back()">
-				<img src="../../../static/youjian.png" />
+				<img src="../../static/youjian.png" />
 			</div>
-			<div class="header-text">开通vip</div>
+			<div class="header-text">人身意外保险</div>
 			<div class="header-cebian"></div>
 		</div>
-		<div class="main" v-if="!payboo">
-			<block v-for='val in mydata'>
-				<div class="title">
-					{{val.msdMeName}}
-				</div>
-				<div class="text" v-html="val.msdMeResult">
-					
-				</div>
-				<div class="btn" @click="payshow(val.msdMemberId)">
-					立即加入{{val.msdMeName}}/支付{{val.msdMePrice}}元
-				</div>
-			</block>
-		</div>
-		<div class="main" v-if="payboo">
+		<div class="main">
+			<div class="title">
+				为什么一定要购买{{mydata.msdIrName}}
+			</div>	
+			<div class="mytext">
+				购买后就可以直接接单，无后顾之优，
+				付款成功修改，后台记录谁购买了保险
+				可以查看用户电话<br /><br /><br />
+				
+				1.直接微信支付宝直接付款，后台可以看到，
+				是否缴纳<br />
+				2.每次接单人脸识别， 
+			</div>
 			<div class="main-two">
 				<div class="two-text">付款方式</div>
 			</div>
 			<div class="main-three">
 				<div class="three-box" @click="change(1)">
 					<div class="three-text">支付宝</div>
-					<img src="../../../static/xuanzhong (1).png" v-if="state!=1" />
-					<img src="../../../static/xuanzhong.png" v-if="state==1" />
+					<img src="../../static/xuanzhong (1).png" v-if="state!=1" />
+					<img src="../../static/xuanzhong.png" v-if="state==1" />
 				</div>
 				<div class="three-box" @click="change(2)">
 					<div class="three-text">微信</div>
-					<img src="../../../static/xuanzhong (1).png" v-if="state!=2" />
-					<img src="../../../static/xuanzhong.png" v-if="state==2" />
+					<img src="../../static/xuanzhong (1).png" v-if="state!=2" />
+					<img src="../../static/xuanzhong.png" v-if="state==2" />
 				</div>
 				<div class="three-box" @click="change(3)">
 					<div class="three-text">钱包支付</div>
-					<img src="../../../static/xuanzhong (1).png" v-if="state!=3" />
-					<img src="../../../static/xuanzhong.png" v-if="state==3" />
+					<img src="../../static/xuanzhong (1).png" v-if="state!=3" />
+					<img src="../../static/xuanzhong.png" v-if="state==3" />
 				</div>
 			</div>
 			<div class="bottom active" @click="myajax()">
-				<div class="bottom-text">确认开通 </div>
+				<div class="bottom-text">确认开通 ￥{{mydata.msdIrPrice}}</div>
 			</div>
 		</div>
 		
@@ -51,22 +50,16 @@
 
 <script>
 	export default {
-		name: 'openvip-shifu',
+		name: 'openvip',
 		data() {
 			return {
 				price: '',
 				state: 1,
 				channel: '',
-				mydata: {},
-				payboo:false,
-				myid:''
+				mydata: {}
 			}
 		},
 		methods: {
-			payshow:function(id){
-				this.myid=id
-				this.payboo=!this.payboo
-			},
 			change: function(index) {
 				this.state = index
 			},
@@ -74,13 +67,9 @@
 				var that = this
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/queryMsdMember',
+					url: that.myurl + '/company/queryMsdInsuranceRule',
 					success: function(res) {
 						that.mydata = res.data
-						if(res.data.length==0){
-							alert('会员功能暂时没有开通呢！')
-							that.back()
-						}
 					},
 					error: function(res) {
 						alert('网络连接失败，请检查网络后再试！')
@@ -93,17 +82,14 @@
 				if(that.state == 3) {
 					$.ajax({
 						type: 'post',
-						url: that.myurl + '/user/insertMember',
+						url: that.myurl + '/company/companyWalletPay',
 						dataType:'json',
 						data: {
-							msdUserId: localStorage.getItem('msdCompanyId'),
-							msdMemberId:that.myid,
-							type:2
+							msdIrPrice: that.mydata.msdIrPrice,
+							msdCompanyId:localStorage.getItem('msdCompanyId')
 						},
 						success: function(res) {
 							if(res.status == 200) {
-								//								支付宝充值
-								localStorage.setItem('msdCoIsMemeber',1)
 								that.back()
 							} else{
 								alert(res.msg)
@@ -116,19 +102,18 @@
 				} else {
 					$.ajax({
 						type: 'post',
-						url: that.myurl + '/user/insertCompanyMemberAPIWX',
+						url: that.myurl + '/company/companyCreateWalletPay',
 						dataType:'json',
 						data: {
-							msdUserId: localStorage.getItem('msdCompanyId'),
-							state: that.state,
-							msdMemberId:that.myid
+							msdIrPrice:  that.mydata.msdIrPrice,
+							msdCompanyId:localStorage.getItem('msdCompanyId'),
+							state: that.state
 						},
 						success: function(res) {
 							if(that.state == 1) {
 								//								支付宝充值
 								plus.payment.request(that.channel[0], res.data[0], function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										localStorage.setItem('msdCoIsMemeber',1)
 										that.back()
 									});
 								}, function(error) {
@@ -138,7 +123,6 @@
 								//								微信充值
 								plus.payment.request(that.channel[1], res, function(result) {
 									plus.nativeUI.alert("支付成功！", function() {
-										localStorage.setItem('msdCoIsMemeber',1)
 										that.back()
 									});
 								}, function(error) {
@@ -190,6 +174,10 @@
 <style scoped>
 	.active {
 		background: #0DA5FE!important;
+	}
+	.mytext{
+		padding: .2rem;
+		line-height: .4rem;
 	}
 	.btn{
 		margin: .2rem;

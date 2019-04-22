@@ -11,7 +11,21 @@ export default new Router({
 		path: '/bangzhuxiangqing',
 		name: 'bangzhuxiangqing',
 		component: resolve => require(['@/components/bangzhuxiangqing'], resolve)
-	}, {
+	},{
+		path: '/kaibaoxian',
+		name: 'kaibaoxian',
+		component: resolve => require(['@/components/kaibaoxian'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	},{
+		path: '/quanli',
+		name: 'quanli',
+		component: resolve => require(['@/components/quanli'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	} ,{
 		path: '/anquan',
 		name: 'anquan',
 		component: resolve => require(['@/components/anquan'], resolve),
