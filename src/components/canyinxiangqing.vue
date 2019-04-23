@@ -1,5 +1,5 @@
 <template>
-	<div class="wrapper" id="app">
+	<div class="wrapper tese" id="app">
 		<div class="header" :class="headboo?'white':''">
 			<div class="header-cebian mui-action-back" @click="back()">
 				<img src="../../static/y-bai.png" v-if="!headboo"/>
@@ -101,7 +101,7 @@
 	}
 </script>
 
-<style scoped>
+<style>
 	* {
 		margin: 0;
 		padding: 0;
@@ -115,11 +115,11 @@
 		overflow: hidden;
 	}
 	
-	.wrapper {
+	.tese .wrapper {
 		background: #F7F7F9;
 	}
 	
-	.header {
+	.tese .header {
 		height: .96rem;
 		display: flex;
 		align-items: center;
@@ -129,35 +129,35 @@
 		z-index: 99;
 	}
 	
-	.header-cebian {
+	.tese .header-cebian {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: .3rem;
 	}
 	
-	.header-cebian img {
+	.tese .header-cebian img {
 		height: .36rem;
 	}
 	
-	.header-text {
+	.tese .header-text {
 		font-size: .32rem;
 		color: #FFFFFF;
 	}
 	
-	img {
+	.tese img {
 		width: 100%!important;
 		height: auto!important
 	}
 	
-	.main-one {
+	.tese .main-one {
 		overflow: hidden;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 	
-	.main-one p {
+	.tese .main-one p {
 		z-index: 999;
 		position: relative;
 		color: #FFFFFF;
@@ -165,23 +165,23 @@
 		font-size: .7rem;
 	}
 	
-	.main-one p {
+	.tese .main-one p {
 		width: 100%;
 		overflow-y: scroll;
 		height: auto!important;
 	}
 	
-	.main {
+	.tese .main {
 		height: calc(100% - 1rem);
 		overflow-y: scroll;
 	}
 	
-	.main-two {
+	.tese .main-two {
 		background: #FFFFFF;
 		margin: .2rem 0;
 	}
 	
-	.two-text {
+	.tese .two-text {
 		margin: 0 .3rem;
 		padding: .3rem 0;
 		font-size: .36rem;
@@ -190,12 +190,12 @@
 		justify-content: space-between;
 	}
 	
-	.two-box {
+	.tese .two-box {
 		height: ;
 		margin: .3rem;
 	}
 	
-	.bottom {
+	.tese .bottom {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -204,24 +204,24 @@
 		margin-bottom: .2rem;
 	}
 	
-	.bottom-box {
+	.tese .bottom-box {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
 		margin-left: .3rem;
 	}
 	
-	.bottom-text {
+	.tese .bottom-text {
 		font-size: .48rem;
 		color: #E24B2D;
 	}
 	
-	.bottom-news {
+	.tese .bottom-news {
 		font-size: .24rem;
 		color: #000000;
 	}
 	
-	.bottom-word {
+	.tese .bottom-word {
 		width: 3.2rem;
 		height: 1rem;
 		text-align: center;
@@ -230,11 +230,11 @@
 		font-size: .32rem;
 		color: #FFFFFF;
 	}
-	.white{
+	.tese .white{
 		background: #FFFFFF;
 		
 	}
-	.white .header-text{
+	.tese .white .header-text{
 			color: #333333!important;
 		}
 </style>

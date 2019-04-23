@@ -96,10 +96,10 @@
 					return false;
 				}
 								//				注册
-				if(that.setcode != that.code||that.code=='') {
-					alert('验证码错误')
-					return false;
-				}
+//				if(that.setcode != that.code||that.code=='') {
+//					alert('验证码错误')
+//					return false;
+//				}
 				if(that.msdPhone == '') {
 					alert('请输入手机号')
 					return false;

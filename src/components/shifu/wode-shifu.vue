@@ -13,6 +13,10 @@
 				<img src="../../../static/vip icon.png" />
 				<div class="right-text">开通会员</div>
 			</div>
+			<div class="header-right" v-if="msdCoIsMemeber==1" @click="opennew('quanli-shifu')">
+				<img src="../../../static/vip icon.png" />
+				<div class="right-text">会员权益</div>
+			</div>
 		</div>
 		<div class="main">
 			<div class="main-one">

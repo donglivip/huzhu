@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="header">
 			<div class="header-cebian" @click="back()">
-				<img src="../../static/youjian.png" />
+				<img src="../../../static/youjian.png" />
 			</div>
 			<div class="header-text">会员权益</div>
 			<div class="header-cebian"></div>
@@ -67,8 +67,8 @@
 					type: 'post',
 					url: that.myurl + '/company/queryMemberInfo',
 					data: {
-						Id: localStorage.getItem('userid'),
-						type: 1
+						Id: localStorage.getItem('msdCompanyId'),
+						type: 2
 					},
 					success: function(res) {
 						that.mydata02 = res.data

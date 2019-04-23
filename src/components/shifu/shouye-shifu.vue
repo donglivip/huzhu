@@ -14,6 +14,10 @@
 		<div class="main">
 			<div class="main-one">
 				<swiper :options="swiperOption" ref="mySwiper">
+					<swiper-slide>
+						<video autoplay="autoplay" loop='loop' src="https://apd-eddfbbc67cb23e618b41d19c851c4e89.v.smtcdns.com/vhot2.qqvideo.tc.qq.com/Al0ay33RskXoMKqM5PfASxq1DsibmVkFYsJJrTN87OhQ/uwMROfz0r5xhYaQXGdGnC2dfhznjchitCIjwvL1uQ4capm9n/y0859zpekao.m701.mp4?sdtfrom=v3010&guid=7a44a9177ce163d625a93b996b66ee81&vkey=08402BB71D62F33B5D8E2463DE51DC95577BFC40AC32373FC951B1ABFBA2F5895AE0E1EC124A3E3E21FCE82A18A6FDFBCBBC406DCF5172FBACA7CE6203273729322587B2BF6893258105AB97A23A0351675066FA8D9C8802414E7360EF421401A84EFC8D66CB31F4B6953E4EA63FBE48DB89802470AE2114&platform=2" >
+						</video>
+					</swiper-slide>
 					<!-- 这部分放你要渲染的那些内容 -->
 					<swiper-slide v-for='val in navdata'>
 						<img :src="val.msdBaImg | myimg" />
@@ -82,7 +86,6 @@
 					autoplay: {
 						stopOnLastSlide: true,
 					},
-					loop: true,
 					pagination: {
 						el: '.swiper-pagination'
 					}
@@ -300,7 +303,8 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+	.swiper-container{height: 3rem;overflow: hidden;}
+	video{width: calc(100% - .6rem);margin: 0 .3rem .6rem .3rem;border-radius: .08rem;}
 	.layui {
 		position: fixed;
 		top: 0;

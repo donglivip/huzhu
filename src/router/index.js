@@ -68,6 +68,13 @@ export default new Router({
 			keepAlive: false
 		}
 	}, {
+		path: '/quanli-shifu',
+		name: 'quanli-shifu',
+		component: resolve => require(['@/components/shifu/quanli-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/wangji-shifu',
 		name: 'wangji-shifu',
 		component: resolve => require(['@/components/shifu/wangji-shifu'], resolve),
