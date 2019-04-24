@@ -150,7 +150,7 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
+				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined||that.msdSsName==''){
 					alert('资料填写不完整')
 					return false;
 				}

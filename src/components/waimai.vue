@@ -4,7 +4,7 @@
 			<div class="header-cebian" @click="back()">
 				<img src="../../static/youjian.png" />
 			</div>
-			<div class="header-text">外卖</div>
+			<div class="header-text">养老服务</div>
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
@@ -136,17 +136,18 @@ html,body,.wrapper{width: 100%;height: 100%;overflow: hidden;}
 	margin-left: .3rem;
 }
 .main-one{
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
 	height: .8rem;
 	background: #FFFFFF;
 	padding:  0 .3rem;
+	overflow-y: scroll;
+    white-space: nowrap;
 }
 .one-text{
 	font-size: .28rem;
 	color: #272727 ;
-	margin-right: .7rem;	
+	margin-right: .7rem;
+	display: inline-block;
+	box-sizing: border-box;	
 }
 .one-news{
 	font-size: .28rem;

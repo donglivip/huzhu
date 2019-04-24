@@ -102,7 +102,6 @@
 						},
 						success: function(res) {
 							if(res.status == 200) {
-								//								支付宝充值
 								localStorage.setItem('msdIsMember',1)
 								that.back()
 							} else{

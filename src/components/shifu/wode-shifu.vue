@@ -9,13 +9,15 @@
 				<div class="content-text">{{msdCoName=='null'?'新用户':msdCoName}}</div>
 				<div class="content-news">{{msdCoIsIdentity==2?'未实名认证':'已实名认证'}}</div>
 			</div>
-			<div class="header-right" v-if="msdCoIsMemeber==2" @click="opennew('openvip-shifu')">
-				<img src="../../../static/vip icon.png" />
-				<div class="right-text">开通会员</div>
-			</div>
-			<div class="header-right" v-if="msdCoIsMemeber==1" @click="opennew('quanli-shifu')">
-				<img src="../../../static/vip icon.png" />
-				<div class="right-text">会员权益</div>
+			<div class="head-r">
+				<div class="header-right" @click="opennew('openvip-shifu')">
+					<img src="../../../static/vip icon.png" />
+					<div class="right-text">开通会员</div>
+				</div>
+				<div class="header-right" v-if="msdCoIsMemeber==1" @click="opennew('quanli-shifu')">
+					<img src="../../../static/vip icon.png" />
+					<div class="right-text">会员权益</div>
+				</div>
 			</div>
 		</div>
 		<div class="main">
@@ -74,7 +76,7 @@
 					<img src="../../../static/you.png" />
 				</div>
 			</div>
-			<a class="main-three" href="tel:041-458-4568">
+			<a class="main-three" href="tel:051666695588">
 				<div class="three-lift">
 					<img src="../../../static/kefu.png" />
 				</div>
@@ -245,6 +247,7 @@
 		background: #FFFFFF;
 		border-bottom-left-radius: .4rem;
 		border-top-left-radius: .4rem;
+		margin-bottom: .15rem;
 	}
 	
 	.header-right img {

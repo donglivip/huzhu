@@ -11,8 +11,14 @@
 			<div class="btn">
 				累计推荐人数:{{mydata02.msdMmActualCountNum}}人
 			</div>
-			<div class="btn" v-for='val in mydata'>
-				累计成为{{val.msdMeName}}:{{val.msdMeGradeNum}}人
+			<div class="btn">
+				累计成为c级会员:{{mydata02.msdMmActualCNum}}人
+			</div>
+			<div class="btn">
+				累计成为b级会员:{{mydata02.msdMmActualBNum}}人
+			</div>
+			<div class="btn">
+				累计成为a级会员:{{mydata02.msdMmActualANum}}人
 			</div>
 			<div class="btn">
 				累计获取奖励:{{mydata02.msdMmReward}}元

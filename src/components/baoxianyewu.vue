@@ -186,29 +186,27 @@
 	}
 	
 	.main-one {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
 		height: .8rem;
+	background: #FFFFFF;
+	padding:  0 .3rem;
+	overflow-y: scroll;
+    white-space: nowrap;
 	}
 	
 	.one-text {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		font-size: .28rem;
-		color: #272727;
-		margin: 0 .2rem;
+	color: #272727 ;
+	margin-right: .7rem;
+	display: inline-block;
+	box-sizing: border-box;	
+	margin: 0 .2rem;
 	}
 	
 	.one-news {
 		font-size: .28rem;
 		color: #0DA5FE;
 		border-bottom: 2px solid #0DA5FE;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 0 .2rem;
+		
 		height: .8rem;
 		line-height: .8rem;
 	}
