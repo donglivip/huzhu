@@ -47,14 +47,14 @@
 						<img src="../../../static/zhaopian.png" @click="upload('sf')" id="sf" />
 					</div>
 				</div>
-				<!--<div class="main-two">
+				<div class="main-two">
 					<div class="two-text">营业执照</div>
 					<div class="two-box">
 						<img src="../../../static/yyzz.png" />
-						<img src="../../../static/zhaopian.png" />
+						<img src="../../../static/zhaopian.png" @click="upload('yy')" id="yy" />
 					</div>
 				</div>
-				<div class="main-two">
+				<!--<div class="main-two">
 					<div class="two-text">特种营业执照</div>
 					<div class="two-box">
 						<img src="../../../static/yyzz.png" />
@@ -150,7 +150,7 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined||that.msdSsName==''){
+				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined||that.msdServiceStyleId==''){
 					alert('资料填写不完整')
 					return false;
 				}
@@ -163,6 +163,7 @@
 						msdCoCardId: that.msdCardId,
 						msdCoCardFrontImg: $('#sz').attr('imgsrc'),
 						msdCoCardBackImg: $('#sf').attr('imgsrc'),
+						msdCoBusinessLicenceImg: $('#yy').attr('imgsrc'),
 						msdServiceStyleId: that.msdServiceStyleId,
 						msdCoIntroduce: that.msdCoIntroduce,
 						msdCwAliBindingCode: that.msdCwAliBindingCode,
