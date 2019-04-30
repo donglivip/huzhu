@@ -327,7 +327,10 @@
 		position: fixed;
 		bottom: 0;
 	}
-	
+	.main{
+		height: calc(100% - .96rem);
+		overflow-y: scroll;
+	}
 	.bottom-text {
 		font-size: .32rem;
 		color: #FFFFFF;

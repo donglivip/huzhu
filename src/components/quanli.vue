@@ -4,7 +4,7 @@
 			<div class="header-cebian" @click="back()">
 				<img src="../../static/youjian.png" />
 			</div>
-			<div class="header-text">会员权益</div>
+			<div class="header-text">{{mydata02.msdMeName}}权益</div>
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
@@ -77,7 +77,15 @@
 						type: 1
 					},
 					success: function(res) {
-						that.mydata02 = res.data
+						if(res.data!=null){
+							that.mydata02 = res.data
+						}else{
+							alert('您还没有开通会员呢！')
+							that.$router.replace({
+								name: 'openvip'
+							})
+						}
+						
 					},
 					error: function(res) {
 						alert('网络连接失败，请检查网络后再试！')
@@ -157,7 +165,10 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	
+	.main{
+		height: calc(100% - 2.5rem);
+		overflow-y: scroll;
+	}
 	.wrapper {
 		background: #F7F7F9;
 	}
@@ -262,7 +273,7 @@
 		background: #CCEBFF;
 		width: 6rem;
 		border-radius: .6rem;
-		margin: 0 .76rem .8rem .76rem;
+		margin: 0 .76rem .5rem .76rem;
 		position: fixed;
 		bottom: 0;
 	}

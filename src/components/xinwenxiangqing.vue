@@ -159,6 +159,7 @@
 		font-size: .28rem;
 		color: #000000;
 		word-break: break-all;
+		width: 100%;
 	}
 	
 	.main img {

@@ -4,7 +4,7 @@
 			<div class="header-cebian" @click="back()">
 				<img src="../../../static/youjian.png" />
 			</div>
-			<div class="header-text">会员权益</div>
+			<div class="header-text">{{mydata02.msdMeName}}权益</div>
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
@@ -77,7 +77,14 @@
 						type: 2
 					},
 					success: function(res) {
-						that.mydata02 = res.data
+						if(res.data!=null){
+							that.mydata02 = res.data
+						}else{
+							alert('您还没有开通会员呢！')
+							that.$router.replace({
+								name: 'openvip-shifu'
+							})
+						}
 					},
 					error: function(res) {
 						alert('网络连接失败，请检查网络后再试！')

@@ -332,4 +332,8 @@
 		font-size: .32rem;
 		color: #FFFFFF;
 	}
+	.main{
+		height: calc(100% - .96rem);
+		overflow-y: scroll;
+	}
 </style>
