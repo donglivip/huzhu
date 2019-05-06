@@ -11,14 +11,15 @@
 			<div class="main-one">
 				<div class="one-text" v-for='(val,index) in tabdata' @click="change(val.msdFootStatusId,index)" :class="navindex==index?'one-news':''">{{val.msdFsName}}</div>
 			</div>
-			
-			<div class="main-two" v-for="val in shopdata" @click="opennew('canyinxiangqing',val.msdFoodResultId)">
-				<div class="two-lift">
-					<img :src="val.msdFrHeadImg | myimg" />
-				</div>
-				<div class="two-right">
-					<div class="two-text">{{val.msdFrName}}</div>
-					<div class="two-news">{{val.msdFrPrice}}元</div>
+			<div class="main-inner">
+				<div class="main-two" v-for="val in shopdata" @click="opennew('canyinxiangqing',val.msdFoodResultId)">
+					<div class="two-lift">
+						<img :src="val.msdFrHeadImg | myimg" />
+					</div>
+					<div class="two-right">
+						<div class="two-text">{{val.msdFrName}}</div>
+						<div class="two-news">{{val.msdFrPrice}}元</div>
+					</div>
 				</div>
 			</div>
 			<div class="main-three">没有更多了～</div>
@@ -121,6 +122,8 @@ html,body,.wrapper{width: 100%;height: 100%;overflow: hidden;}
 	background: #FFFFFF;
 	margin-bottom: .2rem;
 }
+.main{height: calc(100% - .96rem);}
+.main-inner{height: calc(100% - .8rem);overflow-y: scroll;}
 .header-cebian{
 	display: flex;
 	align-items: center;

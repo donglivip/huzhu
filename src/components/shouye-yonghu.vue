@@ -41,9 +41,13 @@
 					<img src="../../static/new.png" />
 				</div>
 				<div class="three-content">
-					<ul v-for="(val,index) in newdata" v-if="index<2">
-						<li>{{val.msdNeTitle}}</li>
-					</ul>
+					<swiper :options="swiperOption02" ref="mySwiper02">
+						<swiper-slide v-for='(item,index) in newdata.length'>
+							<ul v-for="(val,index1) in newdata" v-if="index1<index+2&&index1>=index">
+								<li>{{val.msdNeTitle}}</li>
+							</ul>
+						</swiper-slide>
+					</swiper>
 				</div>
 				<div class="three-right">
 					<img src="../../static/you-hui.png" />
@@ -80,7 +84,9 @@
 			</div>
 			<div class="main-four">合作伙伴</div>
 			<div class="main-six">
-				<a :href="val.msdCpUrl" v-for="val in frienddata"><img :src="val.msdCpImg | myimg" /></a>
+				<div @click="heshow(val.msdCpUrl)" v-for="val in frienddata">
+					<img :src="val.msdCpImg | myimg" />
+				</div>
 			</div>
 		</div>
 		<div class="bottom">
@@ -97,6 +103,10 @@
 				<div class="bottom-news">我的</div>
 			</div>
 		</div>
+		<div class="myifr" v-if="adverboo">
+			<img src="../../static/close.png" @click="heboo"/>
+			<iframe :src="isrc"  class="myhe"></iframe>
+		</div>
 	</div>
 </template>
 
@@ -106,9 +116,18 @@
 		name: 'shouye-yonghu',
 		data() {
 			return {
+				isrc:'',
+				adverboo:false,
+				swiperOption02:{
+					autoplay: {
+						stopOnLastSlide: true
+					},
+					loop:true,
+					direction:'vertical'
+				},
 				swiperOption: {
 					autoplay: {
-						stopOnLastSlide: true,
+						stopOnLastSlide: true
 					},
 					pagination: {
 						el: '.swiper-pagination'
@@ -124,6 +143,13 @@
 			}
 		},
 		methods: {
+			heboo:function(){
+				this.adverboo=!this.adverboo
+			},
+			heshow:function(url){
+				this.isrc=url
+				this.heboo()
+			},
 			myajax: function() {
 				function plusReady() {
 					plus.geolocation.getCurrentPosition(function(p) {
@@ -251,6 +277,9 @@
 			swiper() {
 				return this.$refs.mySwiper.swiper;
 			},
+			swiper() {
+				return this.$refs.mySwiper02.swiper;
+			},
 			myurl() {
 				return this.$store.state.myurl
 			},
@@ -266,7 +295,12 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+	.myifr{
+		position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.5);
+		display: flex;align-items: center;justify-content: center;
+	}
+	.myifr iframe{background: #FFFFFF;border-radius: .1rem;width: calc(100% - .4rem);height: calc(100% - .4rem);overflow-y: scroll;}
+	.myifr img{position: absolute;top: .3rem;left: .3rem;height: .5rem;}
 	html,
 	body,
 	.wrapper {
@@ -278,11 +312,15 @@
 	.three-content {
 		width: 5rem;
 	}
-	
+	.three-content .swiper-container{
+		height: 1.2rem!important;
+	}
 	.wrapper {
 		background: #FFFFFF;
 	}
-	
+	ul{
+		margin-top: .2rem;
+	}
 	.header {
 		display: flex;
 		align-items: center;
