@@ -104,7 +104,7 @@
 			</div>
 		</div>
 		<div class="myifr" v-if="adverboo">
-			<img src="../../static/close.png" @click="heboo"/>
+			<img src="../../static/youjian.png" @click="heboo"/>
 			<iframe :src="isrc"  class="myhe"></iframe>
 		</div>
 	</div>
