@@ -84,6 +84,8 @@
 			},
 			myajax: function() {
 				var that = this
+				console.log($('#sz').attr('imgsrc'))
+				console.log($('#sf').attr('imgsrc'))
 				//				提交认证
 				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
 					alert('资料填写不完整')
@@ -210,7 +212,10 @@
 						},
 						success: function(res) {
 							if(res.status == 200) {
+								console.log(thats.uploadtarget)
 								$('#' + thats.uploadtarget + '').attr('imgsrc',res.data)
+								console.log($('#' + thats.uploadtarget + '').attr('imgsrc'))
+								console.log($('#sz').attr('imgsrc'))
 							} else {
 								alert(res.msg)
 							}
