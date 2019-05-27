@@ -47,7 +47,7 @@
 		},
 		mounted() {
 			var that = this
-			$('#output').qrcode(that.myurl + "/user/share?phone=" + localStorage.getItem('msdCoPhone') + "&userId=" + localStorage.getItem('msdCompanyId') + "&state=1");
+			$('#output').qrcode(that.myurl + "/user/share?phone=" + localStorage.getItem('msdCoPhone') + "&userId=" + localStorage.getItem('userid') + "&state=1");
 			function plusReady() {
 				plus.share.getServices(function(s) {
 					for(var i in s) {
