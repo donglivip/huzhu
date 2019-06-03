@@ -61,6 +61,13 @@ export default new Router({
 			keepAlive: false
 		}
 	}, {
+		path: '/qxiangqing-shifu',
+		name: 'qxiangqing-shifu',
+		component: resolve => require(['@/components/shifu/qxiangqing-shifu'], resolve),
+		meta: {
+			keepAlive: false
+		}
+	}, {
 		path: '/zhucexieyi-shifu',
 		name: 'zhucexieyi-shifu',
 		component: resolve => require(['@/components/shifu/zhucexieyi-shifu'], resolve),
@@ -365,6 +372,48 @@ export default new Router({
 		path: '/renzhengzhongxin',
 		name: 'renzhengzhongxin',
 		component: resolve => require(['@/components/renzhengzhongxin'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	},{
+		path: '/xuanzefadan',
+		name: 'xuanzefadan',
+		component: resolve => require(['@/components/xuanzefadan'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	},{
+		path: '/qiangqueren',
+		name: 'qiangqueren',
+		component: resolve => require(['@/components/qiangqueren'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	},{
+		path: '/daiquxiao',
+		name: 'daiquxiao',
+		component: resolve => require(['@/components/daiquxiao'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	},{
+		path: '/daiquxiao-shifu',
+		name: 'daiquxiao-shifu',
+		component: resolve => require(['@/components/shifu/daiquxiao'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	},{
+		path: '/cancel',
+		name: 'cancel',
+		component: resolve => require(['@/components/cancel'], resolve),
+		meta: {
+			keepAlive: true
+		}
+	},{
+		path: '/cancel-shifu',
+		name: 'cancel-shifu',
+		component: resolve => require(['@/components/shifu/cancel-shifu'], resolve),
 		meta: {
 			keepAlive: true
 		}

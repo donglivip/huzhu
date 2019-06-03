@@ -3,7 +3,7 @@
 		<div class="header">
 			<div class="header-cebian"></div>
 			<div class="header-text">我的订单</div>
-			<div class="header-cebian"></div>
+			<div class="header-cebian" @click="opennew('daiquxiao-shifu')">待取消订单</div>
 		</div>
 		<div class="main">
 			<div class="main-one">
@@ -23,16 +23,18 @@
 							<div class="two-text">订单地址：{{val.msdAddress}}</div>
 							<div class="two-zi">
 								<div class="two-text">价格：</div>
-								<div class="two-news">￥{{val.msdOrPrice}}</div>
+								<div class="two-news">￥{{val.msdOrPrice==null?'价格面议':val.msdOrPrice}}</div>
 							</div>
 						</div>
 					</div>
 					<div class="main-five">
 						<div class="five-text" v-if="navindex==0" @click.stop="gomap(val.msdAddress)">导航过去</div>
 						<div class="five-text" v-if="navindex!=0" @click.stop="deleteorder(val.msdOrderId)">删除记录</div>
+						<div class="five-text" v-if="navindex==0" @click.stop="opennew('cancel-shifu',val.msdOrderId)">取消订单</div>
 						<a class="five-news" :href="'tel:'+val.msdAdPhone+''" v-if="navindex==0">拨打电话</a>
+						
 						<div class="kongbai"></div>
-						<div class="five-word" v-if='navindex==0' @click.stop="orderok(val.msdOrderId)">完成订单</div>
+						<div class="five-word" v-if='navindex==0&&val.msdOrType==1' @click.stop="orderok(val.msdOrderId)">完成订单</div>
 					</div>
 				</div>
 				<img src="../../../static/noorder.png" v-if="tabdata.length==0" class="nodata" style="margin: .8rem auto;"/>
@@ -152,7 +154,8 @@
 					type: 'post',
 					url: that.myurl + '/company/' + murl + '',
 					data: {
-						msdCompanyId: localStorage.getItem('msdCompanyId')
+						msdCompanyId: localStorage.getItem('msdCompanyId'),
+						status:2
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -224,13 +227,18 @@
 		height: .96rem;
 		background: #FFFFFF;
 		margin-bottom: .2rem;
+		padding: 0 .3rem;
 	}
 	
 	.header-text {
 		font-size: .32rem;
 		color: #272727;
 	}
-	
+	.header-cebian{
+		font-size: .3rem;
+		color: #272727;
+		width: 1.6rem;
+	}
 	.main {
 		height: calc(100% - 2.2rem);
 	}

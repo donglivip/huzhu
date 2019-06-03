@@ -8,6 +8,7 @@
 			<div class="header-content">
 				<div class="content-text">{{msdCoName=='null'?'新用户':msdCoName}}</div>
 				<div class="content-news">{{msdCoIsIdentity==2?'未实名认证':'已实名认证'}}</div>
+				<div class="content-news">{{tabdata.msdCoWorking}}工时</div>
 			</div>
 			<div class="head-r">
 				<div class="header-right" @click="opennew('openvip-shifu')">
@@ -143,12 +144,13 @@
 			},
 			myajax: function() {
 				var that = this
-				//				获取店铺列表
+				//				获取工时
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/selectNewsId',
+					url: that.myurl + '/company/companLogin',
 					data: {
-						msdNewsId: that.msdNewsId
+						phone: localStorage.getItem('msdCoPhone'),
+						pwd: localStorage.getItem('shifumima')
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -173,7 +175,7 @@
 			}
 		},
 		mounted() {
-
+			this.myajax()
 		},
 		computed: {
 			myurl() {

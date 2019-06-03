@@ -104,6 +104,7 @@
 	
 	.header-cebian img {
 		height: .36rem;
+		width: 500px;
 	}
 	
 	.header-text {

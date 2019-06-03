@@ -141,7 +141,8 @@
 							msdOrCreateName: localStorage.getItem('userid'),
 							msdOrRemark: that.msdOrRemark,
 							msdOrAppointmentTime: that.msdOrAppointmentTime,
-							msdCompanyId: that.msdCompanyId
+							msdCompanyId: that.msdCompanyId,
+							msdOrType:1
 						},
 						success: function(res) {
 							if(res.data == 1) {
@@ -176,7 +177,8 @@
 							msdOrRemark: that.msdOrRemark,
 							msdOrAppointmentTime: that.msdOrAppointmentTime,
 							msdCompanyId: that.msdCompanyId,
-							state:that.state
+							state:that.state,
+							msdOrType:1
 						},
 						success: function(res) {
 							if(that.state == 1) {

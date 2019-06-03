@@ -3,7 +3,7 @@
 		<div class="header">
 			<div class="header-cebian"></div>
 			<div class="header-text">我的订单</div>
-			<div class="header-cebian"></div>
+			<div class="header-news" @click="opennew('daiquxiao')">待取消订单</div>
 		</div>
 		<div class="main">
 			<div class="main-one">
@@ -22,7 +22,7 @@
 					<div class="two-top">类型：{{val.msdServiceStyleId}}</div>
 					<div class="two-content">
 						<div class="content-text">价格：</div>
-						<div class="content-news">￥{{val.msdOrPrice}}</div>
+						<div class="content-news">￥{{val.msdOrPrice==null?0:val.msdOrPrice}}</div>
 					</div>
 					<div class="two-bottom">订单编号：{{val.msdOrderId}}</div>
 					<div class="two-hezi">
@@ -129,24 +129,28 @@
 				var that = this
 				if(val.msdOrIsDelete == 1) {
 					//					服务类
-					$.ajax({
-						type: 'post',
-						url: that.myurl + '/company/removeOrder',
-						data: {
-							msdOrderId: val.msdOrderId,
-							type: 1,
-							userId: localStorage.getItem('userid')
-						},
-						success: function(res) {
-							if(res.status == 200) {
-								that.myajax()
-							} else {
-								alert(res.msg)
-							}
-						},
-						error: function(res) {
-							alert('网络连接失败，请检查网络后再试！')
-						}
+					// $.ajax({
+					// 	type: 'post',
+					// 	url: that.myurl + '/company/removeOrder',
+					// 	data: {
+					// 		msdOrderId: val.msdOrderId,
+					// 		type: 1,
+					// 		userId: localStorage.getItem('userid')
+					// 	},
+					// 	success: function(res) {
+					// 		if(res.status == 200) {
+					// 			that.myajax()
+					// 		} else {
+					// 			alert(res.msg)
+					// 		}
+					// 	},
+					// 	error: function(res) {
+					// 		alert('网络连接失败，请检查网络后再试！')
+					// 	}
+					// })
+					that.$store.state.msdOrderId=val.msdOrderId
+					that.$router.push({
+						name: 'cancel'
 					})
 				} else {
 					//					餐饮类
@@ -237,6 +241,7 @@
 				var that = this
 				//				获取订单列表
 				if(that.navindex == 4) {
+					// 待评价订单
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/user/selectUserOrderEvaluate',
@@ -254,7 +259,28 @@
 							alert('网络连接失败，请检查网络后再试！')
 						}
 					})
+				}else if(that.navindex == 6){
+					// 已取消订单
+					$.ajax({
+						type: 'post',
+						url: that.myurl + '/user/selectUserOrderQ',
+						data: {
+							msdUserId: localStorage.getItem('userid'),
+							state: 2
+						},
+						success: function(res) {
+							if(res.status == 200) {
+								that.tabdata = res.data
+							} else {
+								alert(res.msg)
+							}
+						},
+						error: function(res) {
+							alert('网络连接失败，请检查网络后再试！')
+						}
+					})
 				} else {
+					// 1.已完成   2.待接单 3.待完成
 					$.ajax({
 						type: 'post',
 						url: that.myurl + '/user/selectUserOrder',
@@ -391,14 +417,17 @@
 	}
 	
 	.header-cebian {
-		width: .3rem;
+		width: 1.3rem;
 	}
 	
 	.header-text {
 		font-size: .34rem;
 		color: #26261E;
 	}
-	
+	.header-news{
+		font-size: .28rem;
+		color: #101010 ;
+	}
 	.main {
 		height: calc(100% - 2.2rem);
 		overflow: hidden;
