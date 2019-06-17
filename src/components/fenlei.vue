@@ -9,7 +9,7 @@
 		</div>
 		<div class="main">
 			<div class="main-inner">
-				<div class="main-box" v-for="val in tabdata" @click="opennew('gongsiliebiao',val.msdServiceStyleId,val.msdSsName)">
+				<div class="main-box" v-for="val in tabdata" @click="opennew('xuanzefadan',val.msdServiceStyleId,val.msdSsName)">
 					<div class="main-top">
 						<img :src="val.msdSsImg | myimg" />
 					</div>

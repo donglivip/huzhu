@@ -154,6 +154,7 @@
 					},
 					success: function(res) {
 						if(res.status == 200) {
+							localStorage.setItem('msdCoIsIdentity', res.data.msdCoIsIdentity) //是否认证
 							that.tabdata = res.data
 						} else {
 							alert(res.msg)

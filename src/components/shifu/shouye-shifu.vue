@@ -45,7 +45,7 @@
 					</div>
 				</div>
 				<div class="two-hezi">
-					<div class="two-word" @click.stop="cancel(val.msdOrderId)">取消订单</div>
+					<div class="two-word" @click.stop="opennew('cancel-shifu',val.msdOrderId)">取消订单</div>
 					<div class="two-word" @click.stop="haveorder(val.msdOrderId)">接受订单</div>
 				</div>
 			</div>
@@ -126,7 +126,8 @@ export default {
 			baoboo: false,
 			myprice: 0,
 			navindex: 0,
-			qdata:[]
+			qdata:[],
+			msdCoIsIdentity: localStorage.getItem('msdCoIsIdentity'),
 		};
 	},
 	methods: {
@@ -138,25 +139,33 @@ export default {
 		},
 		haveorder02: function(id) {
 			var that = this;
-			$.ajax({
-				type: 'post',
-				url: that.myurl + '/company/orderReceivingQ',
-				data: {
-					msdOrderId: id,
-					msdCompanyId:localStorage.getItem('msdCompanyId')
-				},
-				success: function(res) {
-					if (res.status == 200) {
-						that.myajax();
-						plus.nativeUI.toast('接单成功');
-					} else {
-						alert(res.msg);
+			if (localStorage.getItem('msdCompanyId') == undefined) {
+				this.$router.push({
+					name: 'denglu-shifu'
+				});
+			} else if(that.msdCoIsIdentity==2){
+				that.opennew('renzheng-shifu')
+			}else{
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/orderReceivingQ',
+					data: {
+						msdOrderId: id,
+						msdCompanyId:localStorage.getItem('msdCompanyId')
+					},
+					success: function(res) {
+						if (res.status == 200) {
+							that.myajax();
+							plus.nativeUI.toast('接单成功');
+						} else {
+							alert(res.msg);
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！');
 					}
-				},
-				error: function(res) {
-					alert('网络连接失败，请检查网络后再试！');
-				}
-			});
+				});
+			}
 		},
 		haveorder: function(id) {
 			var that = this;
@@ -251,9 +260,6 @@ export default {
 					} else {
 						alert(res.msg);
 					}
-				},
-				error: function(res) {
-					alert('网络连接失败，请检查网络后再试！');
 				}
 			});
 			function plusReady() {

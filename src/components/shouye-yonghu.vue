@@ -28,6 +28,7 @@
 			</div>
 			<div class="main-two">
 				<div class="two-box" v-for="(val,index) in tabdata" v-if="index<7" @click="opennew('xuanzefadan',val.msdServiceStyleId,val.msdSsName)">
+					
 					<img :src="val.msdSsImg | myimg" />
 					<div class="two-text">{{val.msdSsName}}</div>
 				</div>
@@ -277,7 +278,7 @@
 			swiper() {
 				return this.$refs.mySwiper.swiper;
 			},
-			swiper() {
+			mySwiper02() {
 				return this.$refs.mySwiper02.swiper;
 			},
 			myurl() {
@@ -299,8 +300,8 @@
 		position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.5);
 		display: flex;align-items: center;justify-content: center;
 	}
-	.myifr iframe{background: #FFFFFF;border-radius: .1rem;width: calc(100% - .4rem);height: calc(100% - .4rem);overflow-y: scroll;}
-	.myifr img{position: absolute;top: .3rem;left: .3rem;height: .5rem;}
+	.myifr iframe{background: #FFFFFF;border-radius: .1rem;width: calc(100% - .4rem);height: calc(100% - .4rem);overflow-y: scroll;z-index: 9999;}
+	.myifr img{position: absolute;top: .3rem;left: .3rem;height: .5rem;z-index: 99999;}
 	html,
 	body,
 	.wrapper {

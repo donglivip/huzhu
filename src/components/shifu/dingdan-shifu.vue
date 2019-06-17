@@ -72,13 +72,13 @@
 				AMap.service('AMap.Geocoder', function() { //回调函数
 					//			实例化Geocoder
 					var geocoder = new AMap.Geocoder({
-						city: "" //城市，默认：“全国”
+						city: "全国" //城市，默认：“全国”
 					});
 					//						根据地址查经纬度
 					geocoder.getLocation(adress, function(status, result) {
 						if(status === 'complete' && result.info === 'OK') {
 							plus.geolocation.getCurrentPosition(function(p) {
-								plus.maps.openSysMap(new plus.maps.Point(result.geocodes[0].location.lng,result.geocodes[0].location.lat), name, new plus.maps.Point(p.coords.longitude, p.coords.latitude));
+								plus.maps.openSysMap(new plus.maps.Point(result.geocodes[0].location.lng,result.geocodes[0].location.lat), adress, new plus.maps.Point(p.coords.longitude, p.coords.latitude));
 							});
 						} else {
 							//获取经纬度失败

@@ -42,7 +42,7 @@
 			</div>
 			<div class="main-two">
 				<div class="two-text">最低价:</div>
-				<div class="two-news">￥{{servertext.msdCsPrice}}</div>
+				<div class="two-news">￥{{servertext.msdCsPrice}}/{{servertext.msdStockUnitId}}</div>
 			</div>
 			<div class="main-three">
 				<div class="three-text">备注：</div>
@@ -117,6 +117,10 @@
 			gosubmit: function() {
 				var that = this
 				//				提交订单
+				if(that.msdOrRemark==''){
+					alert('备注不能为空')
+					return
+				}
 				if(this.msdOrIsAppointmentTime == 2) {
 					var myDate = new Date();
 					this.msdOrAppointmentTime = myDate.toLocaleDateString() + ' ' + myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds()
@@ -626,6 +630,7 @@
 	
 	.main-four img {
 		height: 1.6rem;
+		margin-right: .2rem;
 	}
 	
 	.bottom {

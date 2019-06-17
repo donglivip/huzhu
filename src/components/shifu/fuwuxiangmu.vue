@@ -12,6 +12,7 @@
 				<div class="main-lift">
 					<div class="lift-text">{{val.msdCsName}}</div>
 					<div class="lift-news">¥{{val.msdCsPrice}}</div>
+					<div class="lift-text">/{{val.msdStockUnitId}}</div>
 				</div>
 				<div class="main-right" @click="godelete(val.msdCompanyServiceId)">
 					<div class="right-text">删除</div>
@@ -26,6 +27,12 @@
 					<input type="text" v-model="msdCsName"/>
 					<div class="tile">服务价格</div>
 					<input type="number" v-model="msdCsPrice"/>
+					<div class="tile-box">
+						<div class="tile-text">价格单位:</div>
+						<select v-model="msdStockUnitId">
+							<option :value="i.msdStockUnitId" v-for="i in jiagedata">{{i.msdSuName}}</option>
+						</select>
+					</div>
 					<div class="btn" @click="add()">
 						确认添加
 					</div>
@@ -44,7 +51,9 @@
 				tabdata: [],
 				msdCsName:'',
 				msdCsPrice:'',
-				layuiboo:false
+				layuiboo:false,
+				jiagedata:[],
+				msdStockUnitId:''
 			}
 		},
 		methods: {
@@ -68,7 +77,8 @@
 					data: {
 						msdCompanyId: localStorage.getItem('msdCompanyId'),
 						msdCsName:that.msdCsName,
-						msdCsPrice:that.msdCsPrice
+						msdCsPrice:that.msdCsPrice,
+						msdStockUnitId:that.msdStockUnitId
 					},
 					success: function(res) {
 						if(res.status == 200) {
@@ -125,6 +135,22 @@
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
+				//				新增服务项目(服务价格自定义)
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/selectMsdStockUnitAll',
+					success: function(res) {
+						if(res.status == 200) {
+							that.jiagedata = res.data
+							that.msdStockUnitId=res.data[0].msdStockUnitId
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
 			},
 			back: function() {
 				this.$router.back()
@@ -156,6 +182,22 @@
 	.layui-inner .btn{position: relative;margin: .4rem auto 0;bottom: 0;left: 0;}
 	.tile{font-size: .3rem;margin-top: .2rem;}
 	input{height: .7rem;border-bottom: 1px solid gray;}
+	.tile-box{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 1rem;
+		border-bottom: 1px solid gray;
+		width: 3.2rem;
+	}
+	.tile-text{
+		font-size: .3rem;
+		color: #0D1E2E;
+	}
+	select{
+		width: 1.4rem;
+	}
+	
 	.layui{
 		position: fixed;
 		width: 100%;
@@ -267,4 +309,5 @@
 		font-size: .28rem;
 		color: #FFFFFF;
 	}
+	
 </style>

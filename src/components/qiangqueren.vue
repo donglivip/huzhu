@@ -29,9 +29,9 @@
 			</div>
 			<div class="main-three">
 				<div class="three-text">备注：</div>
-				<input type="text" placeholder="请输入您想要备注的内容" v-model="msdOrRemark" />
+				<input type="text" placeholder="请输入您想要备注的内容" v-model="msdOrRemark"/>
 			</div>
-			<div class="main-jia">请认真需要服务的详细内容，方便商家或者个人抢单，有效完成订单</div>
+			<div class="main-jia">请认真填写需要服务的详细内容，方便商家或者个人抢单，有效完成订单</div>
 			<div class="main-four">
 				<div class="four-text">附照（最多三张）</div>
 				<img :src="val" v-for="val in files" />
@@ -79,6 +79,10 @@
 			gosubmit: function() {
 				var that = this
 				//				提交订单
+				if(that.msdOrRemark==''){
+					alert("备注不能为空")
+					return
+				}
 				if(this.msdOrIsAppointmentTime == 2) {
 					var myDate = new Date();
 					this.msdOrAppointmentTime = myDate.toLocaleDateString() + ' ' + myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds()

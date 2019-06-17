@@ -170,10 +170,9 @@ export default {
 					height: h
 				});
 				ctx.drawImage(that, 0, 0, w, h);
-
 				$.ajax({
 					type: 'post',
-					url: thats.myurl + '/user/inserOrderCancelImg',
+					url: thats.myurl + '/company/inserOrderCancelImg',
 					data: {
 						imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
 					},

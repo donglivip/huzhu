@@ -8,7 +8,9 @@
 			<div class="header-cebian"></div>
 		</div>
 		<div class="main">
-			<div class="main-one">已开通人身意外险的公司或者个人显示<img src="../../static/bao.png">标示认准 <span>保</span>字商家或者个人为您提供保障查看<span @click="igo(1)">《保障服务协议》</span>与 <span@click="igo(2)">免保范围</span>发生欺诈<span @click="igo(3)">申请保障</span></div>
+			<div class="main-one">已开通人身意外险的公司或者个人显示<img src="../../static/bao.png">标识认准 <span>保</span>字商家或者个人为您提供保障查看<span @click="igo(1)">《保障服务协议》</span>与 <span@click="igo(2)">免保范围</span>
+				，<span @click="igo(3)">申请保障。</span>
+			</div>
 			<div class="main-box" v-for="val in tabdata" @click="opennew('querendingdan',val.msdCompanyId,val.msdCoName)">
 				<div class="main-lift">
 					<img :src="val.madCoHeadImg | myimg" v-if="val.madCoHeadImg!=null"/>
@@ -64,7 +66,6 @@
 							}else if(id==3){
 								that.mysrc=res.data[0].msdIarApply
 							}
-							
 							that.ifchange()
 						} else {
 							alert(res.msg)
@@ -151,6 +152,8 @@
 		height: 100%;
 		background: #FFFFFF;
 		overflow-y: scroll;
+		padding: .4rem;
+		box-sizing: border-box;
 	}
 		.layui img{
 			position: absolute;
@@ -225,8 +228,8 @@
 	.main-lift {
 		display: flex;
 		align-items: center;
-		width: 1.5rem;
-		height: 1.5rem;
+		width: 1.7rem;
+		height: 1.7rem;
 		overflow: hidden;
 	}
 	
@@ -267,7 +270,7 @@
 	.right-word {
 		font-size: .28rem;
 		color: #9B9B9B;
-		height: .4rem;
+		height: .8rem;
 		line-height: .4rem;
 		overflow: hidden;
 	}

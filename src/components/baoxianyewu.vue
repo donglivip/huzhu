@@ -34,7 +34,7 @@
 							<div class="two-word">{{val.msdIrStartPrice}}元起</div>
 						</div>
 					</div>
-					<div class="main-three">没有更多了～</div>
+					<a class="main-three" href="tel:051666695588">更多咨询请联系客服</a>
 				</div>
 				
 			</div>

@@ -91,7 +91,7 @@
 			myajax: function() {
 				var that = this
 
-				if(that.msdPassword.length<=8) {
+				if(that.msdPassword.length<8) {
 					alert('请输入8位数以上密码')
 					return false;
 				}

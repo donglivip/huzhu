@@ -16,7 +16,13 @@
 					<input type="text" placeholder="身份证号码" v-model="msdCardId" />
 				</div>
 				<div class="main-one">
-					<input type="text" placeholder="公司介绍" v-model="msdCoIntroduce" />
+					<select v-model="msdCoIsCompany">
+						<option value="1">我是公司</option>
+						<option value="2">我是师傅</option>
+					</select>
+				</div>
+				<div class="main-one">
+					<input type="text" :placeholder="msdCoIsCompany==1?'请输入公司经营时长，擅长什么，服务特色！':'请输入性别，年龄，身高，体重，学历，工作经历，擅长。'" v-model="msdCoIntroduce" />
 				</div>
 				<div class="main-one" @click="changeboo()">
 					<input type="text" placeholder="选择分类" v-model="msdSsName" readonly="readonly" />
@@ -93,7 +99,8 @@
 				msdCwAliBindingCode: '',
 				msdCwAliBindingName: '',
 				msdCwWechatBindingName: '',
-				msdCwWechatBindingCode: ''
+				msdCwWechatBindingCode: '',
+				msdCoIsCompany:1
 			}
 		},
 		methods: {
@@ -150,10 +157,10 @@
 			myajax: function() {
 				var that = this
 				//				提交认证
-				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined||that.msdServiceStyleId==''){
-					alert('资料填写不完整')
-					return false;
-				}
+//				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined||that.msdServiceStyleId==''){
+//					alert('资料填写不完整')
+//					return false;
+//				}
 				$.ajax({
 					type: 'post',
 					url: that.myurl + '/company/updateCompanInfoById',
@@ -171,7 +178,8 @@
 						msdCwWechatBindingName: that.msdCwWechatBindingName,
 						msdCwWechatBindingCode: that.msdCwWechatBindingCode,
 						msdCwIsAliBinding: 1,
-						msdCwIsWechatBinding: 1
+						msdCwIsWechatBinding: 1,
+						msdCoIsCompany:that.msdCoIsCompany
 					},
 					success: function(res) {
 						if(res.data == 1) {
@@ -304,7 +312,13 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+	select{
+		height: .8rem;
+		width: 100%;
+		border: 0;
+		background: none;
+	}
+	option{background: none;}
 	.layui {
 		position: fixed;
 		top: 0;

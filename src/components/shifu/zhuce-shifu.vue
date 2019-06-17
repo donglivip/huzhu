@@ -99,7 +99,7 @@
 					alert('请输入手机号')
 					return false;
 				}
-				if(that.msdPassword.length<=8){
+				if(that.msdPassword.length<8){
 					alert('密码格式错误')
 					return false;
 				}

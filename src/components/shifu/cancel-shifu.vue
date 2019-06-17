@@ -14,12 +14,12 @@
 			<textarea name="" id="" cols="30" rows="10" placeholder="请再次输入取消订单的原因" v-model="msdMocReason"></textarea>
 			<div class="box"><span>提供现场图片（最少3张）</span></div>
 			<div class="box">
-				<img src="../../../static/add.png" alt="" @click="upload(0)" v-if="msdMocPicture[0]==''"/>
-				<img src="../../../static/add.png" alt="" @click="upload(1)" v-if="msdMocPicture[1]==''"/>
-				<img src="../../../static/add.png" alt="" @click="upload(2)" v-if="msdMocPicture[2]==''"/>
-				<img :src="msdMocPicture[0]" alt="" @click="upload(0)" v-if="msdMocPicture[0]!=''"/>
-				<img :src="msdMocPicture[1]" alt="" @click="upload(1)" v-if="msdMocPicture[1]!=''"/>
-				<img :src="msdMocPicture[2]" alt="" @click="upload(2)" v-if="msdMocPicture[2]!=''"/>
+				<img src="../../../static/add.png" alt="" @click="upload(0)" v-show="msdMocPicture[0]==''"/>
+				<img src="../../../static/add.png" alt="" @click="upload(1)" v-show="msdMocPicture[1]==''"/>
+				<img src="../../../static/add.png" alt="" @click="upload(2)" v-show="msdMocPicture[2]==''"/>
+				<img :src="myurl + msdMocPicture[0]" alt="" @click="upload(0)" v-show="msdMocPicture[0]!=''"/>
+				<img :src="myurl + msdMocPicture[1]" alt="" @click="upload(1)" v-show="msdMocPicture[1]!=''"/>
+				<img :src="myurl + msdMocPicture[2]" alt="" @click="upload(2)" v-show="msdMocPicture[2]!=''"/>
 			</div>
 			<div class="remake">
 				1. 取消订单可以累积工时，
@@ -32,16 +32,18 @@
 				<br />
 				5.只有上门检修的师傅才能获得工时，没有上门检修的师傅不奖励工时
 				<br />
-				6.奖励工时由后台审核人来回访用户之后直接奖励/或者其他师傅完成
+				6.奖励工时由后台审核人来回访用户之后直接奖励/或者其他师傅完成订单直接奖励
 				<br />
-				订单直接奖励 7.针对恶意取消订单的公司/个人记录取消订单次数，封号处理
+				 7.针对恶意取消订单的公司/个人记录取消订单次数，封号处理
 				<br />
 				8.明知不具备维修能力的公司和个人不奖励工时。
 				<br />
 				9.奖励工时已到现场图片为准。
 				<br />
+				10.接单人中途取消订单，发生纠纷与本平台无关
+				<br />
 			</div>
-			<div class="btn" @click="myajax">申请取消</div>
+			<div class="btn" @click="myajax">提交取消</div>
 		</div>
 	</div>
 </template>
@@ -61,6 +63,10 @@ export default {
 		myajax: function() {
 			var that = this;
 			//				发起取消订单
+			if(that.msdMocReason==''){
+				alert('取消原因不能为空')
+				return
+			}
 			$.ajax({
 				type: 'post',
 				url: that.myurl + '/company/updateMsdAndderOrinsertCancel',
@@ -192,13 +198,13 @@ export default {
 
 				$.ajax({
 					type: 'post',
-					url: thats.myurl + '/user/inserOrderCancelImg',
+					url: thats.myurl + '/company/inserOrderCancelImg',
 					data: {
 						imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
 					},
 					success: function(res) {
 						if (res.status == 200) {
-							thats.msdMocPicture[thats.myindex] = res.data
+							thats.$set(thats.msdMocPicture,thats.myindex,res.data)
 						} else {
 							alert(res.msg);
 						}
