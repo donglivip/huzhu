@@ -30,6 +30,10 @@
 					<img src="../../static/xuanzhong.png" v-if="state==2" />
 				</div>
 			</div>
+			<span>会员充值实惠多多，充就送！！</span>
+			<span v-for="val in cdate" style="color: red;padding: .1rem .2rem;display: inline-block;">
+				{{val.msdRcrName}}级会员送充值金的{{val.msdRcrPercentage}}%
+			</span>
 		</div>
 		<div class="bottom" :class="price==''?'':'active'" @click="myajax()">
 			<div class="bottom-text">确认充值</div>
@@ -44,7 +48,8 @@
 			return {
 				price: '',
 				state: 1,
-				channel: ''
+				channel: '',
+				cdate:''
 			}
 		},
 		methods: {
@@ -91,6 +96,7 @@
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
+				
 			},
 			back: function() {
 				this.$router.back()
@@ -117,6 +123,18 @@
 			} else {
 				document.addEventListener('plusready', plusReady, false);
 			}
+			//				充值返利活动
+			$.ajax({
+				type: 'post',
+				url: that.myurl + '/user/queryMsdRechargeCashRules',
+				dataType:'json',
+				success: function(res) {
+					that.cdate=res.data
+				},
+				error: function(res) {
+					alert('网络连接失败，请检查网络后再试！')
+				}
+			})
 		},
 		computed: {
 			myurl() {

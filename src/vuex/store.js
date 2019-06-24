@@ -6,7 +6,7 @@ const store = new Vuex.Store({
 	// 定义状态
 	state: {
 		myurl:'https://www.wuyouhuzhu.com',
-		// myurl:'http://192.168.2.185',
+		// myurl:'http://192.168.2.186',
 		MsdServiceStyleId:'',  //首页分类id
 		MsdServiceStylename:'',	//首页分类名称
 		msdNewsId:'',  //新闻di

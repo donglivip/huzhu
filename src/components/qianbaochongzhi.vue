@@ -43,11 +43,11 @@
 				<div class="four-text">提现</div>
 				<img src="../../static/you-hui.png" class="right" />
 			</div>
-			<div class="main-four" @click="opennew('anquan')">
+			<!-- <div class="main-four" @click="opennew('anquan')">
 				<img src="../../static/anquan.png" class="lift" />
 				<div class="four-text">资金安全保险</div>
 				<img src="../../static/you-hui.png" class="right" />
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>

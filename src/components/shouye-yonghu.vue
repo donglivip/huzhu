@@ -54,7 +54,7 @@
 					<img src="../../static/you-hui.png" />
 				</div>
 			</div>
-			<div class="main-four">推荐服务</div>
+			<!-- <div class="main-four">推荐服务</div>
 
 			<div class="main-five" @click="opennew('baoxianyewu','')">
 				<div class="five-lift">
@@ -82,7 +82,7 @@
 					<div class="five-text">餐饮业务</div>
 					<div class="five-news">去查看</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="main-four">合作伙伴</div>
 			<div class="main-six">
 				<div @click="heshow(val.msdCpUrl)" v-for="val in frienddata">
@@ -298,7 +298,7 @@
 	}
 	.myifr{
 		position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.5);
-		display: flex;align-items: center;justify-content: center;
+		display: flex;align-items: center;justify-content: center;z-index: 99999;
 	}
 	.myifr iframe{background: #FFFFFF;border-radius: .1rem;width: calc(100% - .4rem);height: calc(100% - .4rem);overflow-y: scroll;z-index: 9999;}
 	.myifr img{position: absolute;top: .3rem;left: .3rem;height: .5rem;z-index: 99999;}

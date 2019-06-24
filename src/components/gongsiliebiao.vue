@@ -23,7 +23,7 @@
 						<img src="../../static/xingx.png" v-for="val in (5-val.msdCoEvaluate)"/>
 						<div class="right-news">{{val.msdCoEvaluate}}</div>
 					</div>
-					<div class="right-word">特色服务:{{val.msdCoIntroduce}}</div>
+					<div class="right-word">公司简介:{{val.msdCoIntroduce}}</div>
 				</div>
 				<div class="main-ce">
 					<img src="../../static/bao.png" v-if="val.msdCoIsConsume==1">

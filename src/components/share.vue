@@ -94,12 +94,12 @@
 	}
 	#output{
 		position: fixed;
-		top: 40%;
+		top:50%;
 		left: 2.1rem;
 		z-index: 999;
 	}
 	canvas{
-		width: 3rem!important;
-		height:3rem!important;
+		width: 2.5rem!important;
+		height:2.5rem!important;
 	}
 </style>

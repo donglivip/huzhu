@@ -162,7 +162,7 @@ export default {
 						}
 					},
 					error: function(res) {
-						alert('网络连接失败，请检查网络后再试！');
+						
 					}
 				});
 			}
@@ -184,7 +184,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					alert('网络连接失败，请检查网络后再试！');
+					
 				}
 			});
 		},
@@ -207,7 +207,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					alert('网络连接失败，请检查网络后再试！');
+					
 				}
 			});
 		},
@@ -247,7 +247,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					alert('网络连接失败，请检查网络后再试！');
+					
 				}
 			});
 			// 查询抢单
@@ -318,7 +318,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					alert('网络连接失败，请检查网络后再试！');
+					
 				}
 			});
 		}
