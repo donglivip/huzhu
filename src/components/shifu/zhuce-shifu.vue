@@ -47,6 +47,7 @@
 		methods: {
 			havecode: function() {
 				var that = this
+				inter=''
 				if(!(/^1[3|4|5|8|9|7][0-9]\d{4,8}$/.test(that.msdPhone))) {
 					plus.nativeUI.toast("不是完整的11位手机号或者正确的手机号前七位");
 					return false;
@@ -56,10 +57,11 @@
 				} else {
 					this.setcode02()
 					this.codetext = 60
-					setInterval(function() {
+					inter=setInterval(function() {
 						if(that.codetext > 1) {
 							that.codetext--
 						} else {
+							clearInterval(inter)
 							that.codetext = '获取验证码'
 						}
 					}, 1000)

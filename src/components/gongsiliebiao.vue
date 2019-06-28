@@ -23,7 +23,7 @@
 						<img src="../../static/xingx.png" v-for="val in (5-val.msdCoEvaluate)"/>
 						<div class="right-news">{{val.msdCoEvaluate}}</div>
 					</div>
-					<div class="right-word">公司简介:{{val.msdCoIntroduce}}</div>
+					<div class="right-word">{{val.msdCoIsCompany==2?'个人简介':'公司介绍'}}:{{val.msdCoIntroduce}}</div>
 				</div>
 				<div class="main-ce">
 					<img src="../../static/bao.png" v-if="val.msdCoIsConsume==1">
@@ -31,8 +31,11 @@
 			</div>
 			<img src="../../static/noorder.png" v-if="tabdata.length==0" class="nodata" style="margin: .8rem auto;"/>
 		</div>
-		<div class="layui" v-if="ifboo" v-html="mysrc" @click="ifchange">
-			
+		<div class="layui" v-if="ifboo">
+			<img src="../../static/youjian.png" @click="ifchange">
+			<div class="layui-inner" v-html="mysrc">
+				
+			</div>
 		</div>
 	</div>
 </template>
@@ -154,11 +157,12 @@
 		overflow-y: scroll;
 		padding: .4rem;
 		box-sizing: border-box;
+		font-size: .4rem!important;
+		
 	}
+	.layui span{font-size: .4rem!important;}
 		.layui img{
-			position: absolute;
-			top: 0;
-			left: 0;
+			height: .4rem;margin-bottom:.2rem;
 		}
 	.wrapper {
 		background: #F7F7F9;
@@ -216,25 +220,25 @@
 		color: #FF2C29;
 	}
 	.main-box {
-		height: 2.2rem;
 		background: #FFFFFF;
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
-		padding: 0 .3rem;
+		padding: .2rem .3rem;
 		border-bottom: 1px solid #D8D8D8;
 	}
 	
 	.main-lift {
 		display: flex;
 		align-items: center;
-		width: 1.7rem;
-		height: 1.7rem;
+		width: 2.4rem;
+		height: 2.4rem;
 		overflow: hidden;
 	}
 	
 	.main-lift img {
 		width: 100%;
+		height: 100%;
 		border-radius: .1rem;
 	}
 	
@@ -270,7 +274,7 @@
 	.right-word {
 		font-size: .28rem;
 		color: #9B9B9B;
-		height: .8rem;
+		height: 1.6rem;
 		line-height: .4rem;
 		overflow: hidden;
 	}

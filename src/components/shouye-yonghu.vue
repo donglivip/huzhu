@@ -54,7 +54,7 @@
 					<img src="../../static/you-hui.png" />
 				</div>
 			</div>
-			<!-- <div class="main-four">推荐服务</div>
+			<div class="main-four">推荐服务</div>
 
 			<div class="main-five" @click="opennew('baoxianyewu','')">
 				<div class="five-lift">
@@ -82,7 +82,7 @@
 					<div class="five-text">餐饮业务</div>
 					<div class="five-news">去查看</div>
 				</div>
-			</div> -->
+			</div>
 			<div class="main-four">合作伙伴</div>
 			<div class="main-six">
 				<div @click="heshow(val.msdCpUrl)" v-for="val in frienddata">

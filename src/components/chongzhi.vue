@@ -30,7 +30,7 @@
 					<img src="../../static/xuanzhong.png" v-if="state==2" />
 				</div>
 			</div>
-			<span>会员充值实惠多多，充就送！！</span>
+			<span style="padding: .2rem;display: block;font-size: .3rem;">会员充值实惠多多，充就送！！</span>
 			<span v-for="val in cdate" style="color: red;padding: .1rem .2rem;display: inline-block;">
 				{{val.msdRcrName}}级会员送充值金的{{val.msdRcrPercentage}}%
 			</span>
