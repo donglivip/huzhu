@@ -8,6 +8,7 @@
 			<div class="header-content">
 				<div class="content-text">{{msdNickname=='null'?'新用户':msdNickname}}</div>
 				<div class="content-news">{{msdIsIdentity==2?'未实名认证':'已实名认证'}}</div>
+				<div class="content-news">推荐人数{{num}}</div>
 			</div>
 			<div class="head-r">
 				<div class="header-right" @click="opennew('openvip')">
@@ -93,7 +94,8 @@
 				msdIsMember:localStorage.getItem('msdIsMember'),
 				msdHeadImg:localStorage.getItem('msdHeadImg'),
 				msdNickname:localStorage.getItem('msdNickname'),
-				msdIsIdentity:localStorage.getItem('msdIsIdentity')
+				msdIsIdentity:localStorage.getItem('msdIsIdentity'),
+				num:0
 			}
 		},
 		methods: {
@@ -102,13 +104,13 @@
 				//				获取店铺列表
 				$.ajax({
 					type: 'post',
-					url: that.myurl + '/user/selectNewsId',
+					url: that.myurl + '/user/queryUserShare',
 					data: {
-						msdNewsId: that.msdNewsId
+						id: localStorage.getItem('userid')
 					},
 					success: function(res) {
 						if(res.status == 200) {
-							that.tabdata = res.data
+							that.num = res.data
 						} else {
 							alert(res.msg)
 						}
@@ -117,24 +119,7 @@
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
-				//				获取会员规则
-				$.ajax({
-					type: 'post',
-					url: that.myurl + '/user/selectNewsId',
-					data: {
-						msdNewsId: that.msdNewsId
-					},
-					success: function(res) {
-						if(res.status == 200) {
-							that.tabdata = res.data
-						} else {
-							alert(res.msg)
-						}
-					},
-					error: function(res) {
-						alert('网络连接失败，请检查网络后再试！')
-					}
-				})
+				
 			},
 			back: function() {
 				this.$router.back()
@@ -146,7 +131,7 @@
 			}
 		},
 		mounted() {
-
+			this.myajax()
 		},
 		computed: {
 			myurl() {

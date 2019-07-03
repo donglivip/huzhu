@@ -67,7 +67,7 @@
 			<div class="bottom-text" v-if="tabdata.msdOrStatus == 2" @click="cancel">取消订单</div>
 			<div class="bottom-word"></div>
 			<a class="bottom-news" v-if="tabdata.msdOrStatus == 3" :href="'tel:' + tabdata.msdCoPhone + ''">联系师傅</a>
-			<div class="bottom-news" v-if="tabdata.msdOrStatus == 3" @click="orderok">完成订单</div>
+			<div class="bottom-news" v-if="tabdata.msdOrStatus == 3&&tabdata.msdOrPrice != null " @click="orderok">完成订单</div>
 		</div>
 	</div>
 </template>
@@ -130,10 +130,6 @@ export default {
 					}
 				});
 			} else {
-				var price=prompt('请输入订单价格')
-				if(price<=0||isNaN(price)){
-					alert('价格非法')
-				}else{
 					var btnArray = [
 						{
 							title: '余额'
@@ -155,13 +151,12 @@ export default {
 							buttons: btnArray
 						},
 						function(e) {
-							that.pay(e.index,price);
+							that.pay(e.index);
 						}
 					);
-				}
 			}
 		},
-		pay: function(type, price) {
+		pay: function(type) {
 			var that = this;
 			if (type == 1 || type == 2) {
 				// 余额\线下支付
@@ -170,7 +165,7 @@ export default {
 					url: that.myurl + '/user/userSinglePay',
 					data: {
 						id: that.msdOrderId,
-						price: price,
+						price: that.tabdata.msdOrPrice,
 						state: type
 					},
 					success: function(res) {
@@ -192,7 +187,7 @@ export default {
 					url: that.myurl + '/user/userSingleWXApi',
 					data: {
 						id: that.msdOrderId,
-						price: price,
+						price: that.tabdata.msdOrPrice,
 						state: type == 3 ? 1 : 2
 					},
 					success: function(res) {

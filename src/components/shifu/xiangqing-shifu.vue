@@ -19,7 +19,7 @@
             		</div>
             		<div class="one-box">
             			<div class="one-text">上门时间：</div>
-            			<div class="one-text">{{tabdata.msdOrIsAppointmentTime==1?val.msdOrAppointmentTimeString:'立即上门'}}</div>
+            			<div class="one-text">{{tabdata.msdOrIsAppointmentTime==1?tabdata.msdOrAppointmentTimeString:'立即上门'}}</div>
             		</div>
             		<div class="one-box">
             			<div class="one-text">联系人：</div>

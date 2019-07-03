@@ -30,7 +30,7 @@
 						<div class="hezi-text" v-show="navindex==1||navindex==6" @click.stop="godelete(val)">删除</div>
 						<div class="hezi-word"></div>
 						<div class="hezi-news" v-show="navindex==3" @click.stop="tel(val.msdOrderId,val.msdOrIsDelete)">联系公司</div>
-						<!--<div class="hezi-news" v-show="navindex==3" @click="orderok(val.msdOrderId)">完成订单</div>-->
+						<!-- <div class="hezi-news" v-show="navindex==3" @click.stop="orderok(val.msdOrderId)">完成订单</div> -->
 						<div class="hezi-news" v-show="navindex==4" @click.stop="ratingchange(val.msdOrderId)">立即评价</div>
 						<div class="hezi-news" v-show="navindex==1||navindex==6" @click.stop="opennew('fenlei')">再次下单</div>
 					</div>

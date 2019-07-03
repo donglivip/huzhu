@@ -5,8 +5,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	// 定义状态
 	state: {
-		myurl:'https://www.wuyouhuzhu.com',
-		// myurl:'http://192.168.2.107',
+		// myurl:'https://www.wuyouhuzhu.com',
+		myurl:'http://192.168.2.107:8085',
 		MsdServiceStyleId:'',  //首页分类id
 		MsdServiceStylename:'',	//首页分类名称
 		msdNewsId:'',  //新闻di

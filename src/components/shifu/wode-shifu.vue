@@ -8,7 +8,7 @@
 			<div class="header-content">
 				<div class="content-text">{{msdCoName=='null'?'新用户':msdCoName}}</div>
 				<div class="content-news">{{msdCoIsIdentity==2?'未实名认证':'已实名认证'}}</div>
-				<div class="content-news">{{tabdata.msdCoWorking}}工时</div>
+				<div class="content-news">{{tabdata.msdCoWorking}}工时 推荐人数{{num}}</div>
 			</div>
 			<div class="head-r">
 				<div class="header-right" @click="opennew('openvip-shifu')">
@@ -114,7 +114,8 @@
 				madCoHeadImg: localStorage.getItem('madCoHeadImg'), //头像
 				msdCoName: localStorage.getItem('msdCoName'), //名称
 				msdCoIsIdentity: localStorage.getItem('msdCoIsIdentity'), //是否认证
-				msdCoIsWork: localStorage.getItem('msdCoIsWork') //是够工作
+				msdCoIsWork: localStorage.getItem('msdCoIsWork'), //是够工作
+				num:0
 			}
 		},
 		methods: {
@@ -156,6 +157,24 @@
 						if(res.status == 200) {
 							localStorage.setItem('msdCoIsIdentity', res.data.msdCoIsIdentity) //是否认证
 							that.tabdata = res.data
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/queryCompanyShare',
+					data: {
+						id: localStorage.getItem('msdCompanyId')
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							
+							that.num = res.data
 						} else {
 							alert(res.msg)
 						}
@@ -223,6 +242,7 @@
 	
 	.header-lift img {
 		width: 100%;
+		height: 100%;
 	}
 	
 	.header-content {
@@ -239,6 +259,7 @@
 	.content-news {
 		font-size: .24rem;
 		color: #FFFFFF;
+		margin-bottom: .1rem;
 	}
 	
 	.header-right {

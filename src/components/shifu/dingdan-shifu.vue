@@ -32,9 +32,9 @@
 						<div class="five-text" v-if="navindex!=0" @click.stop="deleteorder(val.msdOrderId)">删除记录</div>
 						<div class="five-text" v-if="navindex==0" @click.stop="opennew('cancel-shifu',val.msdOrderId)">取消订单</div>
 						<a class="five-news" :href="'tel:'+val.msdAdPhone+''" v-if="navindex==0">拨打电话</a>
-						
 						<div class="kongbai"></div>
-						<div class="five-word" v-if='navindex==0&&val.msdOrType==1' @click.stop="orderok(val.msdOrderId)">完成订单</div>
+						<div class="five-word" v-if='navindex==0' @click.stop="orderprice(val.msdOrderId)">订单价格</div>
+						<!-- <div class="five-word" v-if='navindex==0&&val.msdOrType==1' @click.stop="orderok(val.msdOrderId)">完成订单</div> -->
 					</div>
 				</div>
 				<img src="../../../static/noorder.png" v-if="tabdata.length==0" class="nodata" style="margin: .8rem auto;"/>
@@ -68,6 +68,34 @@
 			}
 		},
 		methods: {
+			orderprice:function(id){
+				var that=this
+				var value=prompt('请输入订单价格。')
+				if(value<=0){
+					alert('订单价格错误')
+					return false
+				}
+				$.ajax({
+					type: 'post',
+					url: that.myurl + '/company/updateOrderPriceCompany',
+					data: {
+						msdOrderId: id,
+						msdOrUpdateName:localStorage.getItem('msdCompanyId'),
+						msdOrPrice:value
+					},
+					success: function(res) {
+						if(res.status == 200) {
+							plus.nativeUI.toast('价格已送达')
+							that.myajax(that.navindex)
+						} else {
+							alert(res.msg)
+						}
+					},
+					error: function(res) {
+						alert('网络连接失败，请检查网络后再试！')
+					}
+				})
+			},
 			gomap: function(adress) {
 				AMap.service('AMap.Geocoder', function() { //回调函数
 					//			实例化Geocoder
