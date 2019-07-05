@@ -46,7 +46,7 @@
 		},
 		methods: {
 			havecode: function() {
-				var that = this
+				var that = this,
 				inter=''
 				if(!(/^1[3|4|5|8|9|7][0-9]\d{4,8}$/.test(that.msdPhone))) {
 					plus.nativeUI.toast("不是完整的11位手机号或者正确的手机号前七位");
