@@ -6,13 +6,14 @@
 			</div>
 			<div class="header-text">明细</div>
 			<div class="header-cebian">
-				
+
 			</div>
 		</div>
 		<div class="main">
 			<div class="main-four" v-for="val in tabdata">
-				<div class="four-text">{{val.maCfrType | pricetype}}</div>
+				<div class="four-text">{{val.maCfrResult}}</div>
 				<div class="right">￥{{val.maCfrPrice}}</div>
+        <div class="four-time">{{val.maCfrCreateTimeString}}</div>
 			</div>
 		</div>
 	</div>
@@ -86,78 +87,84 @@
 
 <style scoped>
 	* {
-		padding: 0;
-		margin: 0;
+			padding: 0;
+			margin: 0;
+		}
+		.main{height: calc(100% - .96rem);overflow-y: scroll;}
+		html,
+		body,
+		.wrapper {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.wrapper {
+			background: #FFFFFF;
+		}
+
+		.header {
+			height: .96rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 .3rem;
+			background: #6C8AC8;
+		}
+	.four-time{
+	  width: 100%;
+	  margin-top: .2rem;
+	  text-align: right;
 	}
-	.main{height: calc(100% - .96rem);overflow-y: scroll;}
-	html,
-	body,
-	.wrapper {
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
-	
-	.wrapper {
-		background: #FFFFFF;
-	}
-	
-	.header {
-		height: .96rem;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 .3rem;
-		background: #6C8AC8;
-	}
-	
-	.header-cebian {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: .6rem;
-	}
-	
-	.header-cebian img {
-		height: .36rem;
-	}
-	
-	.header-text {
-		font-size: .32rem;
-		color: #FFFFFF;
-	}
-	
-	.header-news {
-		font-size: .24rem;
-		color: #FFFFFF;
-	}
-	
-	.main-box {
-		background: #6C8AC8;
-	}
-	
-	
-	.main-four {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		height: 1rem;
-		padding: 0 .3rem;
-		border-bottom: 1px solid ghostwhite;
-	}
-	
-	.lift {
-		height: .4rem;
-		margin-right: .2rem;
-	}
-	
-	.four-text {
-		font-size: .28rem;
-		color: #272727;
-		flex: 1;
-	}
-	
-	.right {
-		height: .36rem;
-	}
+		.header-cebian {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: .6rem;
+		}
+
+		.header-cebian img {
+			height: .36rem;
+		}
+
+		.header-text {
+			font-size: .32rem;
+			color: #FFFFFF;
+		}
+
+		.header-news {
+			font-size: .24rem;
+			color: #FFFFFF;
+		}
+
+		.main-box {
+			background: #6C8AC8;
+		}
+
+
+		.main-four {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			padding: .2rem .3rem;
+			border-bottom: 1px solid ghostwhite;
+	    flex-wrap: wrap;
+		}
+
+		.lift {
+			height: .4rem;
+			margin-right: .2rem;
+		}
+
+		.four-text {
+			font-size: .28rem;
+			color: #272727;
+	    flex: 1;
+		}
+
+		.right {
+			height: .36rem;
+	    color: red;
+	    font-size: .3rem;
+		}
 </style>

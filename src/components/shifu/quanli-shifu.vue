@@ -30,9 +30,9 @@
 			</p>
 		</div>
 
-		<div class="bottom active" @click="myajax()">
+		<a class="bottom active" href="tel:66695588">
 			<div class="bottom-text">领取会员礼品 </div>
-		</div>
+		</a>
 
 	</div>
 </template>
@@ -130,7 +130,7 @@
 	.active {
 		background: #0DA5FE!important;
 	}
-	
+
 	.btn {
 		margin: .2rem;
 		background: #0DA5FE;
@@ -146,7 +146,7 @@
 		padding: 0;
 		margin: 0;
 	}
-	
+
 	.title {
 		margin: .2rem;
 		border-bottom: 1px solid #0DA5FE;
@@ -156,7 +156,7 @@
 		font-weight: 600;
 		font-size: .4rem;
 	}
-	
+
 	html,
 	body,
 	.wrapper {
@@ -164,11 +164,11 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	
+
 	.wrapper {
 		background: #F7F7F9;
 	}
-	
+
 	.header {
 		display: flex;
 		align-items: center;
@@ -177,56 +177,56 @@
 		background: #FFFFFF;
 		padding: 0 .3rem;
 	}
-	
+
 	input {
 		font-size: 1rem;
 	}
-	
+
 	.header-cebian {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: .3rem;
 	}
-	
+
 	.header-cebian img {
 		height: .36rem;
 	}
-	
+
 	.header-text {
 		font-size: .32rem;
 		color: #272727;
 	}
-	
+
 	.main-one {
 		height: 2.5rem;
 		background: #FFFFFF;
 		padding: 0 .3rem;
 	}
-	
+
 	.ont-text {
 		font-size: .32rem;
 		color: #272727;
 		padding: .5rem 0;
 	}
-	
+
 	.one-one {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
 	}
-	
+
 	input {
 		border: 0;
 		width: 100%;
 		height: .9rem;
 	}
-	
+
 	.one-news {
 		font-size: .6rem;
 		color: #272727;
 	}
-	
+
 	.main-two {
 		display: flex;
 		align-items: center;
@@ -234,33 +234,33 @@
 		margin-left: .3rem;
 		height: .9rem;
 	}
-	
+
 	.two-text {
 		font-size: .28rem;
 		color: #333333;
 	}
-	
+
 	.main-three {
 		background: #FFFFFF;
 		padding: 0 .3rem;
 	}
-	
+
 	.three-box {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		height: .9rem;
 	}
-	
+
 	.three-text {
 		font-size: .28rem;
 		color: #333333;
 	}
-	
+
 	.three-box img {
 		height: .4rem;
 	}
-	
+
 	.bottom {
 		display: flex;
 		align-items: center;
@@ -273,7 +273,7 @@
 		position: fixed;
 		bottom: 0;
 	}
-	
+
 	.bottom-text {
 		font-size: .32rem;
 		color: #FFFFFF;

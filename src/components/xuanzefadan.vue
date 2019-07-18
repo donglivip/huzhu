@@ -14,7 +14,7 @@
 				</div>
 				<div class="box-bottom">
 					<div class="box-text">派单模式</div>
-					<div class="box-text">指派一家公司为我服务</div>
+					<div class="box-text">指派某人为我服务</div>
 				</div>
 			</div>
 			<div class="main-box" @click="opennew('qiangqueren')">
@@ -23,7 +23,7 @@
 				</div>
 				<div class="box-bottom">
 					<div class="box-text">抢单模式</div>
-					<div class="box-text" style="text-align: left;">把我的需求发布出去让所有公司抢单</div>
+					<div class="box-text" style="text-align: left;">把我的需求发布出去让人抢单</div>
 				</div>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 			}
 		},
 		mounted(){
-			
+
 		},
 			computed: {
 				myurl() {
@@ -123,10 +123,10 @@
 	.box-top img{
 		width: 100%;
 		height: 100%;
-		
+
 	}
 	.box-bottom{
-		
+
 	}
 	.box-text{
 		font-size: .32rem;
@@ -137,28 +137,28 @@
 		width: 3.2rem;
 	}
 	.{
-		
+
 	}
 	.{
-		
+
 	}
 	.{
-		
+
 	}
 	.{
-		
+
 	}
 	.{
-		
+
 	}
 	.{
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 </style>

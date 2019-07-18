@@ -164,7 +164,7 @@
 		padding: 0;
 		margin: 0;
 	}
-	
+
 	html,
 	body,
 	.wrapper {
@@ -172,11 +172,11 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	
+
 	.wrapper {
 		background: #FFFFFF;
 	}
-	
+
 	.header {
 		height: .96rem;
 		display: flex;
@@ -185,50 +185,50 @@
 		padding: 0 .3rem;
 		background: #6C8AC8;
 	}
-	
+
 	.header-cebian {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: .6rem;
 	}
-	
+
 	.header-cebian img {
 		height: .36rem;
 	}
-	
+
 	.header-text {
 		font-size: .32rem;
 		color: #FFFFFF;
 	}
-	
+
 	.header-news {
 		font-size: .24rem;
 		color: #FFFFFF;
 	}
-	
+
 	.main-box {
 		background: #6C8AC8;
 	}
-	
+
 	.main-one {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
 		padding: .4rem .3rem .1rem .4rem;
 	}
-	
+
 	.one-text {
 		font-size: .28rem;
 		color: #FFFFFF;
 		width: 50%;
 	}
-	
+
 	.one-news {
 		font-size: .28rem;
 		color: #FFFFFF;
 	}
-	
+
 	.main-two {
 		display: flex;
 		align-items: center;
@@ -236,18 +236,18 @@
 		padding: 0 .3rem;
 		margin-bottom: .6rem;
 	}
-	
+
 	.two-text {
 		font-size: .8rem;
 		color: #FFFFFF;
 		width: 50%;
 	}
-	
+
 	.two-news {
 		font-size: .8rem;
 		color: #FFFFFF;
 	}
-	
+
 	.main-three {
 		background: #A6BCEA;
 		line-height: .3rem;
@@ -255,12 +255,12 @@
 		overflow-y: hidden;
 		padding-left: .3rem;
 	}
-	
+
 	.three-text {
 		font-size: .24rem;
 		color: #FFFFFF;
 	}
-	
+
 	.main-four {
 		display: flex;
 		align-items: center;
@@ -268,18 +268,18 @@
 		height: 1rem;
 		padding: 0 .3rem;
 	}
-	
+
 	.lift {
 		height: .4rem;
 		margin-right: .2rem;
 	}
-	
+
 	.four-text {
 		font-size: .28rem;
 		color: #272727;
 		flex: 1;
 	}
-	
+
 	.right {
 		height: .36rem;
 	}

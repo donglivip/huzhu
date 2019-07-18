@@ -119,7 +119,7 @@
 						alert('网络连接失败，请检查网络后再试！')
 					}
 				})
-				
+
 			},
 			back: function() {
 				this.$router.back()
@@ -146,7 +146,7 @@
 		padding: 0;
 		margin: 0;
 	}
-	
+
 	html,
 	body,
 	.wrapper {
@@ -154,11 +154,11 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	
+
 	.wrapper {
 		background: #FFFFFF;
 	}
-	
+
 	.header {
 		height: 3.7rem;
 		display: flex;
@@ -167,7 +167,7 @@
 		background: url(../../static/back03.png) no-repeat;
 		background-size: 100% auto;
 	}
-	
+
 	.header-lift {
 		width: 1rem;
 		height: 1rem;
@@ -175,27 +175,28 @@
 		margin: 0 .3rem;
 		border-radius: 2rem;
 	}
-	
+
 	.header-lift img {
 		width: 100%;
 	}
-	
+
 	.header-content {
 		height: 1rem;
 		flex: 1;
 	}
-	
+
 	.content-text {
 		font-size: .36rem;
 		color: #FFFFFF;
 		margin-bottom: .12rem;
 	}
-	
+
 	.content-news {
 		font-size: .24rem;
 		color: #FFFFFF;
+    height: .3rem;
 	}
-	
+
 	.header-right {
 		height: .66rem;
 		width: 2.1rem;
@@ -207,47 +208,47 @@
 		border-top-left-radius: .4rem;
 		margin-bottom: .15rem;
 	}
-	
+
 	.header-right img {
 		height: .34rem;
 		margin: 0 .12rem 0 .12rem;
 	}
-	
+
 	.right-text {
 		font-size: .28rem;
 		color: #DDC680;
 	}
-	
+
 	.main {
 		height: calc(100% - 4.8rem);
 		overflow-x: hidden;
 		overflow-y: scroll;
 	}
-	
+
 	.main-one {
 		height: 2.8rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
 	}
-	
+
 	.one-box {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-around;
 	}
-	
+
 	.one-box img {
 		height: .6rem;
 		margin-bottom: .2rem;
 	}
-	
+
 	.one-text {
 		font-size: .28rem;
 		color: #272727;
 	}
-	
+
 	.main-two {
 		display: flex;
 		align-items: center;
@@ -258,17 +259,17 @@
 		height: 2rem;
 		width: 6.6rem;
 	}
-	
+
 	.main-two img {
 		height: .34rem;
 		margin-right: .34rem;
 	}
-	
+
 	.two-text {
 		font-size: .34rem;
 		color: #6C8AC8;
 	}
-	
+
 	.main-three {
 		display: flex;
 		align-items: center;
@@ -276,33 +277,33 @@
 		height: 1rem;
 		padding: 0 .3rem;
 	}
-	
+
 	.three-lift {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
-	
+
 	.three-lift img {
 		height: .38rem;
 		margin-right: .2rem;
 	}
-	
+
 	.three-content {
 		font-size: .28rem;
 		color: #272727;
 		flex: 1;
 	}
-	
+
 	.three-right {
 		display: flex;
 		align-items: center;
 	}
-	
+
 	.three-right img {
 		height: .5rem;
 	}
-	
+
 	.bottom {
 		display: flex;
 		align-items: center;
@@ -310,24 +311,24 @@
 		height: 1.1rem;
 		background: #FFFFFF;
 	}
-	
+
 	.bottom-box {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-around;
 	}
-	
+
 	.bottom-box img {
 		height: .44rem;
 		margin-bottom: .04rem;
 	}
-	
+
 	.bottom-text {
 		font-size: .2rem;
 		color: #0DA5FE;
 	}
-	
+
 	.bottom-news {
 		font-size: .2rem;
 		color: #CCCCCC;
