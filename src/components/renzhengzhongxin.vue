@@ -41,14 +41,8 @@
 						<img src="../../static/zhaopian.png" @click="upload('sf')" id="sf" />
 					</div>
 				</div>
+				
 				<!--<div class="main-two">
-					<div class="two-text">营业执照</div>
-					<div class="two-box">
-						<img src="../../static/yyzz.png" />
-						<img src="../../static/zhaopian.png" />
-					</div>
-				</div>
-				<div class="main-two">
 					<div class="two-text">特种营业执照</div>
 					<div class="two-box">
 						<img src="../../static/yyzz.png" />
@@ -84,8 +78,6 @@
 			},
 			myajax: function() {
 				var that = this
-				console.log($('#sz').attr('imgsrc'))
-				console.log($('#sf').attr('imgsrc'))
 				//				提交认证
 				if(that.msdName==''||that.msdCardId==''||$('#sz').attr('imgsrc')==undefined||$('#sf').attr('imgsrc')==undefined){
 					alert('资料填写不完整')
@@ -327,7 +319,11 @@
 		height: 2.2rem;
 		border-radius: .12rem;
 	}
-	
+	.two-zi{
+		font-size: .28rem;
+		color: #FF2C29;
+		padding:.3rem 0;
+	}
 	.bottom {
 		height: .96rem;
 		display: flex;

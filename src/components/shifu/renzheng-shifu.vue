@@ -60,6 +60,14 @@
 						<img src="../../../static/zhaopian.png" @click="upload('yy')" id="yy" />
 					</div>
 				</div>
+				<div class="main-two">
+					<div class="two-text">人脸识别图</div>
+					<div class="two-box">
+						<img src="../../../static/shenfen.png" />
+						<img src="../../../static/zhaopian.png" @click="upload('rl')" id="rl"/>
+					</div>
+					<div class="two-zi">注意：人脸识别时请拍摄正面照，否则将会影响接单</div>
+				</div>
 				<!--<div class="main-two">
 					<div class="two-text">特种营业执照</div>
 					<div class="two-box">
@@ -171,6 +179,7 @@
 						msdCoCardFrontImg: $('#sz').attr('imgsrc'),
 						msdCoCardBackImg: $('#sf').attr('imgsrc'),
 						msdCoBusinessLicenceImg: $('#yy').attr('imgsrc'),
+						msdCoFaceOne:$('#rl').attr('imgsrc'),
 						msdServiceStyleId: that.msdServiceStyleId,
 						msdCoIntroduce: that.msdCoIntroduce,
 						msdCwAliBindingCode: that.msdCwAliBindingCode,
@@ -257,10 +266,11 @@
 			upload_img: function(p) {
 				var thats = this
 				var img = new Image();
+        plus.nativeUI.showWaiting('上传中')
 				img.src = p; // 传过来的图片路径在这里用。
 				img.onload = function() {
 					var that = this;
-					//生成比例 
+					//生成比例
 					var w = that.width,
 						h = that.height,
 						scale = w / h;
@@ -283,13 +293,16 @@
 							imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
 						},
 						success: function(res) {
+              plus.nativeUI.closeWaiting()
 							if(res.status == 200) {
 								$('#' + thats.uploadtarget + '').attr('imgsrc', res.data)
+
 							} else {
 								alert(res.msg)
 							}
 						},
 						error: function(res) {
+              plus.nativeUI.closeWaiting()
 							alert('网络连接失败，请检查网络后再试！')
 						}
 					})
@@ -330,7 +343,7 @@
 		align-items: flex-end;
 		justify-content: center;
 	}
-	
+
 	.layui-inner {
 		background: #FFFFFF;
 		border-radius: .1rem;
@@ -338,7 +351,7 @@
 		overflow-y: scroll;
 		width: 100%;
 	}
-	
+
 	.layui-tab {
 		height: 1rem;
 		border-bottom: 1px solid ghostwhite;
@@ -346,7 +359,7 @@
 		align-items: center;
 		justify-content: center;
 	}
-	
+
 	html,
 	body,
 	.wrapper {
@@ -354,11 +367,11 @@
 		height: 100%;
 		overflow: hidden;
 	}
-	
+
 	.wrapper {
 		background: #F7F7F9;
 	}
-	
+
 	.header {
 		display: flex;
 		align-items: center;
@@ -368,31 +381,31 @@
 		background: #FFFFFF;
 		margin-bottom: .2rem;
 	}
-	
+
 	.header-cebian {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: .3rem;
 	}
-	
+
 	.header-cebian img {
 		height: .36rem;
 	}
-	
+
 	.header-text {
 		font-size: .32rem;
 		color: #26261E;
 		margin-left: .3rem;
 	}
-	
+
 	.main {
 		height: calc(100% - .96rem);
 		overflow-x: hidden;
 		overflow-y: scroll;
 		background: #FFFFFF;
 	}
-	
+
 	.main-one {
 		height: .9rem;
 		border-bottom: 1px solid #E4E4E6;
@@ -401,36 +414,36 @@
 		justify-content: flex-start;
 		padding: 0 .3rem;
 	}
-	
+
 	input {
 		border: 0;
 		height: .9rem;
 		width: 100%;
 		font-size: .28rem;
 	}
-	
+
 	.main-two {
 		height: 3.4rem;
 		padding: 0 .3rem;
 	}
-	
+
 	.two-text {
 		font-size: .28rem;
 		color: #272727;
 		padding: .3rem 0;
 	}
-	
+
 	.two-box {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
-	
+
 	.two-box img {
 		height: 2.2rem;
 		border-radius: .12rem;
 	}
-	
+
 	.bottom {
 		height: .96rem;
 		display: flex;
@@ -440,7 +453,7 @@
 		border-radius: .6rem;
 		margin: .6rem .7rem;
 	}
-	
+
 	.bottom-text {
 		font-size: .32rem;
 		color: #FFFFFF;

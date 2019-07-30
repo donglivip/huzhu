@@ -159,7 +159,7 @@
 					}, function(e) {
 						plus.nativeUI.confirm("请检查手机网络或者位置服务开关是否打开后", function(e) {
 							if(e.index == 0) {
-								if(mui.os.ios) {
+								if((/iphone|ipad/gi).test(navigator.appVersion)==true) {
 									plus.runtime.launchApplication({
 										action: 'app-settings:'
 									}, function(e) {}); //WIFI

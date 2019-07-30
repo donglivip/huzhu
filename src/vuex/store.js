@@ -7,7 +7,7 @@ const store = new Vuex.Store({
 	state: {
 		myurl:'https://www.wuyouhuzhu.com',
 		// myurl:'http://39.107.70.18',
-    // myurl:'http://192.168.2.186',
+//     myurl:'http://192.168.2.108',
 		MsdServiceStyleId:'',  //首页分类id
 		MsdServiceStylename:'',	//首页分类名称
 		msdNewsId:'',  //新闻di

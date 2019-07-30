@@ -71,9 +71,9 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="two-hezi">
-					<div class="two-word" @click.stop="haveorder02(val.msdOrderId)">接受订单</div>
+					<div class="two-word" @click.stop="camera(val.msdOrderId)">接受订单</div>
 				</div>
 			</div>
 		</div>
@@ -131,6 +131,77 @@ export default {
 		};
 	},
 	methods: {
+//		--------------------base64上传图片------------------
+			camera: function(id) {
+				var that = this
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(p) {
+					//成功
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						var img_name = entry.name;
+						var img_path = entry.toLocalURL();
+						that.upload_img(img_path,id);
+					}, function(e) {
+						alert("读取拍照文件错误：" + e.message);
+					});
+
+				}, function(e) {
+					alert("失败：" + e.message);
+				}, {
+					filename: '_doc/camera/',
+					index: 1
+				});
+			},
+			upload_img: function(p,id) {
+				var thats = this
+				var img = new Image();
+				img.src = p; // 传过来的图片路径在这里用。
+				img.onload = function() {
+					var that = this;
+					//生成比例
+					var w = that.width,
+						h = that.height,
+						scale = w / h;
+					w = 280 || w; //480  你想压缩到多大，改这里
+					h = w / scale;
+					//生成canvas
+					var canvas = document.createElement('canvas');
+					var ctx = canvas.getContext('2d');
+					$(canvas).attr({
+						width: w,
+						height: h
+					});
+					ctx.drawImage(that, 0, 0, w, h);
+					//只是上传图片
+					$.ajax({
+						type: "post",
+						url: thats.myurl + '/company/imageCompanyCardImage',
+						dataType: 'json',
+						data: {
+							imgStr: canvas.toDataURL('image/jpeg', 1 || 0.8)
+						},
+						success: function(res) {
+							//人脸识别（师傅接单前调用）
+							$.ajax({
+								type: "post",
+								url: thats.myurl + '/company/faceCommpany',
+								dataType: 'json',
+								data: {
+									msdCompanyId:localStorage.getItem('msdCompanyId'),
+									msdCoFaceTwo:res.data
+								},
+								success: function(res) {
+									if (res.data>=80) {
+										thats.haveorder02(id)//订单id
+									} else{
+										alert('非本人操作，请重新拍摄！')
+									}
+								}
+							});
+						}
+					});
+				}
+			},
 		dian: function(id) {
 			this.navindex = id;
 		},
@@ -138,6 +209,7 @@ export default {
 			this.baoboo = false;
 		},
 		haveorder02: function(id) {
+//			派单接单
 			var that = this;
 			if (localStorage.getItem('msdCompanyId') == undefined) {
 				this.$router.push({
@@ -162,12 +234,13 @@ export default {
 						}
 					},
 					error: function(res) {
-						
+
 					}
 				});
 			}
 		},
 		haveorder: function(id) {
+//			抢单接单
 			var that = this;
 			$.ajax({
 				type: 'post',
@@ -184,7 +257,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					
+
 				}
 			});
 		},
@@ -207,7 +280,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					
+
 				}
 			});
 		},
@@ -247,7 +320,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					
+
 				}
 			});
 			// 查询抢单
@@ -272,7 +345,7 @@ export default {
 							'请检查手机网络或者位置服务开关是否打开后',
 							function(e) {
 								if (e.index == 0) {
-									if (mui.os.ios) {
+									if ((/iphone|ipad/gi).test(navigator.appVersion)==true) {
 										plus.runtime.launchApplication(
 											{
 												action: 'app-settings:'
@@ -318,7 +391,7 @@ export default {
 					}
 				},
 				error: function(res) {
-					
+
 				}
 			});
 		}
